@@ -4,12 +4,12 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "vite --mode dev",
+    "dev": "vite --host --mode dev",
     "build": "vite build",
     "lint": "eslint uru-frameworks-secure-notes-app",
-    "preview": "vite --mode preview",
-    "debug": "vite --mode debug",
-    "prod": "vite build && vite preview --mode prod"
+    "preview": "vite --host --mode preview",
+    "debug": "vite --host --mode debug",
+    "prod": "vite build && vite preview --host --mode prod"
   },
   "dependencies": {
     "@ralvarezdev/js-logger": "^0.1.13",

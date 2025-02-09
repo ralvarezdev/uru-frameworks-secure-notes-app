@@ -1,0 +1,110 @@
+/* Main Container styles */
+.main-container {
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    grid-template-rows: 1fr;
+}
+
+/* Right Container styles */
+.right-container {
+    grid-column: 5/-1;
+    grid-row: 1/-1;
+    background-color: var(--background-color);
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    place-items: center;
+    width: 100%;
+}
+
+/* Content Container styles */
+.content-container {
+    padding: 0 10rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    width: 100%;
+    max-width: 65rem;
+}
+
+.content-container * {
+    width: 100%;
+}
+
+/* Title Container styles */
+.title-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    place-items: center;
+    width: 100%;
+}
+
+/* Title styles */
+.title {
+    grid-column: 1/2;
+    grid-row: 1/-1;
+    text-align: left;
+}
+
+/* Logo styles */
+.logo {
+    grid-column: 2/-1;
+    grid-row: 1/-1;
+}
+
+/* Form styles */
+.form {
+    padding: 1rem 0;
+}
+
+/* Submit Button styles */
+.submit-button {
+    margin-top: 2rem;
+}
+
+/* Footer Container styles */
+.footer-container {
+    justify-self: flex-start;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2rem;
+}
+
+.footer-container li * {
+    width: auto;
+    display: inline-block;
+}
+
+.footer-container li *:not(:first-child) {
+    padding-left: 1rem;
+}
+
+.footer-text {
+    font-size: 1.6rem;
+    color: var(--color-light-grey);
+}
+
+/* Left Container styles */
+.left-container {
+    grid-column: 1/5;
+    grid-row: 1/-1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Side Image Container styles */
+.side-image-container {}
+
+/* Side Image styles */
+.side-image {
+    display: block;
+    height: 100vh;
+    object-fit: contain;
+}

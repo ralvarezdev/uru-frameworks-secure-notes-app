@@ -1,0 +1,10 @@
+/* Button component styles */
+.button {
+    border: none;
+    cursor: pointer;
+    transition: border-color var(--color-transition-duration), transform var(--transform-transition-duration);
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

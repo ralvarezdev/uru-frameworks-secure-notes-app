@@ -1,0 +1,38 @@
+/* Link component styles */
+.link,
+.link:visited {
+    text-decoration: inherit;
+}
+
+/* Light Mode */
+@media (prefers-color-scheme: light) {
+    .link {
+        color: var(--color-secondary);
+    }
+
+    .link:visited {
+        color: var(--color-primary);
+    }
+
+    .link:hover {
+        color: var(--color-primary);
+        transition: color var(--color-transition-duration);
+    }
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    .link {
+        color: var(--color-primary);
+    }
+
+    .link:visited {
+        color: var(--color-secondary);
+    }
+
+    .link:hover {
+        color: var(--color-secondary);
+        transition: color var(--color-transition-duration);
+    }
+}
+

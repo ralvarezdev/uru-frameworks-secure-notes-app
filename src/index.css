@@ -1,68 +1,97 @@
+/* Fira Code */
+@font-face {
+    font-family: 'Fira Code';
+    src: url('/src/assets/fonts/FiraCode-VariableFont_wght.ttf') format('truetype');
+}
+
+/* Colors */
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    --color-primary: #1864ab;
+    --color-secondary: #4dabf7;
+    --color-tertiary: #d0ebff;
+    --color-darker-grey: #1a1c1f;
+    --color-dark-grey: #212529;
+    --color-medium-grey: #495057;
+    --color-light-grey: #ced4da;
+    --color-lighter-grey: #f8f9fa;
+    --color-transition-duration: 0.25s;
+    --transform-transition-duration: 0.25s;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+/* Global Styles */
+:root {
+    font-family: "Fira Code", sans-serif;
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 62.5%;
+}
+
+/* HTML and Body */
+html, body {
+    height: 100vh;
+}
+
+/* List */
+li {
+    list-style-type: none;
+}
+
+/* Body */
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+    background-color: var(--background-color);
+    color: var(--color);
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Title */
+.title {
+    font-size: 5rem;
+    font-weight: 800;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+/* Subtitle */
+.subtitle {
+    font-size: 3rem;
+    font-weight: 700;
 }
 
+/* Text */
+.text {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+/* Dark Mode */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: var(--color-darker-grey);
+        --color: var(--color-lighter-grey);
+    }
+
+    .subtitle {
+        color: var(--color-light-grey);
+    }
+}
+
+/* Light Mode */
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+    :root {
+        --background-color: var(--color-lighter-grey);
+        --color: var(--color-darker-grey);
+    }
+
+    .subtitle {
+        color: var(--color-medium-grey);
+    }
 }

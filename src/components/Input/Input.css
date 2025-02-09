@@ -1,0 +1,62 @@
+/* Input container styles */
+.input-container {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: repeat(2, auto);
+    align-items: start;
+    justify-content: start;
+    gap: 1rem;
+    width: 100%;
+}
+
+/* Label component styles */
+.label {
+    padding: 0 1.4rem;
+    grid-column: 1/-1;
+    grid-row: 1/2;
+}
+
+/* Input wrapper styles */
+.input-wrapper {
+    padding: 1.4rem;
+    grid-column: 1/-1;
+    grid-row: 2/-1;
+    box-sizing: border-box;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    gap: 1rem;
+    border-radius: 8px;
+    transition: outline var(--color-transition-duration);
+    outline: 0.2rem solid transparent;
+}
+
+/* Input component styles */
+.input {
+    grid-column: 1/2;
+    grid-row: 1/-1;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.input-wrapper:has(.input:focus),
+.input-wrapper:has(.input:focus-visible) {
+    outline: 0.2rem solid var(--color-primary);
+}
+
+@media (prefers-color-scheme: light) {
+    .input-wrapper,
+    .input{
+        background-color: var(--color-light-grey);
+        color: var(--color-dark-grey);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .input-wrapper,
+    .input{
+        background-color: var(--color-dark-grey);
+        color: var(--color-light-grey);
+    }
+}

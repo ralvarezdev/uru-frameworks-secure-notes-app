@@ -1,0 +1,18 @@
+/* Separator component styles */
+.separator {
+    height: 1px;
+    width: 100%;
+    opacity: 0.2;
+}
+
+@media (prefers-color-scheme: light) {
+    .separator {
+        background-color: var(--color-medium-grey);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .separator {
+        background-color: var(--color-light-grey);
+    }
+}

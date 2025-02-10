@@ -11,7 +11,7 @@ import PasswordInput from "../../components/Input/Password/Password.jsx";
 function SignUp() {
     return (
         <Auth title='Sign Up'>
-            <Form>
+            <Form method='post'>
                 <Input type="text" id="first-name" name="first-name"
                        label="First Name" placeholder="e.g. John"/>
                 <Input type="text" id="last-name" name="last-name"

@@ -1,4 +1,3 @@
-import './ForgotPassword.css'
 import Auth from "../../layouts/Auth/Auth.jsx";
 import Form from "../../components/Form/Form.jsx";
 import Input from "../../components/Input/Input.jsx";
@@ -10,7 +9,7 @@ import Link from "../../components/Link/Link.jsx";
 function ForgotPassword() {
     return (
         <Auth title='Forgot Password'>
-            <Form>
+            <Form method='post'>
                 <Input type="email" id="email" name="email"
                        label="Email" placeholder="e.g. johnsmith@mail.com"/>
                 <PrimaryButton className='submit-button'>Continue</PrimaryButton>

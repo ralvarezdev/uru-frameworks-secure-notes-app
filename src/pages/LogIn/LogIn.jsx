@@ -11,7 +11,7 @@ import PasswordInput from "../../components/Input/Password/Password.jsx";
 function LogIn() {
     return (
         <Auth title='Log In'>
-            <Form className='form'>
+            <Form className='form' method='post'>
                 <Input type="text" id="username" name="username"
                        label="Username" placeholder="e.g. user123"/>
                 <PasswordInput id="password" name="password" label="Password"

@@ -5,7 +5,7 @@
     grid-template-rows: repeat(2, auto);
     align-items: start;
     justify-content: start;
-    gap: 1rem;
+    gap: 0.6rem;
     width: 100%;
 }
 
@@ -18,14 +18,14 @@
 
 /* Input wrapper styles */
 .input-wrapper {
-    padding: 1.4rem;
+    padding: 1rem 1.4rem;
     grid-column: 1/-1;
     grid-row: 2/-1;
     box-sizing: border-box;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr;
-    gap: 1rem;
+    gap: 0.8rem;
     border-radius: 8px;
     transition: outline var(--color-transition-duration);
     outline: 0.2rem solid transparent;

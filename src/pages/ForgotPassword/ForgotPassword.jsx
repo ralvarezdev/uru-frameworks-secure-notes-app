@@ -1,8 +1,8 @@
+import './ForgotPassword.css'
 import Auth from "../../layouts/Auth/Auth.jsx";
-import Title from "../../components/Text/Title/Title.jsx";
 import Form from "../../components/Form/Form.jsx";
 import Input from "../../components/Input/Input.jsx";
-import Button from "../../components/Button/Button.jsx";
+import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
 import Text from "../../components/Text/Text.jsx";
 import Link from "../../components/Link/Link.jsx";
 
@@ -10,14 +10,10 @@ import Link from "../../components/Link/Link.jsx";
 function ForgotPassword() {
     return (
         <Auth title='Forgot Password'>
-            <Title className='title'>Forgot Password</Title>
             <Form>
-                <p className={'form-description'}>
-                    Enter your email address and we will send you a link to
-                    reset your password.
-                </p>
-                <Input type="email" placeholder="Email"/>
-                <Button>Send</Button>
+                <Input type="email" id="email" name="email"
+                       label="Email" placeholder="e.g. johnsmith@mail.com"/>
+                <PrimaryButton className='submit-button'>Continue</PrimaryButton>
             </Form>
             <ul className='footer-container'>
                 <li>

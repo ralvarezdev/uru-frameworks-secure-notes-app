@@ -64,6 +64,7 @@
     grid-column: 1/2;
     grid-row: 1/-1;
     text-align: left;
+    padding-left: 1.4rem;
 }
 
 /* Logo styles */
@@ -90,7 +91,7 @@
     justify-content: center;
     flex-direction: column;
     gap: 2rem;
-    padding-top: 2rem;
+    padding: 0 0 2rem 1.4rem;
 }
 
 .footer-container li {
@@ -146,13 +147,13 @@
     }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 650px) {
     .right-container {
         padding: 3rem 0
     }
 
     .content-container {
-        padding: 4rem;
+        padding: 2rem 4rem;
         border-radius: 0;
     }
 
@@ -184,5 +185,14 @@
 
     .right-container {
         padding: 0
+    }
+
+    .content-container {
+        padding: 1rem 3rem;
+        border-radius: 0;
+    }
+
+    .footer-container {
+        padding-top: 1rem;
     }
 }

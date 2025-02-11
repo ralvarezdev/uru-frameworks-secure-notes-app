@@ -32,7 +32,7 @@ export default function AuthProvider({children}) {
     );
 }
 
-// Create a hook
+// Create a hook that shorthands the context
 export function useAuth() {
     return useContext(AuthContext);
 }

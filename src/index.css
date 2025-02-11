@@ -16,9 +16,11 @@
     --color-lighter-grey: #f8f9fa;
     --color-error: #f03e3e;
     --color-transition-duration: 0.25s;
-    --transform-transition-duration: 0.25s;
-    --transform-opacity-duration: 0.15s;
+    --scale-transition-duration: 0.25s;
+    --opacity-transition-duration: 0.25s;
+    --animation-move-duration: 0.5s;
     --input--horizontal-padding: 1.4rem;
+    --outline-width: 0.2rem;
 }
 
 /* Global Styles */
@@ -54,12 +56,6 @@ html, body {
 /* List */
 li {
     list-style-type: none;
-}
-
-/* Body */
-body {
-    background-color: var(--background-color);
-    color: var(--color);
 }
 
 /* Title */
@@ -100,7 +96,7 @@ body {
 .text,
 .label-text,
 .error-text {
-     letter-spacing: 1px;
+    letter-spacing: 1px;
 }
 
 /* Dark Mode */

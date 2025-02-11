@@ -6,8 +6,10 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import AuthProvider from "./context/Auth.jsx";
 import {loadVite} from "@ralvarezdev/js-mode";
 import {
-    createBrowserRouter, createRoutesFromElements,
-    Route, RouterProvider,
+    createBrowserRouter,
+    createRoutesFromElements,
+    Route,
+    RouterProvider,
 } from "react-router-dom";
 import LogIn, {LogInAction} from "./pages/LogIn/LogIn.jsx";
 import SignUp from "./pages/SignUp/SignUp.jsx";
@@ -19,6 +21,7 @@ import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import LogInProvider from "./context/LogIn.jsx";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
+import {NotificationProvider} from "./context/Notification.jsx";
 
 // Load environment variables
 loadVite()
@@ -26,16 +29,16 @@ loadVite()
 // Create the browser router
 const router = createBrowserRouter(
     createRoutesFromElements(
-         <Route path='/' element={<App/>}>
-             <Route path="/login" element={<LogIn/>} action={LogInAction}/>
-             <Route path="/signup" element={<SignUp/>}/>
-             <Route path="/login/2fa/totp" element={<TOTP/>}/>
-             <Route path="/login/2fa/recovery-code" element={<RecoveryCode/>}/>
-             <Route path="/verify-email/:token" element={<VerifyEmail/>}/>
-             <Route path="/forgot-password" element={<ForgotPassword/>}/>
-             <Route path="/reset-password/:token" element={<ResetPassword/>}/>
-             <Route path="/dashboard" element={<Dashboard/>}/>
-         </Route>
+        <Route path='/' element={<App/>}>
+            <Route path="/login" element={<LogIn/>} action={LogInAction}/>
+            <Route path="/signup" element={<SignUp/>}/>
+            <Route path="/login/2fa/totp" element={<TOTP/>}/>
+            <Route path="/login/2fa/recovery-code" element={<RecoveryCode/>}/>
+            <Route path="/verify-email/:token" element={<VerifyEmail/>}/>
+            <Route path="/forgot-password" element={<ForgotPassword/>}/>
+            <Route path="/reset-password/:token" element={<ResetPassword/>}/>
+            <Route path="/dashboard" element={<Dashboard/>}/>
+        </Route>
     )
 )
 
@@ -43,13 +46,14 @@ const router = createBrowserRouter(
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <ErrorBoundary>
+            <NotificationProvider>
             <AuthProvider>
                 <LogInProvider>
-                <RouterProvider router={router}>
-                <App/>
-                </RouterProvider>
+                    <RouterProvider router={router}>
+                        <App/>
+                    </RouterProvider>
                 </LogInProvider>
-            </AuthProvider>
+            </AuthProvider></NotificationProvider>
         </ErrorBoundary>
     </StrictMode>,
 )

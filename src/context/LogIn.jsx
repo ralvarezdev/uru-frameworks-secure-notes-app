@@ -14,7 +14,7 @@ export default function LogInProvider({children}) {
     );
 }
 
-// Create a hook
+// Create a hook that shorthands the context
 export function useLogIn() {
     return useContext(LogInContext);
 }

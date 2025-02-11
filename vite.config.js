@@ -11,8 +11,9 @@ export default defineConfig({
             '/api': {
                 target: process.env.URU_FRAMEWORKS_SECURE_NOTES_API_URL,
                 changeOrigin: true,
+                secure: process.env.MODE === 'prod',
                 rewrite: (path) => path.replace(/^\/api/, '')
-            },
+            }
         }
     },
     define: {

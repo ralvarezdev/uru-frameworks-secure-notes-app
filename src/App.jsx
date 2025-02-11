@@ -1,5 +1,6 @@
 import {Outlet, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
+import AppLayout from "./layouts/App/App.jsx";
 import {useAuth} from "./context/Auth.jsx";
 import {useLogIn} from "./context/LogIn.jsx";
 
@@ -7,13 +8,13 @@ import {useLogIn} from "./context/LogIn.jsx";
 export default function App() {
     const navigate = useNavigate();
     const {isAuth} = useAuth();
-    const {logIn}=useLogIn();
+    const {logIn} = useLogIn();
 
     // Redirect to the login page if the user is not authenticated
     useEffect(() => {
         // Check if the user is authenticated
         const path = window.location.pathname;
-        if (isAuth){
+        if (isAuth) {
             if (['/login', '/signup', '/forgot-password', '/login/2fa/totp', '/login/2fa/recovery-code'].includes(path))
                 navigate('/dashboard');
 
@@ -31,9 +32,12 @@ export default function App() {
         // Redirect to the login page if the user is not authenticated
         if (!['/login', '/signup', '/forgot-password', '/reset-password', '/verify-email'].includes(path))
             navigate('/login')
+
     }, [navigate, isAuth, logIn]);
 
     return (
-        <Outlet/>
+        <AppLayout>
+            <Outlet/>
+        </AppLayout>
     )
 }

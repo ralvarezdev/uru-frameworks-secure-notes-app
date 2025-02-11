@@ -3,16 +3,17 @@ import Label from "../Label/Label.jsx";
 
 // Input component
 export default function Input({
-                   id,
-                   className,
-                   label,
-                   name,
-                   type,
-                    error,
-                   placeholder,
-                   children,
-                   ...props
-               }) {
+                                  id,
+                                  className,
+                                  label,
+                                  name,
+                                  type,
+                                  error,
+                                  isErrorActive,
+                                  placeholder,
+                                  children,
+                                  ...props
+                              }) {
     return (
         <div className='input-container'>
             <div className='input-wrapper'>
@@ -23,7 +24,7 @@ export default function Input({
                 {children}
             </div>
             <div
-                className={['error-text', 'error-message', error && 'error-message--active'].join(' ')}>
+                className={['error-text', 'error-message', isErrorActive && 'error-message--active'].join(' ')}>
                 {error}
             </div>
         </div>

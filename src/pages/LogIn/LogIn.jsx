@@ -10,6 +10,7 @@ import {redirect, useActionData} from "react-router-dom";
 import requestAPI from "../../utils/api.js";
 import {useLogIn} from "../../context/LogIn.jsx";
 import {useEffect, useState} from "react";
+import {useNotification} from "../../context/Notification.jsx";
 
 // LogIn action function
 export async function LogInAction({request}) {
@@ -22,58 +23,67 @@ export async function LogInAction({request}) {
     });
 
     // Check if the response is successful
-    if (response.status === 'success') redirect('/dashboard');
-    else if (response.status === 'error') return {message:response.message}
+    if (response.status === 'success') return redirect('/dashboard');
+    else if (response.status === 'error') return {
+        status: response.status,
+        message: response.message
+    }
 
     // Check if the credentials are invalid or the user needs 2FA
     if (response.data?.is_totp_recovery_code || response.data?.totp_code)
-        return {username, password}
+        return {status: 'ongoing', data: {username, password}}
 
-    return response.data
+    return {status: response.status, data: response.data}
 }
 
 // LogIn page
 export default function LogIn() {
-    const {setLogIn}=useLogIn();
-    const data = useActionData()
-    const [errors, setErrors] = useState(data);
+    const {setLogIn} = useLogIn();
+    const {addErrorNotification} = useNotification();
+    const actionData = useActionData()
+    const [areErrorsActive, setErrorsActive] = useState(false);
 
     // Check if the user needs to enter the 2FA code
     useEffect(() => {
         // Check if the user needs to enter the TOTP code
-        if (data?.username && data?.password){
+        if (actionData?.status === 'ongoing') {
             // Set the username and password in the context
-            setLogIn(data);
+            setLogIn(actionData?.data);
 
             // Redirect to the TOTP page
             return redirect('/login/2fa/totp');
         }
 
-        /*
         // Check if there is an error message
-        if (data?.message)
+        if (actionData?.message) {
             // Create an error notification
+            addErrorNotification(actionData?.message)
             return
-         */
+        }
 
         // Set the errors
-        setErrors({...data});
-    }, [data, setLogIn, setErrors]);
+        setErrorsActive(true);
+    }, [actionData, setLogIn, setErrorsActive, addErrorNotification]);
 
     // Handle change
     const handleChange = () => {
-        if (errors)
-            setErrors(null);
+        if (areErrorsActive)
+            setErrorsActive(false);
     }
 
     return (
         <Auth title='Log In'>
             <Form className='form' method='post' action='/login'>
                 <Input type="text" id="username" name="username"
-                       label="Username" placeholder="e.g. user123" error={errors?.username&&"username not found"} onChange={handleChange}
+                       label="Username" placeholder="e.g. user123" error={
+                    actionData?.data?.username?.[0]} onChange={handleChange}
+                       isErrorActive={areErrorsActive}
                        required/>
                 <PasswordInput id="password" name="password" label="Password"
-                               placeholder="e.g. pass123" error={errors?.password&& "invalid password"} onChange={handleChange} required/>
+                               placeholder="e.g. pass123"
+                               error={actionData?.data?.password?.[0]}
+                               onChange={handleChange}
+                               isErrorActive={areErrorsActive} required/>
                 <PrimaryButton
                     className='submit-button'>Continue</PrimaryButton>
             </Form>

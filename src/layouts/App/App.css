@@ -1,0 +1,40 @@
+/* App container */
+.app-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    height: 100%;
+    place-items: center;
+    background-color: var(--background-color);
+    color: var(--color);
+}
+
+.notification-container {
+    position: relative;
+    animation: moveUp var(--animation-move-duration) ease-in-out forwards;
+}
+
+.notification-container.new-notification-container {
+    transition: opacity var(--color-transition-duration) ease-in-out;
+    animation: moveFromBottom var(--animation-move-duration) ease-in-out forwards;
+}
+
+@keyframes moveUp {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes moveFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

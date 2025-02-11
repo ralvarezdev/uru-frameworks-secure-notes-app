@@ -1,5 +1,5 @@
 /* Root styles */
-#root {
+.app-container {
     background-image: url('/key--1980x1114.webp');
     background-size: cover;
     background-position: center;

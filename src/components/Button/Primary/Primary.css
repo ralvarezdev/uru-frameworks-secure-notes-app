@@ -2,14 +2,8 @@
 .button.primary {
     border-radius: 8px;
     padding: 1.6rem 2.4rem;
-    transition: background-color var(--color-transition-duration);
+    transition: background-color var(--color-transition-duration), color var(--color-transition-duration);
 }
-
-.button.primary:focus,
-.button.primary:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-}
-
 
 @media (prefers-color-scheme: light) {
     .button.primary {
@@ -18,6 +12,11 @@
 
     .button.primary:hover {
         background-color: var(--color-tertiary);
+    }
+
+    .button.primary:active {
+        background-color: var(--color-primary);
+        color: var(--color-light-grey);
     }
 }
 
@@ -28,5 +27,10 @@
 
     .button.primary:hover {
         background-color: var(--color-secondary);
+    }
+
+    .button.primary:active {
+        background-color: var(--color-tertiary);
+        color: var(--color-dark-grey);
     }
 }

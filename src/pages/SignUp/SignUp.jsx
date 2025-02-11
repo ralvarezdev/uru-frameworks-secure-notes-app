@@ -8,7 +8,7 @@ import Text from "../../components/Text/Text.jsx";
 import PasswordInput from "../../components/Input/Password/Password.jsx";
 
 // SignUp page
-function SignUp() {
+export default function SignUp() {
     return (
         <Auth title='Sign Up'>
             <Form method='post'>
@@ -21,8 +21,9 @@ function SignUp() {
                 <Input type="text" id="username" name="username"
                        label="Username" placeholder="e.g. user123"/>
                 <PasswordInput type="password" id="password" name="password"
-                       label="Password" placeholder="e.g. pass123"/>
-                <PrimaryButton className='submit-button'>Continue</PrimaryButton>
+                               label="Password" placeholder="e.g. pass123"/>
+                <PrimaryButton
+                    className='submit-button'>Continue</PrimaryButton>
             </Form>
             <ul className='footer-container'>
                 <li>
@@ -33,5 +34,3 @@ function SignUp() {
         </Auth>
     )
 }
-
-export default SignUp

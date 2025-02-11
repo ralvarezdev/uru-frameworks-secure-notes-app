@@ -6,7 +6,7 @@
 
 /* Colors */
 :root {
-    --color-primary: #1864ab;
+    --color-primary: #1c7ed6;
     --color-secondary: #4dabf7;
     --color-tertiary: #d0ebff;
     --color-darker-grey: #1a1c1f;
@@ -14,8 +14,11 @@
     --color-medium-grey: #495057;
     --color-light-grey: #ced4da;
     --color-lighter-grey: #f8f9fa;
+    --color-error: #f03e3e;
     --color-transition-duration: 0.25s;
     --transform-transition-duration: 0.25s;
+    --transform-opacity-duration: 0.15s;
+    --input--horizontal-padding: 1.4rem;
 }
 
 /* Global Styles */
@@ -73,7 +76,21 @@ body {
 
 /* Text */
 .text {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+
+/* Label text */
+.label-text {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Error text */
+.error-text {
+    font-size: 1.4rem;
     font-weight: 500;
 }
 
@@ -84,7 +101,23 @@ body {
         --color: var(--color-lighter-grey);
     }
 
+    .title {
+        color: var(--color-light-grey);
+    }
+
     .subtitle {
+        color: var(--color-light-grey);
+    }
+
+    .error-text {
+        color: var(--color-error);
+    }
+
+    .text {
+        color: var(--color-light-grey);
+    }
+
+    .label-text {
         color: var(--color-light-grey);
     }
 }
@@ -97,6 +130,18 @@ body {
     }
 
     .subtitle {
+        color: var(--color-medium-grey);
+    }
+
+    .error-text {
+        color: var(--color-error);
+    }
+
+    .text {
+        color: var(--color-medium-grey);
+    }
+
+    .label-text {
         color: var(--color-medium-grey);
     }
 }

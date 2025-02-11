@@ -2,11 +2,9 @@ import './Primary.css'
 import Button from "../Button.jsx";
 
 // Primary button component
-function Primary({className, ...props}) {
+export default function Primary({className, ...props}) {
     return (
         <Button
-            className={['primary', 'text', className].join(' ')} {...props}/>
+            className={['primary', 'label-text', className].join(' ')} {...props}/>
     )
 }
-
-export default Primary;

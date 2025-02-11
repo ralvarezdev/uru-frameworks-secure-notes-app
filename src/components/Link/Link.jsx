@@ -3,7 +3,7 @@ import Text from "../Text/Text.jsx";
 import './Link.css'
 
 // Link component
-function Link({className, to, children, ...props}) {
+export default function Link({className, to, children, ...props}) {
     return (
         <RouterLink to={to}>
             <Text
@@ -11,5 +11,3 @@ function Link({className, to, children, ...props}) {
         </RouterLink>
     )
 }
-
-export default Link

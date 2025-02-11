@@ -1,5 +1,7 @@
+import './Dashboard.css'
+
 // Home page
-function Home() {
+export default function Dashboard() {
     return (
         <div>
             <h1>Home</h1>
@@ -7,5 +9,3 @@ function Home() {
         </div>
     )
 }
-
-export default Home

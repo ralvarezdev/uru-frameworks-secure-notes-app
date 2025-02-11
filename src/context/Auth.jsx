@@ -4,7 +4,7 @@ import {IS_DEBUG} from "@ralvarezdev/js-mode";
 import LOGGER from "../logger.js";
 
 // Create a context
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 // Initial value
 const initialIsAuth = cookieExists(import.meta.env.URU_FRAMEWORKS_SECURE_NOTES_API_ACCESS_TOKEN_NAME)
@@ -13,7 +13,7 @@ const initialIsAuth = cookieExists(import.meta.env.URU_FRAMEWORKS_SECURE_NOTES_A
 if (IS_DEBUG) LOGGER.info(`User is ${initialIsAuth ? "authenticated" : "not authenticated"}`)
 
 // Create a provider
-export function AuthProvider({children}) {
+export default function AuthProvider({children}) {
     const [isAuth, setIsAuth] = useState(initialIsAuth);
 
     // Add logger to the setter

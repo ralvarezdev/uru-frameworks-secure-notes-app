@@ -3,8 +3,8 @@ import Title from "../../components/Text/Title/Title.jsx";
 import Separator from "../../components/Separator/Separator.jsx";
 import GraphicText from "../../components/Logo/GraphicText/GraphicText.jsx";
 
-// Auth layout
-function Auth({title, children}) {
+// Authentication layout
+export default function Auth({title, children}) {
     return (
         <div className='main-container'>
             <div className='right-container'>
@@ -22,5 +22,3 @@ function Auth({title, children}) {
         </div>
     )
 }
-
-export default Auth

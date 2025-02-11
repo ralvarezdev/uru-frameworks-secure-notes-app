@@ -1,7 +1,7 @@
 import {Component} from 'react';
 
 // ErrorBoundary is a class component that catches JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of crashing the whole app.
-class ErrorBoundary extends Component {
+export default class ErrorBoundary extends Component {
     constructor(props) {
         super(props);
         this.state = {hasError: false};
@@ -26,5 +26,3 @@ class ErrorBoundary extends Component {
         return <h1>Something went wrong.</h1>;
     }
 }
-
-export default ErrorBoundary;

@@ -1,15 +1,11 @@
 import './Form.css'
-import {useFetcher} from "react-router-dom";
+import {Form as FormRouter} from "react-router-dom";
 
 // Form component
-function Form({className, children, ...props}) {
-    const fetcher = useFetcher();
-
+export default function Form({className, children, ...props}) {
     return (
-        <fetcher.Form className={['form', className].join(' ')} {...props}>
+        <FormRouter className={['form', className].join(' ')} {...props}>
             {children}
-        </fetcher.Form>
+        </FormRouter>
     )
 }
-
-export default Form;

@@ -6,10 +6,10 @@ import Link from "../../components/Link/Link.jsx";
 import Text from "../../components/Text/Text.jsx";
 import Form from "../../components/Form/Form.jsx";
 import PasswordInput from "../../components/Input/Password/Password.jsx";
-import {redirect, useActionData} from "react-router-dom";
+import {redirect, useActionData, useNavigate} from "react-router-dom";
 import requestAPI from "../../utils/api.js";
 import {useLogIn} from "../../context/LogIn.jsx";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 
 // LogIn action function
@@ -38,38 +38,53 @@ export async function LogInAction({request}) {
 
 // LogIn page
 export default function LogIn() {
+    const {navigate} = useNavigate()
     const {setLogIn} = useLogIn();
     const {addErrorNotification} = useNotification();
     const actionData = useActionData()
     const [areErrorsActive, setErrorsActive] = useState(false);
 
+    // Handle an ongoing login action
+    const handleOngoingAction = useCallback(({username, password}) => {
+        // Set the username and password in the context
+        setLogIn({username, password});
+
+        // Redirect to the TOTP page
+        navigate('/login/2fa/totp');
+    }, [navigate, setLogIn]);
+
+    // Handle an error
+    const handleErrors = useCallback((error) => {
+        // Create an error notification
+        addErrorNotification(error);
+    }, [addErrorNotification]);
+
+    // Handle the form change
+    const handleChange = useCallback(() => {
+        setErrorsActive((prevAreErrorsActive) => {
+            if (prevAreErrorsActive) return false;
+            return prevAreErrorsActive;
+        });
+    }, [setErrorsActive]);
+
     // Check if the user needs to enter the 2FA code
     useEffect(() => {
-        // Check if the user needs to enter the TOTP code
-        if (actionData?.status === 'ongoing') {
-            // Set the username and password in the context
-            setLogIn(actionData?.data);
+        if (!actionData) return;
 
-            // Redirect to the TOTP page
-            return redirect('/login/2fa/totp');
+        if (actionData?.status === 'ongoing') {
+            handleOngoingAction(actionData?.data);
+            return
         }
 
         // Check if there is an error message
         if (actionData?.message) {
-            // Create an error notification
-            addErrorNotification(actionData?.message)
+            handleErrors(actionData?.message);
             return
         }
 
         // Set the errors
         setErrorsActive(true);
-    }, [actionData, setLogIn, setErrorsActive, addErrorNotification]);
-
-    // Handle change
-    const handleChange = () => {
-        if (areErrorsActive)
-            setErrorsActive(false);
-    }
+    }, [actionData, handleOngoingAction, handleErrors, setErrorsActive]);
 
     return (
         <Auth title='Log In'>
@@ -89,13 +104,13 @@ export default function LogIn() {
             </Form>
             <ul className='footer-container'>
                 <li>
-                    <Text className='text'>Don&#39;t you have an
+                    <Text>Don&#39;t you have an
                         account?</Text>
-                    <Link className='text' to='/signup'>Sign Up</Link>
+                    <Link to='/signup'>Sign Up</Link>
                 </li>
                 <li>
-                    <Text className='text'>Forgot your password?</Text>
-                    <Link className='text' to='/forgot-password'>Reset
+                    <Text>Forgot your password?</Text>
+                    <Link to='/forgot-password'>Reset
                         Password</Link>
                 </li>
             </ul>

@@ -1,5 +1,4 @@
 /* Transparent Button component styles */
-.button.transparent {
+.button--transparent {
     background-color: transparent;
-    color: var(--color-light-grey);
 }

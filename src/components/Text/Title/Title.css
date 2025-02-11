@@ -1,0 +1,7 @@
+/* Title component styles */
+.title {
+    font-size: var(--title--font-size);
+    font-weight: var(--title--font-weight);
+    color: var(--text--color);
+    letter-spacing: var(--letter-spacing);
+}

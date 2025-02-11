@@ -1,35 +1,41 @@
 /* Primary Button component styles */
-.button.primary {
+.button--primary {
+    font-size: var(--text--font-size);
+    font-weight: var(--text--font-weight);
+    text-transform: uppercase;
+    letter-spacing: 2px;
     border-radius: 8px;
     padding: 1.6rem 2.4rem;
     transition: background-color var(--color-transition-duration), color var(--color-transition-duration);
 }
 
 @media (prefers-color-scheme: light) {
-    .button.primary {
+    .button--primary {
         background-color: var(--color-secondary);
+        color: var(--color-dark-grey);
     }
 
-    .button.primary:hover {
+    .button--primary:hover {
         background-color: var(--color-tertiary);
     }
 
-    .button.primary:active {
+    .button--primary:active {
         background-color: var(--color-primary);
         color: var(--color-light-grey);
     }
 }
 
 @media (prefers-color-scheme: dark) {
-    .button.primary {
+    .button--primary {
         background-color: var(--color-primary);
+        color: var(--color-light-grey);
     }
 
-    .button.primary:hover {
+    .button--primary:hover {
         background-color: var(--color-secondary);
     }
 
-    .button.primary:active {
+    .button--primary:active {
         background-color: var(--color-tertiary);
         color: var(--color-dark-grey);
     }

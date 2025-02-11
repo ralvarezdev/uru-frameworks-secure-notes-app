@@ -21,7 +21,7 @@ import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import LogInProvider from "./context/LogIn.jsx";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
-import {NotificationProvider} from "./context/Notification.jsx";
+import NotificationProvider from "./context/Notification.jsx";
 
 // Load environment variables
 loadVite()
@@ -53,7 +53,8 @@ createRoot(document.getElementById('root')).render(
                         <App/>
                     </RouterProvider>
                 </LogInProvider>
-            </AuthProvider></NotificationProvider>
+            </AuthProvider>
+            </NotificationProvider>
         </ErrorBoundary>
     </StrictMode>,
 )

@@ -2,3 +2,11 @@
 .label {
     display: block;
 }
+
+.label__text {
+    font-size: var(--small-text--font-size);
+    font-weight: var(--small-text--font-weight);
+    color: var(--text--color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}

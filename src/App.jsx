@@ -1,3 +1,4 @@
+import './App.css'
 import {Outlet, useNavigate} from "react-router-dom";
 import {useEffect} from "react";
 import AppLayout from "./layouts/App/App.jsx";
@@ -37,7 +38,9 @@ export default function App() {
 
     return (
         <AppLayout>
-            <Outlet/>
+            <div className='app'>
+                <Outlet/>
+            </div>
         </AppLayout>
     )
 }

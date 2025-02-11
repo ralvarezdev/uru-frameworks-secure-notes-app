@@ -1,43 +1,48 @@
 import './App.css'
 import { useNotification } from '../../context/Notification.jsx';
-import NotificationError from "../../components/Notification/Error/Error.jsx";
-import NotificationInfo from "../../components/Notification/Info/Info.jsx";
+import ErrorNotification from "../../components/Notification/Error/Error.jsx";
+import InfoNotification from "../../components/Notification/Info/Info.jsx";
+import {
+    ANIMATION_FADE_DURATION,
+    NOTIFICATION_DURATION
+} from "../../constants.js";
 
 // App layout
 export default function App({children}) {
-    const { notifications } = useNotification();
+    const { notifications, removeNotification } = useNotification();
 
     return (
         <div className='app-container'>
-            <div className={'app-notification-container'}>
+            {children}
+            <div className={'notifications-container'}>
                 {notifications.map((notification, index) => (
                     <div
                         key={index}
-                        className={`notification-container ${index === notifications.length-1 ? 'new-notification-container' : ''}`}
+                        className={['notification-container', index === notifications.length - 1 ? 'new-notification-container' : ''].join(' ')}
                     >
-                        {notification?.error ? (
-                            <NotificationError
+                        {notification?.type==='error' ? (
+                            <ErrorNotification
+                                duration={NOTIFICATION_DURATION}
+                                animationDuration={ANIMATION_FADE_DURATION}
+                                onAnimationEnd={() => removeNotification(notification.id)}
                                 key={index}
-                                className='notification'
-                                onClose={() => removeNotification(index)}
+                                onClose={() => removeNotification(notification.id)}
                             >
-                                {notification.error}
-                            </NotificationError>
+                                {notification.message}
+                            </ErrorNotification>
                         ) : null}
-                        {notification?.info ? (
-                            <NotificationInfo
+                        {notification?.type==='info' ? (
+                            <InfoNotification
                                 key={index}
-                                className='notification'
-                                onClose={() => removeNotification(index)}
+                                onClose={() => removeNotification(notification.id)}
                             >
-                                {notification.info}
-                            </NotificationInfo>
+                                {notification.message}
+                            </InfoNotification>
                         ) : null
                         }
                     </div>
                 ))}
             </div>
-            {children}
         </div>
     )
 }

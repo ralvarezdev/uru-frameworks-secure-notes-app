@@ -1,0 +1,7 @@
+/* Icon component styles */
+.icon {
+    font-size: var(--icon-size);
+    font-weight: var(--icon-weight);
+    color: var(--text--color);
+    height: min-content;
+}

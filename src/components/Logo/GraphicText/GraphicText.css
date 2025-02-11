@@ -1,4 +1,4 @@
 /* Graphic Text component styles */
 .graphic-text__svg {
-    height: 4rem;
+    height: var(--graphic-size);
 }

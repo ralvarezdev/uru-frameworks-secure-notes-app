@@ -1,3 +1,5 @@
+import './Title.css';
+
 // Title component
 export default function Title({className, children, ...props}) {
     return (

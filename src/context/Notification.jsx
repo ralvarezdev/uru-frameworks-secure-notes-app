@@ -1,46 +1,37 @@
-import { createContext, useState, useContext } from 'react';
+import {createContext, useState, useContext, useCallback} from 'react';
 
 // Create a context
 const NotificationContext = createContext();
 
 // Create a provider
-export function NotificationProvider({ children }) {
-    const [notificationID, setNotificationID] = useState(0);
+export default function NotificationProvider({ children }) {
     const [notifications, setNotifications] = useState([]);
 
-    // Increment the notification ID
-    const incrementNotificationID = () => {
-        setNotificationID((prevNotificationID) => prevNotificationID + 1);
-    };
-
     // Add a notification to the list
-    const addNotification = (notification) => {
+    const addNotification = useCallback((notification) => {
         // Add the notification to the list
-        setNotifications((prevNotifications) => [...prevNotifications, {notification, id: notificationID}]);
-
-        // Increment the notification ID
-        incrementNotificationID();
-    };
+        setNotifications((prevNotifications) => [...prevNotifications, {...notification, id: prevNotifications.length===0 ? 1 : prevNotifications[prevNotifications.length-1].id+1}]);
+    }, []);
 
     // Add error notification to the list
-    const addErrorNotification = (message) => {
+    const addErrorNotification = useCallback((message) => {
         addNotification({type: 'error', message});
-    }
+    }, [addNotification]);
 
     // Add info notification to the list
-    const addInfoNotification = (message) => {
+    const addInfoNotification = useCallback((message) => {
         addNotification({type: 'info', message});
-    }
+    }, [addNotification]);
 
     // Clear the notifications
-    const clearNotifications = () => {
+    const clearNotifications = useCallback(() => {
         setNotifications([]);
-    };
+    }, []);
 
     // Remove a notification from the list
-    const removeNotification = (id) => {
+    const removeNotification = useCallback((id) => {
         setNotifications((prevNotifications) => prevNotifications.filter((notification) => notification.id !== id));
-    };
+    }, []);
 
     return (
     <NotificationContext.Provider value={{ notifications, addNotification, addErrorNotification, addInfoNotification, removeNotification, clearNotifications }}>

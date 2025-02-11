@@ -15,16 +15,16 @@ export default function Input({
                                   ...props
                               }) {
     return (
-        <div className='input-container'>
-            <div className='input-wrapper'>
+        <div className='input-main-container'>
+            <div className='input-container'>
                 <Label className='input__label' htmlFor={id}>{label}</Label>
-                <input className={['input', 'text', className].join(' ')}
+                <input className={['input', className].join(' ')}
                        type={type} id={id} name={name}
                        placeholder={placeholder} {...props}/>
                 {children}
             </div>
             <div
-                className={['error-text', 'error-message', isErrorActive && 'error-message--active'].join(' ')}>
+                className={['input-error-container', isErrorActive ?'input-error-container--active':''].join(' ')}>
                 {error}
             </div>
         </div>

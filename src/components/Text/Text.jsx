@@ -1,3 +1,5 @@
+import './Text.css'
+
 // Text component
 export default function Text({className, children, ...props}) {
     return (

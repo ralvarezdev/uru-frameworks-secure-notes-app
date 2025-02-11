@@ -1,3 +1,5 @@
+import './Subtitle.css'
+
 // Subheader component
 export default function Subtitle({className, children, ...props}) {
     return (

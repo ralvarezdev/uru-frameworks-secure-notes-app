@@ -2,9 +2,9 @@
 .button {
     border: none;
     cursor: pointer;
+    pointer-events: auto;
     transition: border-color var(--color-transition-duration),;
     font-family: inherit;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
 }

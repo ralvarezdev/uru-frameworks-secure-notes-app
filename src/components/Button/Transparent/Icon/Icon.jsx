@@ -1,14 +1,14 @@
 import './Icon.css'
+import Icon from "../../../Icon/Icon.jsx";
 import TransparentButton from "../Transparent.jsx";
 
-// Transparent button icon component
-export default function Icon({className, children, ...props}) {
+// Transparent icon button component
+export default function TransparentIconButton({className, children, ...props}) {
     return (
-        <TransparentButton className={['icon', className].join(' ')} {...props}>
-                <span className="material-symbols-outlined">
-                    {children}
-                </span>
+        <TransparentButton className={className} {...props}>
+            <Icon>
+                {children}
+            </Icon>
         </TransparentButton>
     )
 }
-

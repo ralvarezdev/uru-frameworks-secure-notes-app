@@ -1,6 +1,6 @@
 import './Password.css'
 import '../Input.css'
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import TransparentIconButton from "../../Button/Transparent/Icon/Icon.jsx";
 import Input from "../Input.jsx";
 
@@ -10,16 +10,16 @@ export default function Password({...props}) {
     const [passwordVisible, setPasswordVisible] = useState(false);
 
     // Toggle password visibility
-    const togglePasswordVisibility = (event) => {
+    const togglePasswordVisibility = useCallback((event) => {
         event.preventDefault();
         setPasswordVisible(!passwordVisible);
-    };
+    }, [passwordVisible]);
 
     return (
         <Input type={passwordVisible ? 'text' : 'password'} {...props}>
             <TransparentIconButton className='toggle'
                                    onClick={togglePasswordVisibility}>
-                {passwordVisible ? 'visibility' : 'visibility_off'}
+                    {passwordVisible ? 'visibility' : 'visibility_off'}
             </TransparentIconButton>
         </Input>
     );

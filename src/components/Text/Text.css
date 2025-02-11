@@ -1,0 +1,7 @@
+/* Text component styles */
+.text {
+    font-size: var(--text--font-size);
+    font-weight: var(--text--font-weight);
+    color: var(--text--color);
+    letter-spacing: var(--letter-spacing);
+}

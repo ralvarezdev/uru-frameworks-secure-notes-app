@@ -1,16 +1,26 @@
 /* App container */
 .app-container {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     height: 100%;
     place-items: center;
     background-color: var(--background-color);
     color: var(--color);
 }
 
+/* Notifications container */
+.notifications-container {
+    grid-row: 2/-1;
+    grid-column: 5/-1;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Notification container */
 .notification-container {
-    position: relative;
+    z-index: 1;
     animation: moveUp var(--animation-move-duration) ease-in-out forwards;
 }
 

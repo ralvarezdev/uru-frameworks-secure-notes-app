@@ -2,7 +2,6 @@
 .button {
     border: none;
     cursor: pointer;
-    pointer-events: auto;
     transition: border-color var(--color-transition-duration),;
     font-family: inherit;
     display: grid;

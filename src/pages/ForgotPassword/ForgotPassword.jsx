@@ -1,7 +1,7 @@
 import Auth from "../../layouts/Auth/Auth.jsx";
 import Form from "../../components/Form/Form.jsx";
 import Input from "../../components/Input/Input.jsx";
-import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
+import ButtonPrimary from "../../components/Button/Primary/Primary.jsx";
 import Text from "../../components/Text/Text.jsx";
 import Link from "../../components/Link/Link.jsx";
 
@@ -12,8 +12,8 @@ function ForgotPassword() {
             <Form method='post'>
                 <Input type="email" id="email" name="email"
                        label="Email" placeholder="e.g. johnsmith@mail.com"/>
-                <PrimaryButton
-                    className='submit-button'>Continue</PrimaryButton>
+                <ButtonPrimary
+                    className='submit-button'>Continue</ButtonPrimary>
             </Form>
             <ul className='footer-container'>
                 <li>

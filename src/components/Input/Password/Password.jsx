@@ -1,7 +1,7 @@
 import './Password.css'
 import '../Input.css'
 import {useCallback, useState} from "react";
-import TransparentIconButton from "../../Button/Transparent/Icon/Icon.jsx";
+import ButtonTransparentIcon from "../../Button/Transparent/Icon/Icon.jsx";
 import Input from "../Input.jsx";
 
 // Password component
@@ -17,10 +17,10 @@ export default function Password({...props}) {
 
     return (
         <Input type={passwordVisible ? 'text' : 'password'} {...props}>
-            <TransparentIconButton className='toggle'
+            <ButtonTransparentIcon className='toggle'
                                    onClick={togglePasswordVisibility}>
                     {passwordVisible ? 'visibility' : 'visibility_off'}
-            </TransparentIconButton>
+            </ButtonTransparentIcon>
         </Input>
     );
 }

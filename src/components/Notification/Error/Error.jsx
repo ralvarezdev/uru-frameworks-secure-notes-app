@@ -2,9 +2,9 @@ import './Error.css'
 import Notification from "../Notification.jsx";
 
 // Error notification component
-export default function ErrorNotification({className, children, ...props}) {
+export default function NotificationError({className, children, ...props}) {
     return (
-        <Notification className={['error', 'notification-text', className].join(' ')} {...props}>
+        <Notification className={['notification--error', className].join(' ')} {...props}>
             {children}
         </Notification>
     )

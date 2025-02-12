@@ -1,7 +1,7 @@
 import './App.css'
 import { useNotification } from '../../context/Notification.jsx';
-import ErrorNotification from "../../components/Notification/Error/Error.jsx";
-import InfoNotification from "../../components/Notification/Info/Info.jsx";
+import NotificationErrorText from "../../components/Notification/Error/Text/Text.jsx";
+import NotificationInfoText from "../../components/Notification/Info/Text/Text.jsx";
 import {
     ANIMATION_FADE_DURATION,
     NOTIFICATION_DURATION
@@ -18,10 +18,21 @@ export default function App({children}) {
                 {notifications.map((notification, index) => (
                     <div
                         key={index}
-                        className={['notification-container', index === notifications.length - 1 ? 'new-notification-container' : ''].join(' ')}
+                        className={index === notifications.length - 1 && 'new-notification-container'}
                     >
                         {notification?.type==='error' ? (
-                            <ErrorNotification
+                            <NotificationErrorText
+                                duration={NOTIFICATION_DURATION}
+                                animationDuration={ANIMATION_FADE_DURATION}
+                                onAnimationEnd={() => removeNotification(notification.id)}
+                                key={index}
+                                onClose={() => removeNotification(notification.id)}
+                            >
+                                {notification.message + ' ' + notification.id}
+                            </NotificationErrorText>
+                        ) : null}
+                        {notification?.type==='info' ? (
+                            <NotificationInfoText
                                 duration={NOTIFICATION_DURATION}
                                 animationDuration={ANIMATION_FADE_DURATION}
                                 onAnimationEnd={() => removeNotification(notification.id)}
@@ -29,15 +40,7 @@ export default function App({children}) {
                                 onClose={() => removeNotification(notification.id)}
                             >
                                 {notification.message}
-                            </ErrorNotification>
-                        ) : null}
-                        {notification?.type==='info' ? (
-                            <InfoNotification
-                                key={index}
-                                onClose={() => removeNotification(notification.id)}
-                            >
-                                {notification.message}
-                            </InfoNotification>
+                            </NotificationInfoText>
                         ) : null
                         }
                     </div>

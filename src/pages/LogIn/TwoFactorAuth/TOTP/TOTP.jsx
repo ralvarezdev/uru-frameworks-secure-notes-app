@@ -1,7 +1,7 @@
 import Form from "../../../../components/Form/Form.jsx";
 import Input from "../../../../components/Input/Input.jsx";
 import PasswordInput from "../../../../components/Input/Password/Password.jsx";
-import PrimaryButton from "../../../../components/Button/Primary/Primary.jsx";
+import ButtonPrimary from "../../../../components/Button/Primary/Primary.jsx";
 import Text from "../../../../components/Text/Text.jsx";
 import Link from "../../../../components/Link/Link.jsx";
 import TwoFactorAuth
@@ -16,8 +16,8 @@ export default function TOTP({username, password}) {
                        label="Username" placeholder="e.g. user123"/>
                 <PasswordInput id="password" name="password" label="Password"
                                placeholder="e.g. pass123"/>
-                <PrimaryButton
-                    className='submit-button'>Continue</PrimaryButton>
+                <ButtonPrimary
+                    className='submit-button'>Continue</ButtonPrimary>
             </Form>
             <ul className='footer-container'>
                 <li>

@@ -1,7 +1,14 @@
+/* Notification container styles */
+.notification-container::before{
+    background-color: var(--color-dark-error);
+}
+
 /* Notification text styles */
-.notification__text {
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--notification-text-color);
-    line-height: 1.4;
+.notification--error {
+    outline: var(--outline-width) solid var(--color-error);
+}
+
+/* Notification close button styles */
+.notification__close-button {
+    color: var(--color-error);
 }

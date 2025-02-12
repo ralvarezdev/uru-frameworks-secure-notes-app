@@ -32,7 +32,7 @@ export default function FadeOutComponent({ children, duration,  animationDuratio
     }, [interrupt, duration, hideComponent]);
 
     return (
-        <div className={['fade-out-component', isVisible?'':'fade-out--hidden'].join(' ')} {...props}>
+        <div className={['fade-out', isVisible?'':'fade-out--hidden'].join(' ')} {...props}>
             {children}
         </div>
     );

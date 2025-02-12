@@ -1,5 +1,5 @@
 import './LogIn.css'
-import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
+import ButtonPrimary from "../../components/Button/Primary/Primary.jsx";
 import Input from "../../components/Input/Input.jsx";
 import Auth from "../../layouts/Auth/Auth.jsx";
 import Link from "../../components/Link/Link.jsx";
@@ -99,8 +99,8 @@ export default function LogIn() {
                                error={actionData?.data?.password?.[0]}
                                onChange={handleChange}
                                isErrorActive={areErrorsActive} required/>
-                <PrimaryButton
-                    className='submit-button'>Continue</PrimaryButton>
+                <ButtonPrimary
+                    className='submit-button'>Continue</ButtonPrimary>
             </Form>
             <ul className='footer-container'>
                 <li>

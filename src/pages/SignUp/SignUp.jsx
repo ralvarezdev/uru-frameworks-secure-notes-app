@@ -1,6 +1,6 @@
 import './SignUp.css'
 import Auth from "../../layouts/Auth/Auth.jsx";
-import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
+import ButtonPrimary from "../../components/Button/Primary/Primary.jsx";
 import Input from "../../components/Input/Input.jsx";
 import Link from "../../components/Link/Link.jsx";
 import Form from "../../components/Form/Form.jsx";
@@ -22,8 +22,8 @@ export default function SignUp() {
                        label="Username" placeholder="e.g. user123"/>
                 <PasswordInput type="password" id="password" name="password"
                                label="Password" placeholder="e.g. pass123"/>
-                <PrimaryButton
-                    className='submit-button'>Continue</PrimaryButton>
+                <ButtonPrimary
+                    className='submit-button'>Continue</ButtonPrimary>
             </Form>
             <ul className='footer-container'>
                 <li>

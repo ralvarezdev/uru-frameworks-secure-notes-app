@@ -1,40 +1,46 @@
-/* App container */
+/* App container styles */
 .app-container {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 1fr;
     grid-template-rows: repeat(2, 1fr);
-    height: 100%;
     place-items: center;
+    height: 100%;
     background-color: var(--background-color);
     color: var(--color);
 }
 
-/* Notifications container */
+/* Notifications container styles */
 .notifications-container {
+    rotate: 180deg;
+    justify-self: end;
     grid-row: 2/-1;
-    grid-column: 5/-1;
-    width: 100%;
+    grid-column: 1/-1;
+    padding: 3rem;
     height: 100%;
     pointer-events: none;
 }
 
-/* Notification container */
-.notification-container {
-    z-index: 1;
+.notifications-container div:not(:last-child) .notification-container {
+    margin-bottom: 1rem;
+}
+
+/* Notification container styles */
+div .notification-container {
+    rotate: 180deg;
+    pointer-events: auto;
     animation: moveUp var(--animation-move-duration) ease-in-out forwards;
 }
 
-.notification-container.new-notification-container {
-    transition: opacity var(--color-transition-duration) ease-in-out;
+div .notification-container.new-notification-container {
     animation: moveFromBottom var(--animation-move-duration) ease-in-out forwards;
 }
 
 @keyframes moveUp {
     from {
-        transform: translateY(0);
+        transform: translateY(-100%);
     }
     to {
-        transform: translateY(-100%);
+        transform: translateY(0%);
     }
 }
 

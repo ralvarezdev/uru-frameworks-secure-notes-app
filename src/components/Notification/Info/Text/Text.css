@@ -1,0 +1,5 @@
+/* Notification info text styles */
+.notification--info__text {
+    text-align: start;
+    color: var(--text--color);
+}

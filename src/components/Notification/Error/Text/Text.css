@@ -1,0 +1,8 @@
+/* Notification error text styles */
+.notification--error__text.notification--error__text {
+    font-size: var(--small-text--font-size);
+    font-weight: var(--small-text--font-weight);
+    letter-spacing: var(--letter-spacing);
+    text-align: start;
+    color: var(--color-error);
+}

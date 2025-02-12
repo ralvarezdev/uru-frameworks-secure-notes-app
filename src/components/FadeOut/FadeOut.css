@@ -1,5 +1,7 @@
 /* Fade Out component styles */
 .fade-out {
+    display: grid;
+    place-items: center;
     opacity: 1;
     transition: opacity var(--opacity-transition-duration) ease-in-out;
 }

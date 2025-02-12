@@ -22,7 +22,8 @@ export default function App({children}) {
     return (
         <div className='app-container'>
             {children}
-            <div className='notifications-container'>
+            <div className='notifications-container--relative'>
+                <div className='notifications-container--absolute'>
                     {notifications.map((notification, index) => (
                         <>
                             {notification?.type === 'error' ? (
@@ -37,20 +38,21 @@ export default function App({children}) {
                                     {notification.message + ' ' + notification.id}
                                 </NotificationErrorText>
                             ) : null}
-                        {notification?.type === 'info' ? (
-                            <NotificationInfoText
-                                key={notification.id}
-                                className={index === notifications.length - 1 && 'notification-container--new'}
-                                duration={NOTIFICATION_DURATION}
-                                animationDuration={ANIMATION_FADE_DURATION}
-                                onAnimationEnd={() => handleRemoveNotification(notification.id)}
-                                onClose={() => handleRemoveNotification(notification.id)}
-                            >
-                                {notification.message}
-                            </NotificationInfoText>
-                        ) : null}
+                            {notification?.type === 'info' ? (
+                                <NotificationInfoText
+                                    key={notification.id}
+                                    className={index === notifications.length - 1 && 'notification-container--new'}
+                                    duration={NOTIFICATION_DURATION}
+                                    animationDuration={ANIMATION_FADE_DURATION}
+                                    onAnimationEnd={() => handleRemoveNotification(notification.id)}
+                                    onClose={() => handleRemoveNotification(notification.id)}
+                                >
+                                    {notification.message}
+                                </NotificationInfoText>
+                            ) : null}
                         </>
                     ))}
+                </div>
             </div>
         </div>
     )

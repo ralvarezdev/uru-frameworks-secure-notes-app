@@ -6,7 +6,7 @@ import Link from "../../components/Link/Link.jsx";
 import Text from "../../components/Text/Text.jsx";
 import Form from "../../components/Form/Form.jsx";
 import PasswordInput from "../../components/Input/Password/Password.jsx";
-import {redirect, useActionData, useNavigate} from "react-router-dom";
+import {useActionData, useNavigate} from "react-router-dom";
 import requestAPI from "../../utils/api.js";
 import {useLogIn} from "../../context/LogIn.jsx";
 import {useCallback, useEffect, useState} from "react";
@@ -23,7 +23,7 @@ export async function LogInAction({request}) {
     });
 
     // Check if the response is successful
-    if (response.status === 'success') return redirect('/dashboard');
+    if (response.status === 'success') return {status: response.status}
     else if (response.status === 'error') return {
         status: response.status,
         message: response.message
@@ -40,24 +40,25 @@ export async function LogInAction({request}) {
 export default function LogIn() {
     const {navigate} = useNavigate()
     const {setLogIn} = useLogIn();
-    const {addErrorNotification} = useNotification();
+    const {addErrorNotification, addInfoNotification} = useNotification();
     const actionData = useActionData()
     const [areErrorsActive, setErrorsActive] = useState(false);
 
     // Handle an ongoing login action
     const handleOngoingAction = useCallback(({username, password}) => {
-        // Set the username and password in the context
         setLogIn({username, password});
-
-        // Redirect to the TOTP page
         navigate('/login/2fa/totp');
     }, [navigate, setLogIn]);
 
-    // Handle an error
-    const handleErrors = useCallback((error) => {
-        // Create an error notification
+    // Handle an error notification
+    const handleErrorNotification = useCallback((error) => {
         addErrorNotification(error);
     }, [addErrorNotification]);
+
+    // Handle an info notification
+    const handleInfoNotification = useCallback((info) => {
+        addInfoNotification(info);
+    }, [addInfoNotification]);
 
     // Handle the form change
     const handleChange = useCallback(() => {
@@ -71,6 +72,14 @@ export default function LogIn() {
     useEffect(() => {
         if (!actionData) return;
 
+        // Check if the login has completed
+        if (actionData?.status === 'success') {
+            handleInfoNotification('Logged in successfully!');
+            navigate('/');
+            return
+        }
+
+        // Check if the user needs to enter the 2FA code
         if (actionData?.status === 'ongoing') {
             handleOngoingAction(actionData?.data);
             return
@@ -78,13 +87,13 @@ export default function LogIn() {
 
         // Check if there is an error message
         if (actionData?.message) {
-            handleErrors(actionData?.message);
+            handleErrorNotification(actionData?.message);
             return
         }
 
         // Set the errors
         setErrorsActive(true);
-    }, [actionData, handleOngoingAction, handleErrors, setErrorsActive]);
+    }, [actionData, navigate, handleOngoingAction, handleErrorNotification, handleInfoNotification, setErrorsActive]);
 
     return (
         <Auth title='Log In'>
@@ -117,32 +126,3 @@ export default function LogIn() {
         </Auth>
     )
 }
-
-/*
-    React.useEffect(() => {
-        if (fetcher.state === "idle") {
-            if (fetcher.data) {
-                setSuccessMessage("Form submitted successfully!");
-                setSubmissionError(null);
-            } else if (fetcher.error) {
-                setSubmissionError("An error occurred. Please try again.");
-                setSuccessMessage(null);
-            }
-        }
-    }, [fetcher]);
-
-    return (
-        <div>
-            <h1>Submit to External API</h1>
-            <fetcher.Form method="post" onSubmit={handleSubmit}>
-                <input type="text" name="example" placeholder="Example input" />
-                <button type="submit" disabled={fetcher.state !== "idle"}>
-                    {fetcher.state === "submitting" ? "Submitting..." : "Submit"}
-                </button>
-            </fetcher.Form>
-            {successMessage && <div className="success">{successMessage}</div>}
-            {submissionError && <div className="error">{submissionError}</div>}
-        </div>
-    );
-}
-*/

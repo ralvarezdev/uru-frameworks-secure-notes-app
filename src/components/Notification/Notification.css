@@ -1,7 +1,5 @@
 /* Notification container styles */
 .notification-container {
-    grid-column: 1/-1;
-    grid-row: 1/-1;
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: 1fr;
@@ -9,7 +7,7 @@
     padding: 0.6rem 0.8rem;
     gap: 0 0.4rem;
     width: 100%;
-    max-width: 30rem;
+    max-width: var(--notifications-container-max-width);
     border-radius: 4px;
     box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
     background-color: transparent;

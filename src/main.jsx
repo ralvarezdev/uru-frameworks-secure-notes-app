@@ -47,13 +47,13 @@ createRoot(document.getElementById('root')).render(
     <StrictMode>
         <ErrorBoundary>
             <NotificationProvider>
-            <AuthProvider>
-                <LogInProvider>
-                    <RouterProvider router={router}>
-                        <App/>
-                    </RouterProvider>
-                </LogInProvider>
-            </AuthProvider>
+                <AuthProvider>
+                    <LogInProvider>
+                        <RouterProvider router={router}>
+                            <App/>
+                        </RouterProvider>
+                    </LogInProvider>
+                </AuthProvider>
             </NotificationProvider>
         </ErrorBoundary>
     </StrictMode>,

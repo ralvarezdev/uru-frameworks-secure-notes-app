@@ -6,7 +6,8 @@ import NotificationError from "../Error.jsx";
 export default function NotificationErrorText({className, children, ...props}) {
     return (
         <NotificationError {...props}>
-            <Text className={['notification--error__text', className].join(' ')}>
+            <Text
+                className={['notification--error__text', className].join(' ')}>
                 {children}
             </Text>
         </NotificationError>

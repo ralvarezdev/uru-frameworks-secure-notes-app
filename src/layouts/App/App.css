@@ -25,13 +25,13 @@
 }
 
 /* Notification container styles */
-div .notification-container {
+.notification-container {
     rotate: 180deg;
     pointer-events: auto;
     animation: moveUp var(--animation-move-duration) ease-in-out forwards;
 }
 
-div .notification-container.new-notification-container {
+.notification-container.notification-container--new {
     animation: moveFromBottom var(--animation-move-duration) ease-in-out forwards;
 }
 

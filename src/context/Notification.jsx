@@ -1,16 +1,19 @@
-import {createContext, useState, useContext, useCallback} from 'react';
+import {createContext, useCallback, useContext, useState} from 'react';
 
 // Create a context
 const NotificationContext = createContext();
 
 // Create a provider
-export default function NotificationProvider({ children }) {
+export default function NotificationProvider({children}) {
     const [notifications, setNotifications] = useState([]);
 
     // Add a notification to the list
     const addNotification = useCallback((notification) => {
         // Add the notification to the list
-        setNotifications((prevNotifications) => [...prevNotifications, {...notification, id: prevNotifications.length===0 ? 1 : prevNotifications[prevNotifications.length-1].id+1}]);
+        setNotifications((prevNotifications) => [...prevNotifications, {
+            ...notification,
+            id: prevNotifications.length === 0 ? 1 : prevNotifications[prevNotifications.length - 1].id + 1
+        }]);
     }, []);
 
     // Add error notification to the list
@@ -34,8 +37,15 @@ export default function NotificationProvider({ children }) {
     }, []);
 
     return (
-    <NotificationContext.Provider value={{ notifications, addNotification, addErrorNotification, addInfoNotification, removeNotification, clearNotifications }}>
-        {children}
+        <NotificationContext.Provider value={{
+            notifications,
+            addNotification,
+            addErrorNotification,
+            addInfoNotification,
+            removeNotification,
+            clearNotifications
+        }}>
+            {children}
         </NotificationContext.Provider>
     );
 }

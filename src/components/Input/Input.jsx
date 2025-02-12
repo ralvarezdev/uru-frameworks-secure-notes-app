@@ -24,7 +24,7 @@ export default function Input({
                 {children}
             </div>
             <div
-                className={['input-error-container', isErrorActive ?'input-error-container--active':''].join(' ')}>
+                className={['input-error-container', isErrorActive ? 'input-error-container--active' : ''].join(' ')}>
                 {error}
             </div>
         </div>

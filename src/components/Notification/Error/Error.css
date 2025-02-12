@@ -1,5 +1,5 @@
 /* Notification container styles */
-.notification-container::before{
+.notification-container::before {
     background-color: var(--color-dark-error);
 }
 

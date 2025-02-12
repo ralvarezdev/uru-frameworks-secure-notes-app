@@ -5,20 +5,28 @@ import {useCallback, useState} from "react";
 import {ANIMATION_FADE_DURATION} from "../../constants.js";
 
 // Notification component
-export default function Notification({className, children, onClose, ...props}) {
-    const [isClosing, setIsClosing] = useState(false);
+export default function Notification({
+                                         className,
+                                         children,
+                                         onAnimationEnd,
+                                         ...props
+                                     }) {
+    const [isInterrupted, setInterrupted] = useState(false);
 
     // Close the notification handler
     const closeNotification = useCallback(() => {
-        setIsClosing(true);
-        setTimeout(onClose, ANIMATION_FADE_DURATION);
-    }, [onClose]);
+        setInterrupted(true);
+        setTimeout(onAnimationEnd, ANIMATION_FADE_DURATION);
+    }, [onAnimationEnd]);
 
     return (
-        <FadeOutComponent interrupt={isClosing} {...props}>
+        <FadeOutComponent interrupt={isInterrupted}
+                          onAnimationEnd={closeNotification} {...props}>
             <div className={['notification-container', className].join(' ')}>
                 <div className="notification__close-container">
-                   <ButtonTransparentIcon className='notification__close-button' onClick={closeNotification}>close
+                    <ButtonTransparentIcon
+                        className='notification__close-button'
+                        onClick={closeNotification}>close
                     </ButtonTransparentIcon>
                 </div>
                 <div className='notification__content'>

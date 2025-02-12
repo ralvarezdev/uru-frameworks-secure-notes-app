@@ -19,7 +19,7 @@ export default function Password({...props}) {
         <Input type={passwordVisible ? 'text' : 'password'} {...props}>
             <ButtonTransparentIcon className='toggle'
                                    onClick={togglePasswordVisibility}>
-                    {passwordVisible ? 'visibility' : 'visibility_off'}
+                {passwordVisible ? 'visibility' : 'visibility_off'}
             </ButtonTransparentIcon>
         </Input>
     );

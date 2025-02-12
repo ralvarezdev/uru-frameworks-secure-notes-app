@@ -34,10 +34,10 @@ export default async function request(method, path, bodyObject) {
         if (IS_DEBUG) console.error(ERROR_LOG_FORMAT, method, path, error.message);
 
         // Return an error response
-        return  {
-                status: 'error',
-                message: 'An error occurred, please try again later'
-            }
+        return {
+            status: 'error',
+            message: 'An error occurred, please try again later'
+        }
     }
 
     // Log the body

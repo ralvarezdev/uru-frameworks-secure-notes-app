@@ -1,5 +1,5 @@
 /* Subtitle component styles */
-.subtitle{
+.subtitle {
     font-size: var(--subtitle--font-size);
     font-weight: var(--subtitle--font-weight);
     color: var(--text--color);

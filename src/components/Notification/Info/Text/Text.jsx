@@ -1,14 +1,15 @@
 import './Text.css'
-import Text from "../../../Text/Text.jsx";
-import NotificationInfo from "../Info.jsx";
+import InfoNotification from "../Info.jsx";
+import SmallText from "../../../Text/Small/Small.jsx";
 
-// Notification info text component
-export default function NotificationInfoText({className, children, ...props}) {
+// Info text notification component
+export default function InfoTextNotification({className, children, ...props}) {
     return (
-        <NotificationInfo {...props}>
-            <Text className={['notification--info__text', className].join(' ')}>
+        <InfoNotification {...props}>
+            <SmallText
+                className={['notification__main-container--info__content-container__content__text', className].join(' ')}>
                 {children}
-            </Text>
-        </NotificationInfo>
+            </SmallText>
+        </InfoNotification>
     )
 }

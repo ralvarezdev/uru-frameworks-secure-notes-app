@@ -1,0 +1,7 @@
+/* Paragraph text component styles */
+.text--paragraph {
+    font-size: var(--text--paragraph--font-size);
+    font-weight: var(--text--paragraph--font-weight);
+    letter-spacing: var(--text--paragraph--letter-spacing);
+    color: var(--text--color);
+}

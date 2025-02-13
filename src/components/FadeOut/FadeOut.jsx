@@ -22,7 +22,6 @@ export default function FadeOutComponent({
 
     // Set timeout to hide the component after the duration
     useEffect(() => {
-        console.log(duration)
         // Clear timeout when the component is interrupted
         if (interrupt) {
             hideComponent();

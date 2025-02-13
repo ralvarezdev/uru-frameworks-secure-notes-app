@@ -1,15 +1,15 @@
 import './Text.css'
-import Text from "../../../Text/Text.jsx";
-import NotificationError from "../Error.jsx";
+import ErrorNotification from "../Error.jsx";
+import SmallText from "../../../Text/Small/Small.jsx";
 
-// Notification error text component
-export default function NotificationErrorText({className, children, ...props}) {
+// Error text notification component
+export default function ErrorTextNotification({className, children, ...props}) {
     return (
-        <NotificationError {...props}>
-            <Text
-                className={['notification--error__text', className].join(' ')}>
+        <ErrorNotification {...props}>
+            <SmallText
+                className={['notification__main-container--error__content-container__content__text', className].join(' ')}>
                 {children}
-            </Text>
-        </NotificationError>
+            </SmallText>
+        </ErrorNotification>
     )
 }

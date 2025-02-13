@@ -1,8 +1,8 @@
 import './App.css'
 import {useNotification} from '../../context/Notification.jsx';
-import NotificationErrorText
+import ErrorTextNotification
     from "../../components/Notification/Error/Text/Text.jsx";
-import NotificationInfoText
+import InfoTextNotification
     from "../../components/Notification/Info/Text/Text.jsx";
 import {
     ANIMATION_FADE_DURATION,
@@ -20,37 +20,38 @@ export default function App({children}) {
     }, [removeNotification]);
 
     return (
-        <div className='app-container'>
+        <div className='app__main-container'>
             {children}
-            <div className='notifications-container--relative'>
-                <div className='notifications-container--absolute'>
-                    {notifications.map((notification, index) => (
-                        <>
+            <div
+                className='app__main-container__notifications-container--relative'>
+                <div
+                    className='app__main-container__notifications-container--absolute'>
+                    {notifications.map((notification) => (
+                        <div key={notification.id}
+                             className='app__main-container__notifications-container--absolute__item'>
                             {notification?.type === 'error' ? (
-                                <NotificationErrorText
+                                <ErrorTextNotification
                                     key={notification.id}
-                                    className={index === notifications.length - 1 && 'notification-container--new'}
                                     duration={NOTIFICATION_DURATION}
                                     animationDuration={ANIMATION_FADE_DURATION}
                                     onAnimationEnd={() => handleRemoveNotification(notification.id)}
                                     onClose={() => handleRemoveNotification(notification.id)}
                                 >
                                     {notification.message + ' ' + notification.id}
-                                </NotificationErrorText>
+                                </ErrorTextNotification>
                             ) : null}
                             {notification?.type === 'info' ? (
-                                <NotificationInfoText
+                                <InfoTextNotification
                                     key={notification.id}
-                                    className={index === notifications.length - 1 && 'notification-container--new'}
                                     duration={NOTIFICATION_DURATION}
                                     animationDuration={ANIMATION_FADE_DURATION}
                                     onAnimationEnd={() => handleRemoveNotification(notification.id)}
                                     onClose={() => handleRemoveNotification(notification.id)}
                                 >
                                     {notification.message}
-                                </NotificationInfoText>
+                                </InfoTextNotification>
                             ) : null}
-                        </>
+                        </div>
                     ))}
                 </div>
             </div>

@@ -1,9 +1,9 @@
 import './Title.css';
 
-// Title component
-export default function Title({className, children, ...props}) {
+// Title text component
+export default function TitleText({className, children, ...props}) {
     return (
-        <h1 className={['title', className].join(' ')} {...props}>
+        <h1 className={['text--title', className].join(' ')} {...props}>
             {children}
         </h1>
     )

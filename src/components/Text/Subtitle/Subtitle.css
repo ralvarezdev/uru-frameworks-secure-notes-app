@@ -1,8 +1,8 @@
-/* Subtitle component styles */
-.subtitle {
-    font-size: var(--subtitle--font-size);
-    font-weight: var(--subtitle--font-weight);
+/* Subtitle text component styles */
+.text--subtitle {
+    font-size: var(--text--subtitle--font-size);
+    font-weight: var(--text--subtitle--font-weight);
+    letter-spacing: var(--text--subtitle--letter-spacing);
     color: var(--text--color);
-    letter-spacing: var(--letter-spacing);
 }
 

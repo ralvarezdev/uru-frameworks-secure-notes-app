@@ -6,6 +6,7 @@
 
 /* Colors */
 :root {
+    --font-family: 'Fira Code', sans-serif;
     --color-primary: #1c7ed6;
     --color-secondary: #4dabf7;
     --color-tertiary: #d0ebff;
@@ -14,7 +15,7 @@
     --color-medium-grey: #495057;
     --color-light-grey: #ced4da;
     --color-lighter-grey: #f8f9fa;
-    --color-error: #f03e3e;
+    --color-error: #fa5252;
     --color-dark-error: #c92a2a;
     --color-transition-duration: 0.25s;
     --scale-transition-duration: 0.25s;
@@ -25,15 +26,27 @@
     --icon-size: 2rem;
     --icon-weight: 500;
     --graphic-size: 4rem;
-    --title--font-size: 4.2rem;
-    --title--font-weight: 800;
-    --subtitle--font-size: 3rem;
-    --subtitle--font-weight: 700;
-    --text--font-size: 1.6rem;
-    --text--font-weight: 500;
-    --small-text--font-size: 1.4rem;
-    --small-text--font-weight: 500;
-    --letter-spacing: 1px;
+    --text--title--font-size: 4.2rem;
+    --text--title--font-weight: 800;
+    --text--title--letter-spacing: 1px;
+    --text--subtitle--font-size: 3rem;
+    --text--subtitle--font-weight: 700;
+    --text--subtitle--letter-spacing: 1px;
+    --text--paragraph--font-size: 1.6rem;
+    --text--paragraph--font-weight: 400;
+    --text--paragraph--letter-spacing: 0;
+    --text--small--font-size: 1.4rem;
+    --text--small--font-weight: 500;
+    --text--small--letter-spacing: 1px;
+    --text--label--font-size: 1.6rem;
+    --text--label--font-weight: 500;
+    --text--label--letter-spacing: 2px;
+    --text--input--font-size: 1.8rem;
+    --text--input--font-weight: 300;
+    --text--input--letter-spacing: 0;
+    --text--button--font-size: 1.6rem;
+    --text--button--font-weight: 700;
+    --text--button--letter-spacing: 2px;
 }
 
 /* Global Styles */

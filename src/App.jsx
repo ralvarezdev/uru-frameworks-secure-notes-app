@@ -38,7 +38,7 @@ export default function App() {
 
     return (
         <AppLayout>
-            <div className='app'>
+            <div className='app__main-container__app-container'>
                 <Outlet/>
             </div>
         </AppLayout>

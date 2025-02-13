@@ -1,38 +1,37 @@
 /* Link component styles */
-.link.link,
-.link.link:visited {
+.text--paragraph.link__text,
+.text--paragraph.link__text:visited {
     text-decoration: inherit;
+    transition: color var(--color-transition-duration);
 }
 
 /* Light Mode */
 @media (prefers-color-scheme: light) {
-    .link.link {
+    .text--paragraph.link__text {
         color: var(--color-secondary);
     }
 
-    .link.link:visited {
+    .text--paragraph.link__text:visited {
         color: var(--color-primary);
     }
 
-    .link.link:hover {
+    .text--paragraph.link__text:hover {
         color: var(--color-primary);
-        transition: color var(--color-transition-duration);
     }
 }
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
-    .link.link {
+    .text--paragraph.link__text {
         color: var(--color-primary);
     }
 
-    .link.link:visited {
+    .text--paragraph.link__text:visited {
         color: var(--color-secondary);
     }
 
-    .link.link:hover {
+    .text--paragraph.link__text:hover {
         color: var(--color-secondary);
-        transition: color var(--color-transition-duration);
     }
 }
 

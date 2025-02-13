@@ -1,5 +1,5 @@
 /* Notification info text styles */
-.notification--info__text {
+.text--paragraph.notification__main-container--info__content-container__content__text {
     text-align: start;
-    color: var(--text--color);
+    color: var(--color-primary);
 }

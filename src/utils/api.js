@@ -41,7 +41,7 @@ export default async function request(method, path, bodyObject) {
     }
 
     // Log the body
-    if (IS_DEBUG) console.log(`Response from ${method} ${path}:\nstatus=${response.status}\nbody=${JSON.stringify(body)}`);
+    if (IS_DEBUG) console.log(RESPONSE_LOG_FORMAT, method, path, JSON.stringify(body));
 
     // Check the status
     if (body.status === 'error') return {

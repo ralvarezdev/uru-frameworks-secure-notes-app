@@ -1,6 +1,6 @@
 import './Notification.css'
 import FadeOutComponent from "../FadeOut/FadeOut.jsx";
-import ButtonTransparentIcon from "../Button/Transparent/Icon/Icon.jsx";
+import TransparentIconButton from "../Button/Transparent/Icon/Icon.jsx";
 import {useCallback, useState} from "react";
 import {ANIMATION_FADE_DURATION} from "../../constants.js";
 
@@ -21,16 +21,21 @@ export default function Notification({
 
     return (
         <FadeOutComponent interrupt={isInterrupted}
-                          onAnimationEnd={closeNotification} {...props}>
-            <div className={['notification-container', className].join(' ')}>
-                <div className="notification__close-container">
-                    <ButtonTransparentIcon
-                        className='notification__close-button'
-                        onClick={closeNotification}>close
-                    </ButtonTransparentIcon>
-                </div>
-                <div className='notification__content'>
-                    {children}
+                          onAnimationEnd={onAnimationEnd} {...props}>
+            <div
+                className={['notification__main-container', className].join(' ')}>
+                <div
+                    className='notification__main-container__content-container'>
+                    <div
+                        className="notification__main-container__close-container">
+                        <TransparentIconButton
+                            className='notification__main-container__close-container__button'
+                            onClick={closeNotification}>close
+                        </TransparentIconButton>
+                    </div>
+                    <div className='notification__main-container__content'>
+                        {children}
+                    </div>
                 </div>
             </div>
         </FadeOutComponent>

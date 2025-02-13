@@ -3,11 +3,11 @@ import './Label.css'
 // Label component
 export default function Label({htmlFor, className, children, ...props}) {
     return (
-        <label className={['label', className].join(' ')}
-               htmlFor={htmlFor} {...props}>
-            <div className='label__text'>
+        <div className='label__container'>
+            <label className={['label__container__label', className].join(' ')}
+                   htmlFor={htmlFor} {...props}>
                 {children}
-            </div>
-        </label>
+            </label>
+        </div>
     )
 }

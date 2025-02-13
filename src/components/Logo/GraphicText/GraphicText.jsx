@@ -1,10 +1,11 @@
 import './GraphicText.css'
 
-// GraphicText component
-export default function GraphicText({className, children, ...props}) {
+// Graphic text logo component
+export default function GraphicTextLogo({className, children, ...props}) {
     return (
-        <div className={['graphic-text', className].join(' ')} {...props}>
-            <img className='graphic-text__svg'
+        <div
+            className={['logo--graphic-text__container', className].join(' ')} {...props}>
+            <img className='logo--graphic-text__svg'
                  src="/secure-notes--graphic-with-text.svg"
                  alt="Secure Notes Graphic with Info SVG"/>
             {children}

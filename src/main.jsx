@@ -22,6 +22,7 @@ import LogInProvider from "./context/LogIn.jsx";
 import VerifyEmail from "./pages/VerifyEmail/VerifyEmail.jsx";
 import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import NotificationProvider from "./context/Notification.jsx";
+import NotFound from "./pages/NotFound/NotFound.jsx";
 
 // Load environment variables
 loadVite()
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
             <Route path="/forgot-password" element={<ForgotPassword/>}/>
             <Route path="/reset-password/:token" element={<ResetPassword/>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
+            <Route path="*" element={<NotFound/>}/>
         </Route>
     )
 )

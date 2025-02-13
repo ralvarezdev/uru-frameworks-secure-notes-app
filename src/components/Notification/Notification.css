@@ -1,33 +1,42 @@
-/* Notification container styles */
-.notification-container {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-rows: 1fr;
-    place-items: center;
+/* Notification main container styles */
+.notification__main-container {
+    z-index: 1;
+    position: relative;
     padding: 0.6rem 0.8rem;
-    gap: 0 0.4rem;
     width: 100%;
     max-width: var(--notifications-container-max-width);
+    box-shadow: 0 0.6rem 1rem rgba(0, 0, 0, 0.25);
     border-radius: 4px;
-    box-shadow: 0 0.4rem 0.8rem rgba(0, 0, 0, 0.1);
-    background-color: transparent;
     text-align: center;
-    backdrop-filter: blur(2px);
 }
 
-.notification-container::before {
+.notification__main-container::before {
+    z-index: 2;
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    opacity: 0.3;
+    opacity: 0.55;
+    background-color: var(--color-dark-grey);
     border-radius: inherit;
+    pointer-events: none;
+}
+
+/* Notification content container styles */
+.notification__main-container__content-container {
+    z-index: 3;
+    display: grid;
+    position: relative;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: 1fr;
+    place-items: center;
+    gap: 0 0.4rem;
 }
 
 /* Notification close container styles */
-.notification__close-container {
+.notification__main-container__close-container {
     grid-column: 2/-1;
     grid-row: 1/-1;
     align-self: start;
@@ -37,12 +46,13 @@
 }
 
 /* Notification close button styles */
-.notification__close-button {
+.notification__main-container__close-container__button {
+    cursor: pointer;
     pointer-events: auto;
 }
 
 /* Notification content styles */
-.notification__content {
+.notification__main-container__content {
     grid-column: 1/2;
     grid-row: 1/-1;
     display: grid;

@@ -1,5 +1,5 @@
 // Animation fade duration
-export const ANIMATION_FADE_DURATION = 500;
+export const ANIMATION_FADE_DURATION = 250;
 
 // Notification duration
-export const NOTIFICATION_DURATION = 50000;
+export const NOTIFICATION_DURATION = 500000;

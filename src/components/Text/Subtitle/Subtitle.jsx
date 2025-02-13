@@ -1,9 +1,9 @@
 import './Subtitle.css'
 
-// Subheader component
-export default function Subtitle({className, children, ...props}) {
+// Subheader text component
+export default function SubtitleText({className, children, ...props}) {
     return (
-        <h2 className={['subtitle', className].join(' ')} {...props}>
+        <h2 className={['text--subtitle', className].join(' ')} {...props}>
             {children}
         </h2>
     )

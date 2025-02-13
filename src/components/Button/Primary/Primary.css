@@ -1,9 +1,9 @@
-/* Primary Button component styles */
+/* Primary button component styles */
 .button--primary {
-    font-size: var(--text--font-size);
-    font-weight: var(--text--font-weight);
+    font-size: var(--text--button--font-size);
+    font-weight: var(--text--button--font-weight);
+    letter-spacing: var(--text--button--letter-spacing);
     text-transform: uppercase;
-    letter-spacing: 2px;
     border-radius: 8px;
     padding: 1.6rem 2.4rem;
     transition: background-color var(--color-transition-duration), color var(--color-transition-duration);
@@ -23,6 +23,11 @@
         background-color: var(--color-primary);
         color: var(--color-light-grey);
     }
+
+    .button--primary:disabled {
+        background-color: var(--color-tertiary);
+        color: var(--color-dark-grey);
+    }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -38,5 +43,10 @@
     .button--primary:active {
         background-color: var(--color-tertiary);
         color: var(--color-dark-grey);
+    }
+
+    .button--primary:disabled {
+        background-color: var(--color-dark-grey);
+        color: var(--color-tertiary);
     }
 }

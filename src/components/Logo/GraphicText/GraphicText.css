@@ -1,4 +1,13 @@
 /* Graphic Text component styles */
-.graphic-text__svg {
+.logo--graphic-text__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    place-items: center;
+}
+
+.logo--graphic-text__svg {
+    grid-row: 1 / -1;
+    grid-column: 1 / -1;
     height: var(--graphic-size);
 }

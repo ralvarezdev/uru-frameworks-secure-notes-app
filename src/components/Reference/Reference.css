@@ -1,0 +1,16 @@
+/* Reference component styles */
+.reference__container {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    grid-template-rows: 1fr;
+}
+
+.reference__container * {
+    grid-row: 1/-1;
+    width: auto;
+    display: inline-block;
+}
+
+.reference__container *:not(:first-child) {
+    padding-left: 1rem;
+}

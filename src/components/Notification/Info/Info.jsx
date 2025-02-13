@@ -5,7 +5,7 @@ import Notification from "../Notification.jsx";
 export default function InfoNotification({className, children, ...props}) {
     return (
         <Notification
-            className={['info', 'notification-text', className].join(' ')} {...props}>
+            className={['notification__main-container--info', className].join(' ')} {...props}>
             {children}
         </Notification>
     )

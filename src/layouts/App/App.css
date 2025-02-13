@@ -1,5 +1,5 @@
-/* App container styles */
-.app-container {
+/* App main container styles */
+.app__main-container {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
@@ -10,7 +10,7 @@
 }
 
 /* Notifications container styles */
-.notifications-container--relative {
+.app__main-container__notifications-container--relative {
     --notifications-container-max-width: 30rem;
 
     rotate: 180deg;
@@ -18,48 +18,36 @@
     align-self: end;
     grid-row: 1/-1;
     grid-column: 1/-1;
-    pointer-events: none;
     position: relative;
     margin: 3rem;
     width: 100%;
     max-width: var(--notifications-container-max-width);
 }
 
-.notifications-container--absolute {
+.app__main-container__notifications-container--absolute {
     position: absolute;
 }
 
-.notifications-container--absolute div:not(:last-child) .notification-container {
+/* Notification container absolute styles */
+.app__main-container__notifications-container--absolute__item:not(:last-child) {
     margin-bottom: 1rem;
 }
 
 /* Notification container styles */
-.notification-container {
+.app__main-container__notifications-container--absolute__item {
     rotate: 180deg;
     pointer-events: auto;
-    animation: moveUp var(--animation-move-duration) ease-in-out forwards;
+    animation: moveBottom var(--animation-move-duration) ease-in-out forwards;
+    backdrop-filter: blur(4px);
 }
 
-.notification-container.notification-container--new {
-    animation: moveFromBottom var(--animation-move-duration) ease-in-out forwards;
-}
-
-@keyframes moveUp {
+@keyframes moveBottom {
     from {
+        opacity: 0;
         transform: translateY(-100%);
     }
     to {
-        transform: translateY(0%);
-    }
-}
-
-@keyframes moveFromBottom {
-    from {
-        opacity: 0;
-        transform: translateY(100%);
-    }
-    to {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(0%);
     }
 }

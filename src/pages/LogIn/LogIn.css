@@ -3,8 +3,8 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.input-main-container:has(label[for="username"]),
-.input-main-container:has(label[for="password"]),
+.input__main-container:has(label[for="username"]),
+.input__main-container:has(label[for="password"]),
 .submit-button {
     grid-column: 1/-1;
 }

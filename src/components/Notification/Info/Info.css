@@ -1,9 +1,9 @@
 /* Notification main container styles */
 .notification__main-container--info {
-    outline: var(--outline-width) solid var(--color-primary);
+    outline: var(--outline-width) solid var(--color-dark-secondary);
 }
 
 /* Notification close button styles */
 .notification__main-container--info .notification__main-container__close-container .notification__main-container__close-container__button .icon {
-    color: var(--color-primary);
+    color: var(--color-dark-secondary);
 }

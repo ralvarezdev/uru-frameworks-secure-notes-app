@@ -1,37 +1,37 @@
 /* Link component styles */
-.text--paragraph.link__text,
-.text--paragraph.link__text:visited {
-    text-decoration: inherit;
+.link__text {
+    font-size: var(--text--link--font-size);
+    font-weight: var(--text--link--font-weight);
+    letter-spacing: var(--text--link--letter-spacing);
+
+}
+
+.link__text,
+.link__text:visited {
     transition: color var(--color-transition-duration);
 }
 
 /* Light Mode */
 @media (prefers-color-scheme: light) {
-    .text--paragraph.link__text {
-        color: var(--color-secondary);
+    .link__text,
+    .link__text:visited {
+        color: var(--color-medium-primary);
     }
 
-    .text--paragraph.link__text:visited {
-        color: var(--color-primary);
-    }
-
-    .text--paragraph.link__text:hover {
-        color: var(--color-primary);
+    .link__text:hover {
+        color: var(--color-dark-primary);
     }
 }
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
-    .text--paragraph.link__text {
-        color: var(--color-primary);
+    .link__text,
+    .link__text:visited {
+        color: var(--color-dark-primary);
     }
 
-    .text--paragraph.link__text:visited {
-        color: var(--color-secondary);
-    }
-
-    .text--paragraph.link__text:hover {
-        color: var(--color-secondary);
+    .link__text:hover {
+        color: var(--color-light-primary);
     }
 }
 

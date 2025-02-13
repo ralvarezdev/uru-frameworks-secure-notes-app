@@ -1,27 +1,33 @@
 import './Notification.css'
-import FadeOutComponent from "../FadeOut/FadeOut.jsx";
+import MemoizedFadeOut from "../FadeOut/FadeOutMemo.jsx";
 import TransparentIconButton from "../Button/Transparent/Icon/Icon.jsx";
 import {useCallback, useState} from "react";
-import {ANIMATION_FADE_DURATION} from "../../constants.js";
+import {useNotification} from "../../context/Notification.jsx";
 
 // Notification component
 export default function Notification({
                                          className,
                                          children,
-                                         onAnimationEnd,
+                                         notificationID,
                                          ...props
                                      }) {
     const [isInterrupted, setInterrupted] = useState(false);
+    const {removeNotification} = useNotification();
 
-    // Close the notification handler
-    const closeNotification = useCallback(() => {
+    // Handle remove notification
+    const handleRemove = useCallback(() => {
+        removeNotification(notificationID);
+    }, [removeNotification, notificationID]);
+
+
+    // Handle close notification
+    const handleClose = useCallback(() => {
         setInterrupted(true);
-        setTimeout(onAnimationEnd, ANIMATION_FADE_DURATION);
-    }, [onAnimationEnd]);
+    }, []);
 
     return (
-        <FadeOutComponent interrupt={isInterrupted}
-                          onAnimationEnd={onAnimationEnd} {...props}>
+        <MemoizedFadeOut interrupt={isInterrupted}
+                 onAnimationEnd={handleRemove} {...props}>
             <div
                 className={['notification__main-container', className].join(' ')}>
                 <div
@@ -30,7 +36,7 @@ export default function Notification({
                         className="notification__main-container__close-container">
                         <TransparentIconButton
                             className='notification__main-container__close-container__button'
-                            onClick={closeNotification}>close
+                            onClick={handleClose}>close
                         </TransparentIconButton>
                     </div>
                     <div className='notification__main-container__content'>
@@ -38,6 +44,6 @@ export default function Notification({
                     </div>
                 </div>
             </div>
-        </FadeOutComponent>
+        </MemoizedFadeOut>
     )
 }

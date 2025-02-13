@@ -2,7 +2,7 @@ import './FadeOut.css';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
 // Fade out component
-export default function FadeOutComponent({
+export default function FadeOut({
                                              children,
                                              duration,
                                              animationDuration,
@@ -29,6 +29,7 @@ export default function FadeOutComponent({
         }
 
         // Set timeout to hide the component after the duration
+        console.log('useEffect called with dependencies:', { interrupt, duration, hideComponent, animationDuration });
         visibleTimerRef.current = setTimeout(hideComponent, duration);
         return () => clearTimeout(visibleTimerRef.current);
     }, [interrupt, duration, hideComponent]);

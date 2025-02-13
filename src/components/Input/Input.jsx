@@ -6,11 +6,8 @@ export default function Input({
                                   id,
                                   className,
                                   label,
-                                  name,
-                                  type,
                                   error,
                                   isErrorActive,
-                                  placeholder,
                                   children,
                                   ...props
                               }) {
@@ -21,12 +18,11 @@ export default function Input({
                        htmlFor={id}>{label}</Label>
                 <input
                     className={['input__main-container__input-container__input', className].join(' ')}
-                    type={type} id={id} name={name}
-                    placeholder={placeholder} {...props}/>
+                    id={id} {...props}/>
                 {children}
             </div>
             <div
-                className={['input__main-container__error-container', isErrorActive ? 'input__error-container--active' : ''].join(' ')}>
+                className={['input__main-container__error-container', isErrorActive ? 'input__main-container__error-container--active' : ''].join(' ')}>
                 {error}
             </div>
         </div>

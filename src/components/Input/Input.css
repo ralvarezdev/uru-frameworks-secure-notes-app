@@ -44,9 +44,9 @@
     width: 100%;
 }
 
-.input__main-container__input-container:has(.input:focus),
-.input__main-container__input-container:has(.input:focus-visible) {
-    outline: var(--outline-width) solid var(--color-primary);
+.input__main-container__input-container:has(.input__main-container__input-container__input:focus),
+.input__main-container__input-container:has(.input__main-container__input-container__input:focus-visible) {
+    outline: var(--outline-width) solid var(--color-dark-primary);
 }
 
 /* Input error container styles */

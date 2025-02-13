@@ -7,9 +7,12 @@
 /* Colors */
 :root {
     --font-family: 'Fira Code', sans-serif;
-    --color-primary: #1c7ed6;
-    --color-secondary: #4dabf7;
-    --color-tertiary: #d0ebff;
+    --color-dark-primary: #1c7ed6;
+    --color-medium-primary: #4dabf7;
+    --color-light-primary: #a5d8ff;
+    --color-dark-secondary: #099268;
+    --color-medium-secondary: #38d9a9;
+    --color-light-secondary: #96f2d7;
     --color-darker-grey: #1a1c1f;
     --color-dark-grey: #212529;
     --color-medium-grey: #495057;
@@ -47,6 +50,9 @@
     --text--button--font-size: 1.6rem;
     --text--button--font-weight: 700;
     --text--button--letter-spacing: 2px;
+    --text--link--font-size: 1.6rem;
+    --text--link--font-weight: 600;
+    --text--link--letter-spacing: 1px;
 }
 
 /* Global Styles */

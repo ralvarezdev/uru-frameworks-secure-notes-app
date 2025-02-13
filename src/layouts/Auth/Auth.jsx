@@ -3,7 +3,7 @@ import TitleText from "../../components/Text/Title/Title.jsx";
 import Separator from "../../components/Separator/Separator.jsx";
 import GraphicText from "../../components/Logo/GraphicText/GraphicText.jsx";
 import Form from "../../components/Form/Form.jsx";
-import Reference from "../../components/Reference/Reference.jsx";
+import MemoizedReference from "../../components/Reference/ReferenceMemo.jsx";
 
 // Authentication layout
 export default function Auth({action, titleText, footer, children}) {
@@ -32,10 +32,10 @@ export default function Auth({action, titleText, footer, children}) {
                         {footer.map((footerItem, index) => (
                             <li key={index}
                                 className='auth__main-container__right-container__content-container__footer-container__item'>
-                                <Reference to={footerItem.to ?? null}
+                                <MemoizedReference to={footerItem.to ?? null}
                                            text={footerItem.text ?? null}>
                                     {footerItem.children ?? null}
-                                </Reference>
+                                </MemoizedReference>
                             </li>)
                         )}
                     </ul>

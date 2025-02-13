@@ -1,12 +1,12 @@
 import './Error.css'
-import Notification from "../Notification.jsx";
+import MemoizedNotification from "../NotificationMemo.jsx";
 
 // Error notification component
 export default function ErrorNotification({className, children, ...props}) {
     return (
-        <Notification
+        <MemoizedNotification
             className={['notification__main-container--error', className].join(' ')} {...props}>
             {children}
-        </Notification>
+        </MemoizedNotification>
     )
 }

@@ -38,7 +38,7 @@ export default function LogIn() {
     const {setLogIn} = useLogIn();
     const actionData = useActionData()
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [areErrorsActive, setErrorsActive] = useState(false);
+    const [isErrorActive, setErrorActive] = useState(false);
 
     // Handle an ongoing login action
     const handleOngoingAction = useCallback(({username, password}) => {
@@ -48,11 +48,11 @@ export default function LogIn() {
 
     // Handle the form change
     const handleChange = useCallback(() => {
-        setErrorsActive((prevAreErrorsActive) => {
+        setErrorActive((prevAreErrorsActive) => {
             if (prevAreErrorsActive) return false;
             return prevAreErrorsActive;
         });
-    }, [setErrorsActive]);
+    }, [setErrorActive]);
 
     // Check if the user needs to enter the 2FA code
     useEffect(() => {
@@ -77,9 +77,9 @@ export default function LogIn() {
             return
         }
 
-        // Set the errors
-        setErrorsActive(true);
-    }, [actionData, navigate, handleOngoingAction, addErrorNotification, addInfoNotification, setErrorsActive]);
+        // Set the errors active
+        setErrorActive(true);
+    }, [actionData, navigate, handleOngoingAction, addErrorNotification, addInfoNotification, setErrorActive]);
 
     return (
         <Auth action='/login' titleText='Log In'
@@ -98,14 +98,14 @@ export default function LogIn() {
                    autoComplete="username"
                    error={actionData?.data?.username?.[0]}
                    onChange={handleChange}
-                   isErrorActive={areErrorsActive}
+                   isErrorActive={isErrorActive}
                    required/>
             <Password id="password" name="password" label="Password"
                       placeholder="e.g. pass123"
                       autoComplete="current-password"
                       error={actionData?.data?.password?.[0]}
                       onChange={handleChange}
-                      isErrorActive={areErrorsActive} required/>
+                      isErrorActive={isErrorActive} required/>
         </Auth>
     )
 }

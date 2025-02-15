@@ -33,13 +33,13 @@ export default function Notification({
                 <div
                     className='notification__main-container__content-container'>
                     <div
-                        className="notification__main-container__close-container">
+                        className="notification__main-container__content-container__close-container">
                         <TransparentIconButton
-                            className='notification__main-container__close-container__button'
+                            className='notification__main-container__content-container__close-container__button'
                             onClick={handleClose}>close
                         </TransparentIconButton>
                     </div>
-                    <div className='notification__main-container__content'>
+                    <div className='notification__main-container__content-container__content'>
                         {children}
                     </div>
                 </div>

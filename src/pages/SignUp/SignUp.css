@@ -3,10 +3,15 @@
     grid-template-columns: repeat(2, 1fr);
 }
 
-.input-container:has(label[for="email"]),
-.input-container:has(label[for="username"]),
-.input-container:has(label[for="password"]),
-.submit-button {
+.input__main-container:has(label[for="email"]),
+.input__main-container:has(label[for="username"]),
+.input__main-container:has(label[for="password"]),
+.input__main-container:has(label[for="password-confirmation"]){
     grid-column: 1/-1;
 }
 
+@media (max-width: 400px) {
+    .form {
+        grid-template-columns: 1fr;
+    }
+}

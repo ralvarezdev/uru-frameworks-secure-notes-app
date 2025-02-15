@@ -36,7 +36,7 @@
 }
 
 /* Notification close container styles */
-.notification__main-container__close-container {
+.notification__main-container__content-container__close-container {
     grid-column: 2/-1;
     grid-row: 1/-1;
     align-self: start;
@@ -46,13 +46,14 @@
 }
 
 /* Notification close button styles */
-.notification__main-container__close-container__button {
+.notification__main-container__content-container__close-container__button {
     cursor: pointer;
     pointer-events: auto;
 }
 
 /* Notification content styles */
-.notification__main-container__content {
+.notification__main-container__content-container__content {
+    padding: 0.8rem 0;
     grid-column: 1/2;
     grid-row: 1/-1;
     display: grid;

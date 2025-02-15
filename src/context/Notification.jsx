@@ -9,6 +9,10 @@ export default function NotificationProvider({children}) {
 
     // Add a notification to the list
     const addNotification = useCallback((notification) => {
+        // Check if the notification contains a message
+        if (!notification.message)
+            notification.message = 'An error occurred';
+
         // Add the notification to the list
         setNotifications((prevNotifications) => [...prevNotifications, {
             ...notification,

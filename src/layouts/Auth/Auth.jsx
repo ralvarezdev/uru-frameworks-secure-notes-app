@@ -6,7 +6,7 @@ import Form from "../../components/Form/Form.jsx";
 import MemoizedReference from "../../components/Reference/ReferenceMemo.jsx";
 
 // Authentication layout
-export default function Auth({action, titleText, footer, children}) {
+export default function Auth({action, titleText, footer, children, isOnError, setOnError}) {
     return (
         <div className='auth__main-container'>
             <div className='auth__main-container__right-container'>
@@ -24,7 +24,9 @@ export default function Auth({action, titleText, footer, children}) {
 
                     <Form
                         className='auth__main-container__right-container__content-container__form'
-                        method='post' action={action}>
+                        method='post' action={action}
+                        isOnError={isOnError}
+                        setOnError={setOnError}>
                         {children}
                     </Form>
 

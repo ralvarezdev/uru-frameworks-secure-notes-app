@@ -4,7 +4,6 @@
 }
 
 .input__main-container:has(label[for="username"]),
-.input__main-container:has(label[for="password"]),
-.submit-button {
+.input__main-container:has(label[for="password"]) {
     grid-column: 1/-1;
 }

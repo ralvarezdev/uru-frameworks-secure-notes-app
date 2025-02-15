@@ -19,7 +19,7 @@ export default defineConfig({
     define: {
         'import.meta.env.MODE': JSON.stringify(process.env.MODE),
         'import.meta.env.PORT': JSON.stringify(process.env.PORT),
-        'import.meta.env.API_URL': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_URL),
-        'import.meta.env.ACCESS_TOKEN_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_ACCESS_TOKEN_NAME),
+        'import.meta.env.COOKIE_SALT_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_SALT_NAME),
+        'import.meta.env.COOKIE_ENCRYPTED_KEY_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_ENCRYPTED_KEY_NAME),
     }
 })

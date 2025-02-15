@@ -6,8 +6,9 @@ import LOGGER from "../logger.js";
 // Create a context
 const AuthContext = createContext(null);
 
-// Initial value
-const initialIsAuth = cookieExists(import.meta.env.URU_FRAMEWORKS_SECURE_NOTES_API_ACCESS_TOKEN_NAME)
+// Check if the salt cookie exists
+console.log(import.meta.env.COOKIE_SALT_NAME)
+const initialIsAuth = cookieExists(import.meta.env.COOKIE_SALT_NAME)
 
 // Log the initial value
 if (IS_DEBUG) LOGGER.info(`User is ${initialIsAuth ? "authenticated" : "not authenticated"}`)

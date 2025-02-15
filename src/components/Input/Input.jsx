@@ -7,7 +7,7 @@ export default function Input({
                                   className,
                                   label,
                                   error,
-                                  isErrorActive,
+                                  isOnError,
                                   children,
                                   ...props
                               }) {
@@ -22,7 +22,7 @@ export default function Input({
                 {children}
             </div>
             <div
-                className={['input__main-container__error-container', isErrorActive ? 'input__main-container__error-container--active' : ''].join(' ')}>
+                className={['input__main-container__error-container', isOnError ? 'input__main-container__error-container--active' : ''].join(' ')}>
                 {error}
             </div>
         </div>

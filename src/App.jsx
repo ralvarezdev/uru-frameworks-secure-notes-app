@@ -33,7 +33,6 @@ export default function App() {
         // Redirect to the login page if the user is not authenticated
         if (!['/login', '/signup', '/forgot-password', '/reset-password', '/verify-email'].includes(path))
             navigate('/login')
-
     }, [navigate, isAuth, logIn]);
 
     return (

@@ -8,37 +8,32 @@ import {useLogIn} from "../../context/LogIn.jsx";
 import {useCallback, useEffect, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 
-// LogIn action function
+// Log in action
 export async function LogInAction({request}) {
     const formData = await request.formData();
     const username = formData.get("username");
     const password = formData.get("password");
+
+    // Send the request to the API
     const response = await requestAPI('POST', '/auth/login', {
         username,
         password
     });
 
-    // Check if the response is successful
-    if (response.status === 'success') return {status: response.status}
-    else if (response.status === 'error') return {
-        status: response.status,
-        message: response.message
-    }
-
     // Check if the credentials are invalid or the user needs 2FA
-    if (response.data?.is_totp_recovery_code || response.data?.totp_code)
+    if (response?.status==='fail' &&(response?.data?.is_totp_recovery_code || response?.data?.totp_code))
         return {status: 'ongoing', data: {username, password}}
 
-    return {status: response.status, data: response.data}
+    return response
 }
 
-// LogIn page
+// Log in page
 export default function LogIn() {
-    const {navigate} = useNavigate()
+    const navigate = useNavigate()
     const {setLogIn} = useLogIn();
     const actionData = useActionData()
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isErrorActive, setErrorActive] = useState(false);
+    const [isOnError, setOnError] = useState(false);
 
     // Handle an ongoing login action
     const handleOngoingAction = useCallback(({username, password}) => {
@@ -46,22 +41,14 @@ export default function LogIn() {
         navigate('/login/2fa/totp');
     }, [navigate, setLogIn]);
 
-    // Handle the form change
-    const handleChange = useCallback(() => {
-        setErrorActive((prevAreErrorsActive) => {
-            if (prevAreErrorsActive) return false;
-            return prevAreErrorsActive;
-        });
-    }, [setErrorActive]);
-
     // Check if the user needs to enter the 2FA code
     useEffect(() => {
         if (!actionData) return;
 
-        // Check if the login has completed
+        // Check if the login has completed successfully
         if (actionData?.status === 'success') {
             addInfoNotification('Logged in successfully!');
-            navigate('/');
+            navigate('/dashboard');
             return
         }
 
@@ -71,15 +58,15 @@ export default function LogIn() {
             return
         }
 
-        // Check if there is an error message
-        if (actionData?.message) {
+        // Check if there was an error
+        if (actionData?.status==='error') {
             addErrorNotification(actionData?.message);
             return
         }
 
-        // Set the errors active
-        setErrorActive(true);
-    }, [actionData, navigate, handleOngoingAction, addErrorNotification, addInfoNotification, setErrorActive]);
+        // Set the error state (failed validation)
+        setOnError(true);
+    }, [actionData, navigate, handleOngoingAction, addErrorNotification, addInfoNotification, setOnError]);
 
     return (
         <Auth action='/login' titleText='Log In'
@@ -92,20 +79,19 @@ export default function LogIn() {
                       to: '/forgot-password',
                       text: 'Forgot your password',
                       children: 'Reset'
-                  }]}>
+                  }]}
+            isOnError={isOnError} setOnError={setOnError}>
             <Input type="text" id="username" name="username"
                    label="Username" placeholder="e.g. user123"
                    autoComplete="username"
                    error={actionData?.data?.username?.[0]}
-                   onChange={handleChange}
-                   isErrorActive={isErrorActive}
+                   isOnError={isOnError}
                    required/>
             <Password id="password" name="password" label="Password"
                       placeholder="e.g. pass123"
                       autoComplete="current-password"
                       error={actionData?.data?.password?.[0]}
-                      onChange={handleChange}
-                      isErrorActive={isErrorActive} required/>
+                      isOnError={isOnError} required/>
         </Auth>
     )
 }

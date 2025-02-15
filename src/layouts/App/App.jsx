@@ -8,16 +8,10 @@ import {
     ANIMATION_FADE_DURATION,
     NOTIFICATION_DURATION
 } from "../../constants.js";
-import {useCallback} from "react";
 
 // App layout
 export default function App({children}) {
-    const {notifications, removeNotification} = useNotification();
-
-    // Handle remove notification
-    const handleRemoveNotification = useCallback((id) => {
-        removeNotification(id);
-    }, [removeNotification]);
+    const {notifications} = useNotification();
 
     return (
         <div className='app__main-container'>

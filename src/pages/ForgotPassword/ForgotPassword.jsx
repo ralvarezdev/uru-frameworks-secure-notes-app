@@ -1,13 +1,9 @@
 import Auth from "../../layouts/Auth/Auth.jsx";
-import Form from "../../components/Form/Form.jsx";
 import Input from "../../components/Input/Input.jsx";
-import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
-import Paragraph from "../../components/Text/Paragraph/Paragraph.jsx";
-import Link from "../../components/Link/Link.jsx";
-import RequestAPI from "../../utils/api.js";
 import {useActionData, useNavigate} from "react-router-dom";
 import {useNotification} from "../../context/Notification.jsx";
 import {useEffect, useState} from "react";
+import {sendRequest} from "../../utils/api.js";
 
 // Forgot password action
 export async function ForgotPasswordAction({request}) {
@@ -15,9 +11,10 @@ export async function ForgotPasswordAction({request}) {
     const email = formData.get("email");
 
     // Send the request to the API
-   return requestAPI('POST', '/auth/password/forgot', {
-       email,
-   });
+    const response= await sendRequest('POST', '/auth/password/forgot', {
+        email,
+    });
+    return response[1]
 }
 
 // Forgot password page

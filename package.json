@@ -12,6 +12,7 @@
     "prod": "vite build && vite preview --host --mode prod"
   },
   "dependencies": {
+    "@ralvarezdev/js-deep-freeze": "^0.1.1",
     "@ralvarezdev/js-logger": "^0.1.13",
     "@ralvarezdev/js-mode": "^0.1.4",
     "dotenv": "^16.4.7",

@@ -4,7 +4,13 @@ import {useCallback, useEffect, useRef, useState} from "react";
 import PrimaryButton from "../Button/Primary/Primary.jsx";
 
 // Form component
-export default function Form({className, children, isOnError, setOnError, ...props}) {
+export default function Form({
+                                 className,
+                                 children,
+                                 isOnError,
+                                 setOnError,
+                                 ...props
+                             }) {
     const actionData = useActionData()
     const submit = useSubmit()
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -34,7 +40,8 @@ export default function Form({className, children, isOnError, setOnError, ...pro
 
     return (
         <FormRouter ref={formRef}
-                    className={['form', className].join(' ')} onChange={handleChange} {...props}>
+                    className={['form', className].join(' ')}
+                    onChange={handleChange} {...props}>
             {children}
             <PrimaryButton
                 className='form__submit-button'

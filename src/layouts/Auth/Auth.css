@@ -1,13 +1,9 @@
-/* App main container styles */
-.app__main-container {
+/* Auth main container styles */
+.auth__main-container {
     background-image: url('/key--1980x1114.webp');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-}
-
-/* Main Container styles */
-.auth__main-container {
     display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: 1fr;
@@ -15,7 +11,7 @@
     height: 100%;
 }
 
-/* Right Container styles */
+/* Right container styles */
 .auth__main-container__right-container {
     grid-column: 6/-1;
     grid-row: 1/-1;
@@ -27,7 +23,7 @@
     width: 100%;
 }
 
-/* Content Container styles */
+/* Content container styles */
 .auth__main-container__right-container__content-container {
     grid-column: 1/-1;
     grid-row: 1/-1;
@@ -45,7 +41,7 @@
     width: 100%;
 }
 
-/* Title Container styles */
+/* Title container styles */
 .auth__main-container__right-container__content-container__title-container {
     display: grid;
     grid-template-columns: 1fr auto;
@@ -73,7 +69,7 @@
     padding: 0.4rem 0;
 }
 
-/* Footer Container styles */
+/* Footer container styles */
 .auth__main-container__right-container__content-container__footer-container {
     justify-self: flex-start;
     display: flex;

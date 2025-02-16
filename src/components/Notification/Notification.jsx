@@ -27,7 +27,7 @@ export default function Notification({
 
     return (
         <MemoizedFadeOut interrupt={isInterrupted}
-                 onAnimationEnd={handleRemove} {...props}>
+                         onAnimationEnd={handleRemove} {...props}>
             <div
                 className={['notification__main-container', className].join(' ')}>
                 <div
@@ -39,7 +39,8 @@ export default function Notification({
                             onClick={handleClose}>close
                         </TransparentIconButton>
                     </div>
-                    <div className='notification__main-container__content-container__content'>
+                    <div
+                        className='notification__main-container__content-container__content'>
                         {children}
                     </div>
                 </div>

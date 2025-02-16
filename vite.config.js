@@ -21,5 +21,6 @@ export default defineConfig({
         'import.meta.env.PORT': JSON.stringify(process.env.PORT),
         'import.meta.env.COOKIE_SALT_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_SALT_NAME),
         'import.meta.env.COOKIE_ENCRYPTED_KEY_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_ENCRYPTED_KEY_NAME),
+        'import.meta.env.COOKIE_USER_ID_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_USER_ID_NAME),
     }
 })

@@ -1,6 +1,6 @@
 import './Dashboard.css'
 import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
-import requestAPI from "../../utils/api.js";
+import {sendAuthenticatedRequest} from "../../utils/api.js";
 import {useCallback} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {useNavigate} from "react-router-dom";
@@ -13,7 +13,7 @@ export default function Dashboard() {
     // Handle log out
     const handleLogOut = useCallback(async () => {
         // Send the request to the API
-        const response = await requestAPI('POST', '/auth/logout');
+        const response = await sendAuthenticatedRequest('POST', '/auth/logout');
 
         // Check if log out was successful
         if (response?.status === 'success') {

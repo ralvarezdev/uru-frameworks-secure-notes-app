@@ -3,13 +3,13 @@ import {useCallback, useEffect, useRef, useState} from 'react';
 
 // Fade out component
 export default function FadeOut({
-                                             children,
-                                             duration,
-                                             animationDuration,
-                                             interrupt,
-                                             onAnimationEnd,
-                                             ...props
-                                         }) {
+                                    children,
+                                    duration,
+                                    animationDuration,
+                                    interrupt,
+                                    onAnimationEnd,
+                                    ...props
+                                }) {
     const [isVisible, setIsVisible] = useState(true);
     const visibleTimerRef = useRef(null);
     const animationTimerRef = useRef(null);
@@ -29,7 +29,12 @@ export default function FadeOut({
         }
 
         // Set timeout to hide the component after the duration
-        console.log('useEffect called with dependencies:', { interrupt, duration, hideComponent, animationDuration });
+        console.log('useEffect called with dependencies:', {
+            interrupt,
+            duration,
+            hideComponent,
+            animationDuration
+        });
         visibleTimerRef.current = setTimeout(hideComponent, duration);
         return () => clearTimeout(visibleTimerRef.current);
     }, [interrupt, duration, hideComponent]);

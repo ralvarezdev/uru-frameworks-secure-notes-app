@@ -6,7 +6,7 @@
 .input__main-container:has(label[for="email"]),
 .input__main-container:has(label[for="username"]),
 .input__main-container:has(label[for="password"]),
-.input__main-container:has(label[for="password-confirmation"]){
+.input__main-container:has(label[for="password-confirmation"]) {
     grid-column: 1/-1;
 }
 

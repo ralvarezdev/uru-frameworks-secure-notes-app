@@ -4,13 +4,12 @@ import Password from "../../../../components/Input/Password/Password.jsx";
 import PrimaryButton from "../../../../components/Button/Primary/Primary.jsx";
 import Paragraph from "../../../../components/Text/Paragraph/Paragraph.jsx";
 import Link from "../../../../components/Link/Link.jsx";
-import TwoFactorAuth
-    from "../../../../layouts/Auth/TwoFactorAuth/TwoFactorAuth.jsx";
+import Auth from "../../../../layouts/Auth/Auth.jsx";
 
 // 2FA Recovery Code page
 export default function RecoveryCode() {
     return (
-        <TwoFactorAuth>
+        <Auth>
             <Form className='form' method='post'>
                 <Input type="text" id="username" name="username"
                        label="Username" placeholder="e.g. user123"/>
@@ -32,6 +31,6 @@ export default function RecoveryCode() {
                         Password</Link>
                 </li>
             </ul>
-        </TwoFactorAuth>
+        </Auth>
     )
 }

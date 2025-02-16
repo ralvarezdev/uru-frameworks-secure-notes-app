@@ -3,7 +3,7 @@ import Input from "../../components/Input/Input.jsx";
 import Auth from "../../layouts/Auth/Auth.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
 import {useActionData, useNavigate} from "react-router-dom";
-import requestAPI from "../../utils/api.js";
+import {sendRequest} from "../../utils/api.js";
 import {useLogIn} from "../../context/LogIn.jsx";
 import {useCallback, useEffect, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
@@ -15,13 +15,13 @@ export async function LogInAction({request}) {
     const password = formData.get("password");
 
     // Send the request to the API
-    const response = await requestAPI('POST', '/auth/login', {
+    const [, response] = await sendRequest('POST', '/auth/login', {
         username,
         password
     });
 
     // Check if the credentials are invalid or the user needs 2FA
-    if (response?.status==='fail' &&(response?.data?.is_totp_recovery_code || response?.data?.totp_code))
+    if (response?.status === 'fail' && (response?.data?.is_totp_recovery_code || response?.data?.totp_code))
         return {status: 'ongoing', data: {username, password}}
 
     return response
@@ -59,7 +59,7 @@ export default function LogIn() {
         }
 
         // Check if there was an error
-        if (actionData?.status==='error') {
+        if (actionData?.status === 'error') {
             addErrorNotification(actionData?.message);
             return
         }
@@ -80,7 +80,7 @@ export default function LogIn() {
                       text: 'Forgot your password',
                       children: 'Reset'
                   }]}
-            isOnError={isOnError} setOnError={setOnError}>
+              isOnError={isOnError} setOnError={setOnError}>
             <Input type="text" id="username" name="username"
                    label="Username" placeholder="e.g. user123"
                    autoComplete="username"
@@ -88,7 +88,7 @@ export default function LogIn() {
                    isOnError={isOnError}
                    required/>
             <Password id="password" name="password" label="Password"
-                      placeholder="e.g. pass123"
+                      placeholder="e.g. SecuteNotesBestApp100$$"
                       autoComplete="current-password"
                       error={actionData?.data?.password?.[0]}
                       isOnError={isOnError} required/>

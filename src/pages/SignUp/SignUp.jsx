@@ -3,7 +3,7 @@ import Input from "../../components/Input/Input.jsx";
 import Auth from "../../layouts/Auth/Auth.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
 import {useActionData, useNavigate} from "react-router-dom";
-import requestAPI from "../../utils/api.js";
+import {sendRequest} from "../../utils/api.js";
 import {useEffect, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 
@@ -27,13 +27,14 @@ export async function SignUpAction({request}) {
     }
 
     // Send the request to the API
-   return requestAPI('POST', '/auth/signup', {
-       first_name: firstName,
-       last_name: lastName,
-       username,
-       email,
-       password
-   });
+    const response= await sendRequest('POST', '/auth/signup', {
+        first_name: firstName,
+        last_name: lastName,
+        username,
+        email,
+        password
+    });
+    return response[1]
 }
 
 // Sign up page
@@ -70,12 +71,12 @@ export default function SignUp() {
                   text: 'Do you have an account?',
                   children: 'Log In'
               }]}
-            isOnError={isOnError} setOnError={setOnError}>
+              isOnError={isOnError} setOnError={setOnError}>
             <Input type="text" id="first-name" name="first-name"
-                     label="First Name" placeholder="e.g. John"
-                     error={actionData?.data?.first_name?.[0]}
-                     isOnError={isOnError}
-                     required/>
+                   label="First Name" placeholder="e.g. John"
+                   error={actionData?.data?.first_name?.[0]}
+                   isOnError={isOnError}
+                   required/>
             <Input type="text" id="last-name" name="last-name"
                    label="Last Name" placeholder="e.g. Smith"
                    error={actionData?.data?.last_name?.[0]}
@@ -92,11 +93,12 @@ export default function SignUp() {
                    isOnError={isOnError}
                    required/>
             <Password id="password" name="password" label="Password"
-                      placeholder="e.g. pass123"
+                      placeholder="e.g. SecureNotesBestApp100$$"
                       error={actionData?.data?.password?.[0]}
                       isOnError={isOnError} required/>
-            <Password id="password-confirmation" name="password-confirmation" label="Password Confirmation"
-                      placeholder="e.g. pass123"
+            <Password id="password-confirmation" name="password-confirmation"
+                      label="Password Confirmation"
+                      placeholder="e.g. SecureNotesBestApp100$$"
                       error={actionData?.data?.password?.[0]}
                       isOnError={isOnError} required/>
         </Auth>

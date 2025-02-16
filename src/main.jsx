@@ -38,7 +38,8 @@ const router = createBrowserRouter(
             <Route path="/login/2fa/totp" element={<TOTP/>}/>
             <Route path="/login/2fa/recovery-code" element={<RecoveryCode/>}/>
             <Route path="/verify-email/:token" element={<VerifyEmail/>}/>
-            <Route path="/forgot-password" element={<ForgotPassword/>} action={ForgotPasswordAction}/>
+            <Route path="/forgot-password" element={<ForgotPassword/>}
+                   action={ForgotPasswordAction}/>
             <Route path="/reset-password/:token" element={<ResetPassword/>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="*" element={<NotFound/>}/>

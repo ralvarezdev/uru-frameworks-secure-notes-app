@@ -5,8 +5,15 @@ import GraphicText from "../../components/Logo/GraphicText/GraphicText.jsx";
 import Form from "../../components/Form/Form.jsx";
 import MemoizedReference from "../../components/Reference/ReferenceMemo.jsx";
 
-// Authentication layout
-export default function Auth({action, titleText, footer, children, isOnError, setOnError}) {
+// Auth layout
+export default function Auth({
+                                 action,
+                                 titleText,
+                                 footer,
+                                 children,
+                                 isOnError,
+                                 setOnError
+                             }) {
     return (
         <div className='auth__main-container'>
             <div className='auth__main-container__right-container'>
@@ -35,7 +42,7 @@ export default function Auth({action, titleText, footer, children, isOnError, se
                             <li key={index}
                                 className='auth__main-container__right-container__content-container__footer-container__item'>
                                 <MemoizedReference to={footerItem.to ?? null}
-                                           text={footerItem.text ?? null}>
+                                                   text={footerItem.text ?? null}>
                                     {footerItem.children ?? null}
                                 </MemoizedReference>
                             </li>)

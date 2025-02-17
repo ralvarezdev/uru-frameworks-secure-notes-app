@@ -16,7 +16,10 @@ export default function Form({
     const formRef = useRef(null);
 
     // Handle the form submit
-    const handleSubmit = useCallback(() => {
+    const handleSubmit = useCallback((event) => {
+        // Prevent the default form submission
+        event.preventDefault()
+
         // Check the form validity
         if (formRef.current.checkValidity()) {
             const formData = new FormData(formRef.current);

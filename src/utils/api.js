@@ -55,8 +55,8 @@ export async function sendRequest(method, path, bodyObject) {
             data: body.data
         }];
         return [response.status, {status: body.status, data: body.data}];
-    }
-    catch (error) {
+    }catch (error) {
+        console.log(12312312)
         // Log the error
         if (IS_DEBUG) console.error(ERROR_LOG_FORMAT, method, path, error.message);
 

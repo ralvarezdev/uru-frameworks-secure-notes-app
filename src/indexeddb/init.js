@@ -22,7 +22,11 @@ export function getDatabaseName(userID) {
 }
 
 // Create a new database request
-export function openDatabase({userID, onSuccess=()=>{}, onError=()=>{}}) {
+export function openDatabase({
+                                 userID, onSuccess = () => {
+    }, onError = () => {
+    }
+                             }) {
     // Create the database request
     const dbRequest = indexedDB.open(getDatabaseName(userID), DB_VERSION);
 
@@ -36,19 +40,19 @@ export function openDatabase({userID, onSuccess=()=>{}, onError=()=>{}}) {
             tagsObjectStore.createIndex('name', 'name', {unique: false});
             tagsObjectStore.createIndex('is_synced', 'is_synced', {unique: false});
         }
-        
+
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTES)) {
             const notesObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTES, {keyPath: 'id'});
             notesObjectStore.createIndex('title', 'title', {unique: false});
             notesObjectStore.createIndex('is_synced', 'is_synced', {unique: false});
 
         }
-        
+
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_TAGS)) {
-            const noteTagsObjectStore=db.createObjectStore(OBJECT_STORES.USER_NOTE_TAGS, {keyPath: ['note_id', 'tag_id']});
+            const noteTagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_TAGS, {keyPath: ['note_id', 'tag_id']});
             noteTagsObjectStore.createIndex('is_synced', 'is_synced', {unique: false});
         }
-        
+
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_VERSIONS)) {
             const noteVersionObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_VERSIONS, {keyPath: 'id'});
             noteVersionObjectStore.createIndex('note_id', 'note_id', {unique: false});
@@ -62,7 +66,7 @@ export function openDatabase({userID, onSuccess=()=>{}, onError=()=>{}}) {
             toSyncObjectStore.createIndex('action', 'action', {unique: false});
             toSyncObjectStore.createIndex('field', 'field', {unique: false});
         }
-        
+
         console.log('Database created successfully');
     };
 

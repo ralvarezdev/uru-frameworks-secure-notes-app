@@ -72,15 +72,15 @@
 }
 
 @media (max-width: 650px) {
-    .verify-email__main-container{
+    .verify-email__main-container {
         background-image: none;
     }
 
-    .verify-email__main-container__content-container{
+    .verify-email__main-container__content-container {
         padding: 4rem 2rem;
     }
 
-    .verify-email__main-container__content-container__title-container__title{
+    .verify-email__main-container__content-container__title-container__title {
         justify-self: center;
         text-align: center;
     }

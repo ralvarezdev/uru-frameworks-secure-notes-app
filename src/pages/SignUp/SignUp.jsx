@@ -27,7 +27,7 @@ export async function SignUpAction({request}) {
     }
 
     // Send the request to the API
-    const response= await sendRequest('POST', '/auth/signup', {
+    const response = await sendRequest('POST', '/auth/signup', {
         first_name: firstName,
         last_name: lastName,
         username,

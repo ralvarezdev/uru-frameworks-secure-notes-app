@@ -16,6 +16,7 @@ export default function Auth({
                              }) {
     return (
         <div className='auth__main-container'>
+            <img className='auth__main-container__background' loading='lazy' src='/key--1980x1114.webp' alt='Background'/>
             <div className='auth__main-container__right-container'>
                 <div
                     className='auth__main-container__right-container__content-container'>

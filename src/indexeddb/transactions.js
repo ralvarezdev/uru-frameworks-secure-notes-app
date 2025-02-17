@@ -16,13 +16,13 @@ export function addData(db, storeName, data) {
         const request = store.add(data);
 
         // Handle successful requests
-        request.onsuccess = function() {
+        request.onsuccess = function () {
             resolve(request.result);
         };
 
         // Handle errors
-        request.onerror = function(event) {
-            reject(ADD_DATA_ERROR+': ' + event.target.errorCode);
+        request.onerror = function (event) {
+            reject(ADD_DATA_ERROR + ': ' + event.target.errorCode);
         };
     });
 }
@@ -36,13 +36,13 @@ export function readData(db, storeName, key) {
         const request = store.get(key);
 
         // Handle successful requests
-        request.onsuccess = function() {
+        request.onsuccess = function () {
             resolve(request.result);
         };
 
         // Handle errors
-        request.onerror = function(event) {
-            reject(READ_DATA_ERROR+': ' + event.target.errorCode);
+        request.onerror = function (event) {
+            reject(READ_DATA_ERROR + ': ' + event.target.errorCode);
         };
     });
 }
@@ -56,13 +56,13 @@ export function readAllData(db, storeName, query, count) {
         const request = store.getAll(query, count);
 
         // Handle successful requests
-        request.onsuccess = function() {
+        request.onsuccess = function () {
             resolve(request.result);
         };
 
         // Handle errors
-        request.onerror = function(event) {
-            reject(READ_ALL_DATA_ERROR+': ' + event.target.errorCode);
+        request.onerror = function (event) {
+            reject(READ_ALL_DATA_ERROR + ': ' + event.target.errorCode);
         };
     });
 }
@@ -76,13 +76,13 @@ export function updateData(db, storeName, data) {
         const request = store.put(data);
 
         // Handle successful requests
-        request.onsuccess = function() {
+        request.onsuccess = function () {
             resolve(request.result);
         };
 
         // Handle errors
-        request.onerror = function(event) {
-            reject(UPDATE_DATA_ERROR+': ' + event.target.errorCode);
+        request.onerror = function (event) {
+            reject(UPDATE_DATA_ERROR + ': ' + event.target.errorCode);
         };
     });
 }
@@ -96,13 +96,13 @@ function deleteData(db, storeName, key) {
         const request = store.delete(key);
 
         // Handle successful requests
-        request.onsuccess = function() {
+        request.onsuccess = function () {
             resolve(request.result);
         };
 
         // Handle errors
-        request.onerror = function(event) {
-            reject(DELETE_DATA_ERROR+': ' + event.target.errorCode);
+        request.onerror = function (event) {
+            reject(DELETE_DATA_ERROR + ': ' + event.target.errorCode);
         };
     });
 }

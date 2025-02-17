@@ -18,8 +18,8 @@ export default function App() {
 
         // Check if it's a verify email page or a reset password page
         let cleanedPath
-        if (path.startsWith('/verify-email/') || path.startsWith('/reset-password/')){
-            cleanedPath = '/'+path.split('/')[1]
+        if (path.startsWith('/verify-email/') || path.startsWith('/reset-password/')) {
+            cleanedPath = '/' + path.split('/')[1]
         } else {
             cleanedPath = path
         }

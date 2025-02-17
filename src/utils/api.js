@@ -24,48 +24,26 @@ export async function sendRequest(method, path, bodyObject) {
     if (IS_DEBUG) console.log(REQUEST_LOG_FORMAT, method, path, JSON.stringify(bodyObject));
 
     // Fetch the API
+    const response = await fetch(`/api${path}`, apiRequest);
+    let body
+
     try {
-        const response = await fetch(`/api${path}`, apiRequest);
-        let body
-
-        try {
-            // Get the response
-            body = await response.json();
-        } catch (error) {
-            // Log the error
-            if (IS_DEBUG) console.error(ERROR_LOG_FORMAT, method, path, error.message);
-
-            // Return an error response
-            return [response.status, {
-                status: 'error',
-                message: 'An error occurred, please try again later'
-            }]
-        }
-
-        // Log the body
-        if (IS_DEBUG) console.log(RESPONSE_LOG_FORMAT, method, path, response.status, JSON.stringify(body));
-
-        // Check the status
-        if (body.status === 'error') return [response.status, {
-            status: body.status,
-            error: body.message
-        }];
-        else if (body.status === 'success') return [response.status, {
-            status: body.status,
-            data: body.data
-        }];
-        return [response.status, {status: body.status, data: body.data}];
-    }catch (error) {
-        console.log(12312312)
+        // Get the response
+        body = await response.json();
+    } catch (error) {
         // Log the error
         if (IS_DEBUG) console.error(ERROR_LOG_FORMAT, method, path, error.message);
 
         // Return an error response
-        return [500, {
+        return [response.status, {
             status: 'error',
             message: 'An error occurred, please try again later'
         }]
     }
+
+    // Log the body
+    if (IS_DEBUG) console.log(RESPONSE_LOG_FORMAT, method, path, response.status, JSON.stringify(body));
+    return [response.status, {...body}];
 }
 
 // Send authenticated request to the API

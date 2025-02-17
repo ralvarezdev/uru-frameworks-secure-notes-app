@@ -1,7 +1,6 @@
-import {StrictMode} from 'react'
+import {lazy, StrictMode, Suspense} from 'react'
 import {createRoot} from 'react-dom/client'
 import './index.css'
-import App from './App.jsx'
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import AuthProvider from "./context/Auth.jsx";
 import {loadVite} from "@ralvarezdev/js-mode";
@@ -11,20 +10,21 @@ import {
     Route,
     RouterProvider,
 } from "react-router-dom";
-import LogIn, {LogInAction} from "./pages/LogIn/LogIn.jsx";
-import SignUp, {SignUpAction} from "./pages/SignUp/SignUp.jsx";
-import TOTP from "./pages/LogIn/TwoFactorAuth/TOTP/TOTP.jsx";
-import RecoveryCode
-    from "./pages/LogIn/TwoFactorAuth/RecoveryCode/RecoveryCode.jsx";
-import ForgotPassword, {
-    ForgotPasswordAction
-} from "./pages/ForgotPassword/ForgotPassword.jsx";
-import Dashboard from "./pages/Dashboard/Dashboard.jsx";
 import LogInProvider from "./context/LogIn.jsx";
-import VerifyEmail from "./pages/VerifyEmail/VerifyEmail.jsx";
-import ResetPassword from "./pages/ResetPassword/ResetPassword.jsx";
 import NotificationProvider from "./context/Notification.jsx";
-import NotFound from "./pages/NotFound/NotFound.jsx";
+import {QueryClient, QueryClientProvider} from "react-query";
+
+// Import the pages
+const App = lazy(() => import('./App.jsx'))
+const Dashboard = lazy(() => import('./pages/Dashboard/Dashboard.jsx'))
+const VerifyEmail = lazy(() => import('./pages/VerifyEmail/VerifyEmail.jsx'))
+const ResetPassword = lazy(() => import('./pages/ResetPassword/ResetPassword.jsx'))
+const NotFound = lazy(() => import('./pages/NotFound/NotFound.jsx'))
+const LogIn = lazy(() => import('./pages/LogIn/LogIn.jsx'))
+const SignUp = lazy(() => import('./pages/SignUp/SignUp.jsx'))
+const ForgotPassword = lazy(() => import('./pages/ForgotPassword/ForgotPassword.jsx'))
+const TOTP = lazy(() => import('./pages/LogIn/TwoFactorAuth/TOTP/TOTP.jsx'))
+const RecoveryCode = lazy(() => import('./pages/LogIn/TwoFactorAuth/RecoveryCode/RecoveryCode.jsx'))
 
 // Load environment variables
 loadVite()
@@ -33,13 +33,12 @@ loadVite()
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<App/>}>
-            <Route path="/login" element={<LogIn/>} action={LogInAction}/>
-            <Route path="/signup" element={<SignUp/>} action={SignUpAction}/>
+            <Route path="/login" element={<LogIn/>}/>
+            <Route path="/signup" element={<SignUp/>}/>
             <Route path="/login/2fa/totp" element={<TOTP/>}/>
             <Route path="/login/2fa/recovery-code" element={<RecoveryCode/>}/>
             <Route path="/verify-email/:token" element={<VerifyEmail/>}/>
-            <Route path="/forgot-password" element={<ForgotPassword/>}
-                   action={ForgotPasswordAction}/>
+            <Route path="/forgot-password" element={<ForgotPassword/>}/>
             <Route path="/reset-password/:token" element={<ResetPassword/>}/>
             <Route path="/dashboard" element={<Dashboard/>}/>
             <Route path="*" element={<NotFound/>}/>
@@ -47,19 +46,40 @@ const router = createBrowserRouter(
     )
 )
 
+// Create the query client
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            retry: false,
+            refetchOnWindowFocus: false,
+            refetchOnReconnect: false,
+            refetchOnMount: false,
+        },
+    },
+});
+
 // Render the app
 createRoot(document.getElementById('root')).render(
     <StrictMode>
-        <ErrorBoundary>
-            <NotificationProvider>
-                <AuthProvider>
-                    <LogInProvider>
-                        <RouterProvider router={router}>
-                            <App/>
-                        </RouterProvider>
-                    </LogInProvider>
-                </AuthProvider>
-            </NotificationProvider>
-        </ErrorBoundary>
-    </StrictMode>,
+        <QueryClientProvider client={queryClient}>
+            <ErrorBoundary>
+                <NotificationProvider>
+                    <AuthProvider>
+                        <LogInProvider>
+                            <Suspense fallback={
+                                <div className='app__loading-container'>
+                                    <div
+                                        className='app__loading-container__spinner'/>
+                                </div>
+                            }>
+                                <RouterProvider router={router}>
+                                    <App/>
+                                </RouterProvider>
+                            </Suspense>
+                        </LogInProvider>
+                    </AuthProvider>
+                </NotificationProvider>
+            </ErrorBoundary>
+        </QueryClientProvider>
+    </StrictMode>
 )

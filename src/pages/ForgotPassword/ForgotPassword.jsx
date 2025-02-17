@@ -11,7 +11,7 @@ export async function ForgotPasswordAction({request}) {
     const email = formData.get("email");
 
     // Send the request to the API
-    const response= await sendRequest('POST', '/auth/password/forgot', {
+    const response = await sendRequest('POST', '/auth/password/forgot', {
         email,
     });
     return response[1]

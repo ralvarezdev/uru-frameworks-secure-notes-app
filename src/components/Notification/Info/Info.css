@@ -4,6 +4,6 @@
 }
 
 /* Notification close button styles */
-.notification__main-container--info .notification__main-container__content-container__close-container .notification__main-container__content-container__close-container__button .icon {
+.notification__main-container--info .notification__main-container__content-container__close-container .notification__main-container__content-container__close-container__button .icon__container {
     color: var(--color-light-grey);
 }

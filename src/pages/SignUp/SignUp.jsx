@@ -22,7 +22,6 @@ async function SignUpHandleRequest({
         status: 'fail',
         data: {
             password: ['The passwords do not match'],
-            passwordConfirmation: ['The passwords do not match']
         }
     }
 
@@ -80,7 +79,7 @@ export default function SignUp() {
     };
 
     return (
-        <Auth action='/signup' titleText='Sign Up'
+        <Auth titleText='Sign Up'
               footer={[{
                   to: '/login',
                   text: 'Do you have an account?',

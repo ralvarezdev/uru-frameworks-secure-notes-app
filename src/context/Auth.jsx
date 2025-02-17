@@ -7,7 +7,6 @@ import LOGGER from "../logger.js";
 const AuthContext = createContext(null);
 
 // Check if the salt cookie exists
-console.log(import.meta.env.COOKIE_SALT_NAME)
 const initialIsAuth = cookies(import.meta.env.COOKIE_USER_ID_NAME)
 
 // Log the initial value

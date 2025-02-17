@@ -13,6 +13,7 @@
 .app__main-container__notifications-container--relative {
     --notifications-container-max-width: 30rem;
 
+    z-index: 10;
     rotate: 180deg;
     justify-self: end;
     align-self: end;
@@ -39,15 +40,4 @@
     pointer-events: auto;
     animation: moveBottom var(--animation-move-duration) ease-in-out forwards;
     backdrop-filter: blur(4px);
-}
-
-@keyframes moveBottom {
-    from {
-        opacity: 0;
-        transform: translateY(-100%);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0%);
-    }
 }

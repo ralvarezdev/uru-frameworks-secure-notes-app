@@ -1,5 +1,5 @@
 /* Form styles */
-.form {
+.form__container {
     grid-template-columns: repeat(2, 1fr);
 }
 
@@ -11,7 +11,7 @@
 }
 
 @media (max-width: 400px) {
-    .form {
+    .form__container {
         grid-template-columns: 1fr;
     }
 }

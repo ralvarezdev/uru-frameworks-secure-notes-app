@@ -1,4 +1,3 @@
-import './LogIn.css'
 import Input from "../../components/Input/Input.jsx";
 import Auth from "../../layouts/Auth/Auth.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
@@ -16,15 +15,14 @@ async function LogInHandleRequest({username, password}) {
         password
     });
 
-    // Check if the login was successful
-    if (response?.status === 'success')
-        return null;
-
     // Check if the credentials are invalid or the user needs 2FA
     if (response?.status === 'fail' && (response?.data?.is_totp_recovery_code || response?.data?.totp_code))
         return {status: 'ongoing', data: {username, password}}
 
-    // Check if there w
+    if (response?.status !== 'error')
+        return {...response};
+
+    throw new Error(response?.message)
 }
 
 // Log in page
@@ -34,31 +32,29 @@ export default function LogIn() {
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
-    const mutation = useMutation(logIn, {
+    // Log in mutation
+    const mutation = useMutation(LogInHandleRequest, {
         onSuccess: (data) => {
-            if (data?.status === 'success') {
+            if (data?.status === 'ongoing')
+                handleOngoingAction(data?.data);
+            else if (data?.status !== 'success')
+                setOnError(true);
+            else {
                 addInfoNotification('Logged in successfully!');
                 navigate('/dashboard');
-            } else if (data?.status === 'ongoing') {
-                handleOngoingAction(data?.data);
-            } else {
-                setOnError(true);
             }
         },
-        onError: (error) => {
-            addErrorNotification(error.message);
-            setOnError(true);
-        }
+        onError: (error) => addErrorNotification(error.message)
     });
 
+    // Handle the ongoing action
     const handleOngoingAction = useCallback(({username, password}) => {
         setLogIn({username, password});
         navigate('/login/2fa/totp');
     }, [navigate, setLogIn]);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.target);
+    // Handle the form submission
+    const handleSubmit = (formData) => {
         const username = formData.get("username");
         const password = formData.get("password");
         mutation.mutate({username, password});
@@ -76,22 +72,20 @@ export default function LogIn() {
                       text: 'Forgot your password',
                       children: 'Reset'
                   }]}
-              isOnError={isOnError} setOnError={setOnError}>
-            <form onSubmit={handleSubmit}>
-                <Input type="text" id="username" name="username"
-                       label="Username" placeholder="e.g. user123"
-                       autoComplete="username"
-                       error={mutation.error?.data?.username?.[0]}
-                       isOnError={isOnError}
-                       required/>
-                <Password id="password" name="password" label="Password"
-                          placeholder="e.g. SecuteNotesBestApp100$$"
-                          autoComplete="current-password"
-                          error={mutation.error?.data?.password?.[0]}
-                          isOnError={isOnError} required/>
-                <button type="submit" disabled={mutation.isLoading}>Log In
-                </button>
-            </form>
+              isOnError={isOnError} setOnError={setOnError}
+              onSubmit={handleSubmit}
+              isSubmitting={mutation.isLoading}>
+            <Input type="text" id="username" name="username"
+                   label="Username" placeholder="e.g. user123"
+                   autoComplete="username"
+                   error={mutation.data?.data?.username?.[0]}
+                   isOnError={isOnError}
+                   required/>
+            <Password id="password" name="password" label="Password"
+                      placeholder="e.g. SecuteNotesBestApp100$$"
+                      autoComplete="current-password"
+                      error={mutation.data?.data?.password?.[0]}
+                      isOnError={isOnError} required/>
         </Auth>
     );
 }

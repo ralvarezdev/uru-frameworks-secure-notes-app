@@ -1,6 +1,6 @@
 import './Form.css'
-import {Form as FormRouter, useActionData, useSubmit} from "react-router-dom";
-import {useCallback, useEffect, useRef, useState} from "react";
+import {Form as FormRouter} from "react-router-dom";
+import {useCallback, useRef} from "react";
 import PrimaryButton from "../Button/Primary/Primary.jsx";
 
 // Form component
@@ -9,21 +9,20 @@ export default function Form({
                                  children,
                                  isOnError,
                                  setOnError,
+                                 onSubmit,
+                                 isSubmitting,
                                  ...props
                              }) {
-    const actionData = useActionData()
-    const submit = useSubmit()
-    const [isSubmitting, setIsSubmitting] = useState(false);
     const formRef = useRef(null);
 
     // Handle the form submit
     const handleSubmit = useCallback(() => {
         // Check the form validity
         if (formRef.current.checkValidity()) {
-            setIsSubmitting(true);
-            submit(formRef.current)
+            const formData = new FormData(formRef.current);
+            onSubmit(formData)
         }
-    }, [submit, setIsSubmitting]);
+    }, [onSubmit]);
 
     // Handle the form change
     const handleChange = useCallback(() => {
@@ -33,18 +32,13 @@ export default function Form({
         });
     }, [setOnError]);
 
-    // Handle the form submit
-    useEffect(() => {
-        setIsSubmitting(false);
-    }, [actionData, setIsSubmitting]);
-
     return (
         <FormRouter ref={formRef}
-                    className={['form', className].join(' ')}
+                    className={['form__container', className].join(' ')}
                     onChange={handleChange} {...props}>
             {children}
             <PrimaryButton
-                className='form__submit-button'
+                className='form__container__submit-button'
                 onClick={handleSubmit}
                 disabled={isSubmitting ? true : null}>
                 {isSubmitting ? 'Submitting...' : 'Continue'}

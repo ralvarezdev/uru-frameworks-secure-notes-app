@@ -4,7 +4,7 @@ import './Modal.css'
 export default function Modal({children, className, ...props}) {
     return (
         <div
-            className={['modal__main-container', className].join(' ')} {...props}>
+            className={['modal__container', className].join(' ')} {...props}>
             {children}
         </div>
     )

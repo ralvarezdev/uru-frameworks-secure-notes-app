@@ -2,6 +2,7 @@
 .app__main-container__app-container {
     grid-row: 1/-1;
     grid-column: 1/-1;
-    height: 100%;
-    width: 100%;
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
 }

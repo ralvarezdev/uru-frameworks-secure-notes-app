@@ -1,11 +1,11 @@
 /* Fade Out component styles */
-.fade-out {
+.fade-out__container {
     display: grid;
     place-items: center;
     opacity: 1;
     transition: opacity var(--opacity-transition-duration) ease-in-out;
 }
 
-.fade-out--hidden {
+.fade-out__container--hidden {
     opacity: 0;
 }

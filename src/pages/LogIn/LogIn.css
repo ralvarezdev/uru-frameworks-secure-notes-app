@@ -1,9 +1,0 @@
-/* Form styles */
-.form {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-.input__main-container:has(label[for="username"]),
-.input__main-container:has(label[for="password"]) {
-    grid-column: 1/-1;
-}

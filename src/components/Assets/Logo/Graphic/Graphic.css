@@ -1,12 +1,12 @@
 /* Graphic component styles */
-.logo--graphic__container {
+.asset--logo--graphic__container {
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: 1fr;
     place-items: center;
 }
 
-.logo--graphic__svg {
+.asset--logo--graphic__container__svg {
     grid-row: 1 / -1;
     grid-column: 1 / -1;
     height: var(--graphic-size);

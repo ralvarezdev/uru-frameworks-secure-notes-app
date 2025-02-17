@@ -10,24 +10,20 @@ export default function App() {
     const navigate = useNavigate();
     const {isAuth} = useAuth();
     const {logIn} = useLogIn();
+    const path = window.location.pathname;
 
     // Redirect to the login page if the user is not authenticated
     useEffect(() => {
-        // Check if the user is authenticated
-        const path = window.location.pathname;
-
         // Check if it's a verify email page or a reset password page
         let cleanedPath
-        if (path.startsWith('/verify-email/') || path.startsWith('/reset-password/')) {
+        if (path.startsWith('/verify-email/') || path.startsWith('/reset-password/'))
             cleanedPath = '/' + path.split('/')[1]
-        } else {
+        else
             cleanedPath = path
-        }
 
         if (isAuth) {
-            if (['/login', '/signup', '/forgot-password', '/verify-email', '/login/2fa/totp', '/login/2fa/recovery-code'].includes(cleanedPath))
+            if (['/login', '/signup', '/forgot-password', '/login/2fa/totp', '/login/2fa/recovery-code'].includes(cleanedPath))
                 navigate('/dashboard');
-
             return;
         }
 
@@ -42,7 +38,7 @@ export default function App() {
         // Redirect to the login page if the user is not authenticated
         if (!['/login', '/signup', '/forgot-password', '/reset-password', '/verify-email'].includes(cleanedPath))
             navigate('/login')
-    }, [navigate, isAuth, logIn]);
+    }, [path, navigate, isAuth, logIn]);
 
     return (
         <AppLayout>

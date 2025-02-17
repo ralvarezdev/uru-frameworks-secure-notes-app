@@ -1,5 +1,5 @@
 /* Form component styles */
-.form {
+.form__container {
     display: grid;
     grid-template-columns: 1fr;
     place-items: center;
@@ -8,7 +8,7 @@
 }
 
 /* Submit button styles */
-.form__submit-button {
+.form__container__submit-button {
     grid-column: 1/-1;
     margin-top: 1rem;
 }

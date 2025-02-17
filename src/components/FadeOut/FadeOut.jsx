@@ -29,19 +29,13 @@ export default function FadeOut({
         }
 
         // Set timeout to hide the component after the duration
-        console.log('useEffect called with dependencies:', {
-            interrupt,
-            duration,
-            hideComponent,
-            animationDuration
-        });
         visibleTimerRef.current = setTimeout(hideComponent, duration);
         return () => clearTimeout(visibleTimerRef.current);
     }, [interrupt, duration, hideComponent]);
 
     return (
         <div
-            className={['fade-out', isVisible ? '' : 'fade-out--hidden'].join(' ')} {...props}>
+            className={['fade-out__container', isVisible ? '' : 'fade-out__container--hidden'].join(' ')} {...props}>
             {children}
         </div>
     );

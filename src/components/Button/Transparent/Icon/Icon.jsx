@@ -1,4 +1,3 @@
-import './Icon.css'
 import Icon from "../../../Icon/Icon.jsx";
 import TransparentButton from "../Transparent.jsx";
 

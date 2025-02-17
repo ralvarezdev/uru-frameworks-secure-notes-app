@@ -1,12 +1,12 @@
-import './VerifyEmail.css'
-import {useLocation} from "react-router-dom";
-import TitleText from "../../components/Text/Title/Title.jsx";
+import {useLocation, useNavigate} from "react-router-dom";
 import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
-import GraphicTextLogo from "../../components/Logo/GraphicText/GraphicText.jsx";
-import GraphicLogo from "../../components/Logo/Graphic/Graphic.jsx";
-import Separator from "../../components/Separator/Separator.jsx";
 import {sendRequest} from "../../utils/api.js";
 import {useQuery} from "react-query";
+import {useCallback, useEffect} from "react";
+import {REDIRECT_DURATION} from "../../constants.js";
+import {useAuth} from "../../context/Auth.jsx";
+import ModalLayout from "../../layouts/Modal/Modal.jsx";
+import {useTimer} from "../../hooks/timer.jsx";
 
 // Verify email request handler
 export async function VerifyEmailHandleRequest(token) {
@@ -16,51 +16,63 @@ export async function VerifyEmailHandleRequest(token) {
     });
 
     // Check if the email was verified successfully
-    if (response?.status === 'success')
-        return null;
-    if (response?.status === 'fail')
-        throw new Error(response?.data?.token?.[0])
+    if (response?.status !== 'error')
+        return {...response};
+
     throw new Error(response?.message)
 }
-
 
 // Verify email page
 export default function VerifyEmail() {
     const location = useLocation();
     const token = location.pathname.split('/')[2];
     const {
+        data,
         isLoading,
         error
     } = useQuery(['verify-email', token], () => VerifyEmailHandleRequest(token));
+    const {isAuth} = useAuth();
+    const navigate = useNavigate();
+    const {redirectIn, setIsActive}=useTimer({
+        onTimerEnd: useCallback(() => {
+            if (isAuth) navigate('/dashboard');
+            else navigate('/login');
+        }, [navigate, isAuth]),
+        timerDuration: REDIRECT_DURATION,
+        timerInterval: 1000,
+    })
+
+    // Handle on loaded
+    useEffect(() => {
+        if (isLoading) return;
+
+        // Set the active state of the timer
+        setIsActive(true);
+    }, [setIsActive, isLoading]);
 
     return (
-        <div className='verify-email__main-container'>
-            <div className='verify-email__main-container__content-container'>
-                <div
-                    className='verify-email__main-container__content-container__title-container'>
-                    <TitleText
-                        className='verify-email__main-container__content-container__title-container__title'>
-                        Email Verification
-                    </TitleText>
-                    <GraphicTextLogo className='logo--graphic-text'/>
-                    <GraphicLogo className='logo--graphic'/>
-                </div>
-                <Separator/>
-                <div
-                    className='verify-email__main-container__content-container__content'>
-                    {isLoading && <ParagraphText>Loading...</ParagraphText>}
-                    {!isLoading && error && (
-                        <ParagraphText>
-                            {error.message[0].charAt(0).toUpperCase() + error.message.slice(1)}
-                        </ParagraphText>
-                    )}
-                    {!isLoading && !error && (
-                        <ParagraphText>
-                            Your email has been verified successfully!
-                        </ParagraphText>
-                    )}
-                </div>
-            </div>
-        </div>
+        <ModalLayout title='Email Verification'>
+            {isLoading && <ParagraphText>Loading...</ParagraphText>}
+            {!isLoading && error && (
+                <ParagraphText>
+                    {error.message[0].charAt(0).toUpperCase() + error.message.slice(1)}
+                </ParagraphText>
+            )}
+            {!isLoading && data?.status === 'fail' && (
+                <ParagraphText>
+                    {data?.data?.token?.[0].charAt(0).toUpperCase() + data?.data?.token?.[0].slice(1)}
+                </ParagraphText>
+            )}
+            {!isLoading && data?.status === 'success' && (
+                <ParagraphText>
+                    Your email has been verified successfully!
+                </ParagraphText>
+            )}
+            {!isLoading && (
+                <ParagraphText>
+                    {`Redirecting to the ${isAuth ? 'dashboard' : 'login'} page in ${redirectIn} seconds...`}
+                </ParagraphText>
+            )}
+        </ModalLayout>
     )
 }

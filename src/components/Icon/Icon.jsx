@@ -4,7 +4,7 @@ import './Icon.css'
 export default function Icon({className, children, ...props}) {
     return (
         <span
-            className={['icon', "material-symbols-outlined", className].join(' ')} {...props}>
+            className={['icon__container', "material-symbols-outlined", className].join(' ')} {...props}>
             {children}
         </span>
     )

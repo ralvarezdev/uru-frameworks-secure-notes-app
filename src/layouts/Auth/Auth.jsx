@@ -3,20 +3,23 @@ import TitleText from "../../components/Text/Title/Title.jsx";
 import Separator from "../../components/Separator/Separator.jsx";
 import Form from "../../components/Form/Form.jsx";
 import MemoizedReference from "../../components/Reference/ReferenceMemo.jsx";
-import GraphicTextLogo from "../../components/Logo/GraphicText/GraphicText.jsx";
+import GraphicTextLogo
+    from "../../components/Assets/Logo/GraphicText/GraphicText.jsx";
+import BackgroundAsset from "../../components/Assets/Background/Background.jsx";
 
 // Auth layout
 export default function Auth({
-                                 action,
                                  titleText,
                                  footer,
                                  children,
                                  isOnError,
-                                 setOnError
+                                 setOnError,
+                                 onSubmit,
+                                 isSubmitting,
                              }) {
     return (
         <div className='auth__main-container'>
-            <img className='auth__main-container__background' loading='lazy' src='/key--1980x1114.webp' alt='Background'/>
+            <BackgroundAsset className='auth__main-container__background'/>
             <div className='auth__main-container__right-container'>
                 <div
                     className='auth__main-container__right-container__content-container'>
@@ -32,9 +35,11 @@ export default function Auth({
 
                     <Form
                         className='auth__main-container__right-container__content-container__form'
-                        method='post' action={action}
+                        method='post'
                         isOnError={isOnError}
-                        setOnError={setOnError}>
+                        setOnError={setOnError}
+                        isSubmitting={isSubmitting}
+                        onSubmit={onSubmit}>
                         {children}
                     </Form>
 

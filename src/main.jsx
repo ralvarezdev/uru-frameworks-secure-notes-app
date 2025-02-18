@@ -44,7 +44,7 @@ loadVite()
 // Create the browser router
 const router = createBrowserRouter(
     createRoutesFromElements(
-        <Route path='/' element={<App/>}>
+        <Route element={<App/>}>
             <Route path={LOG_IN} element={<LogIn/>}/>
             <Route path={SIGN_UP} element={<SignUp/>}/>
             <Route path={TWO_FACTOR_AUTHENTICATOR_TOTP_CODE}

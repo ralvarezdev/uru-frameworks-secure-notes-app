@@ -52,14 +52,13 @@ export default function RecoveryCode() {
                   text: 'Do you have access to your email?',
                   children: 'Email Code'
               },
-                  {
-                      logIn?.twoFactorAuthenticationMethods?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
+                  logIn?.twoFactorAuthenticationMethods?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
                       ? {
                           to: TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
                           text: 'Do you have access to your TOTP?',
                           children: 'TOTP Code'
                       } : null,
-              }]}
+              ]}
               isOnError={isOnError} setOnError={setOnError}
               onSubmit={handleSubmit}
               isSubmitting={mutation.isLoading}>

@@ -5,9 +5,14 @@ import Auth from "../../layouts/Auth/Auth.jsx";
 import {useNotification} from "../../context/Notification.jsx";
 import {useState} from "react";
 import {useMutation} from "react-query";
+import {LOG_IN} from "../../endpoints.js";
 
 // Reset password request handler
-async function ResetPasswordHandleRequest({token, password, passwordConfirmation}) {
+async function ResetPasswordHandleRequest({
+                                              token,
+                                              password,
+                                              passwordConfirmation
+                                          }) {
     // Check if the passwords match
     if (password !== passwordConfirmation) return {
         status: 'fail',
@@ -39,9 +44,9 @@ export default function ResetPassword() {
     // Reset password mutation
     const mutation = useMutation(ResetPasswordHandleRequest, {
         onSuccess: (data) => {
-            if (data?.status === 'success'){
+            if (data?.status === 'success') {
                 addInfoNotification('Password reset successfully!');
-                navigate('/login');
+                navigate(LOG_IN);
             } else if (data?.data?.token?.[0])
                 addErrorNotification(data?.data?.token?.[0]);
             else
@@ -60,20 +65,20 @@ export default function ResetPassword() {
     return (
         <Auth titleText='Reset Password'
               footer={[{
-                  to: '/login',
-                    text: 'Remembered your password?',
+                  to: LOG_IN,
+                  text: 'Remembered your password?',
                   children: 'Log In'
               }]}
               isOnError={isOnError} setOnError={setOnError}
               onSubmit={handleSubmit}
               isSubmitting={mutation.isLoading}>
             <Password id="password" name="password" label="Password"
-                      placeholder="e.g. SecureNotesBestApp100$$"
+                      placeholder="Enter your password"
                       error={mutation.data?.data?.new_password?.[0]}
                       isOnError={isOnError} required/>
             <Password id="password-confirmation" name="password-confirmation"
                       label="Password Confirmation"
-                      placeholder="e.g. SecureNotesBestApp100$$"
+                      placeholder="Confirm your password"
                       error={mutation.data?.data?.new_password?.[0]}
                       isOnError={isOnError} required/>
         </Auth>

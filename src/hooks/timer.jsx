@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
 
 // Timer hook
-export function useTimer({onTimerEnd,timerDuration, timerInterval}) {
-    const [redirectIn, setRedirectIn] = useState(timerDuration/timerInterval);
+export function useTimer({onTimerEnd, timerDuration, timerInterval}) {
+    const [redirectIn, setRedirectIn] = useState(timerDuration / timerInterval);
     const [isActive, setIsActive] = useState(false);
 
     // Handle timer

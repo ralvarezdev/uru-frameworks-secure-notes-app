@@ -44,14 +44,21 @@ export default function Auth({
                     </Form>
 
                     <ul className='auth__main-container__right-container__content-container__footer-container'>
-                        {footer.map((footerItem, index) => (
-                            <li key={index}
-                                className='auth__main-container__right-container__content-container__footer-container__item'>
-                                <MemoizedReference to={footerItem.to ?? null}
-                                                   text={footerItem.text ?? null}>
-                                    {footerItem.children ?? null}
-                                </MemoizedReference>
-                            </li>)
+                        {footer.map((footerItem, index) => {
+                                if (footerItem) {
+                                    return (
+                                        <li key={index}
+                                            className='auth__main-container__right-container__content-container__footer-container__item'>
+                                            <MemoizedReference
+                                                to={footerItem.to ?? null}
+                                                text={footerItem.text ?? null}>
+                                                {footerItem.children ?? null}
+                                            </MemoizedReference>
+                                        </li>
+                                    )
+                                }
+                                return null
+                            }
                         )}
                     </ul>
                 </div>

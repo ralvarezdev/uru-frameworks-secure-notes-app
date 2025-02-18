@@ -7,22 +7,45 @@ import {useLogIn} from "../../context/LogIn.jsx";
 import {useCallback, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {useMutation} from "react-query";
+import {
+    DASHBOARD,
+    FORGOT_PASSWORD,
+    SIGN_UP,
+    TWO_FACTOR_AUTHENTICATION_EMAIL_CODE
+} from "../../endpoints.js";
 
 // Log in request handler
-async function LogInHandleRequest({username, password}) {
+export async function LogInHandleRequest({
+                                             username,
+                                             password,
+                                             twoFactorAuthenticationCode,
+                                             twoFactorAuthenticationMethod
+                                         }) {
     const [, response] = await sendRequest('POST', '/auth/login', {
         username,
-        password
+        password,
+        "2fa_code": twoFactorAuthenticationCode,
+        "2fa_method": twoFactorAuthenticationMethod
     });
 
     // Check if the credentials are invalid or the user needs 2FA
-    if (response?.status === 'fail' && (response?.data?.is_totp_recovery_code || response?.data?.totp_code))
-        return {status: 'ongoing', data: {username, password}}
+    if (response?.status === 'fail' && response?.data?.["2fa_methods"])
+        return {
+            status: 'fail',
+            data: {
+                username,
+                password,
+                twoFactorAuthenticationMethods: response?.data?.["2fa_methods"]
+            }
+        };
 
-    if (response?.status !== 'error')
-        return {...response};
+    if (response?.data?.["2fa_method"])
+        throw new Error(response?.data?.["2fa_method"]?.[0]);
 
-    throw new Error(response?.message)
+    if (response?.status === 'error')
+        throw new Error(response?.message);
+
+    return {...response};
 }
 
 // Log in page
@@ -35,22 +58,26 @@ export default function LogIn() {
     // Log in mutation
     const mutation = useMutation(LogInHandleRequest, {
         onSuccess: (data) => {
-            if (data?.status === 'ongoing')
-                handleOngoingAction(data?.data);
+            if (data?.status === 'fail' && data?.data?.twoFactorAuthenticationMethods)
+                handle2FA(data?.data);
             else if (data?.status !== 'success')
                 setOnError(true);
             else {
                 addInfoNotification('Logged in successfully!');
-                navigate('/dashboard');
+                navigate(DASHBOARD);
             }
         },
         onError: (error) => addErrorNotification(error.message)
     });
 
-    // Handle the ongoing action
-    const handleOngoingAction = useCallback(({username, password}) => {
-        setLogIn({username, password});
-        navigate('/login/2fa/totp');
+    // Handle the 2FA
+    const handle2FA = useCallback(({
+                                       username,
+                                       password,
+                                       twoFactorAuthenticationMethods
+                                   }) => {
+        setLogIn({username, password, twoFactorAuthenticationMethods});
+        navigate(TWO_FACTOR_AUTHENTICATION_EMAIL_CODE);
     }, [navigate, setLogIn]);
 
     // Handle the form submission
@@ -61,14 +88,14 @@ export default function LogIn() {
     };
 
     return (
-        <Auth action='/login' titleText='Log In'
+        <Auth titleText='Log In'
               footer={[{
-                  to: '/signup',
+                  to: SIGN_UP,
                   text: 'Don\'t you have an account?',
                   children: 'Sign Up'
               },
                   {
-                      to: '/forgot-password',
+                      to: FORGOT_PASSWORD,
                       text: 'Forgot your password',
                       children: 'Reset'
                   }]}
@@ -76,13 +103,13 @@ export default function LogIn() {
               onSubmit={handleSubmit}
               isSubmitting={mutation.isLoading}>
             <Input type="text" id="username" name="username"
-                   label="Username" placeholder="e.g. user123"
+                   label="Username" placeholder="Enter your username"
                    autoComplete="username"
                    error={mutation.data?.data?.username?.[0]}
                    isOnError={isOnError}
                    required/>
             <Password id="password" name="password" label="Password"
-                      placeholder="e.g. SecuteNotesBestApp100$$"
+                      placeholder="Enter your password"
                       autoComplete="current-password"
                       error={mutation.data?.data?.password?.[0]}
                       isOnError={isOnError} required/>

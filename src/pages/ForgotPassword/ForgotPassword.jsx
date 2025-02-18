@@ -5,6 +5,7 @@ import {useNotification} from "../../context/Notification.jsx";
 import {useState} from "react";
 import {sendRequest} from "../../utils/api.js";
 import {useMutation} from "react-query";
+import {LOG_IN, SIGN_UP} from "../../endpoints.js";
 
 // Forgot password request handler
 export async function ForgotPasswordHandleRequest({email}) {
@@ -33,7 +34,7 @@ export default function ForgotPassword() {
                 setOnError(true);
             else {
                 addInfoNotification('Check your email to reset your password!');
-                navigate('/login');
+                navigate(LOG_IN);
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -46,14 +47,14 @@ export default function ForgotPassword() {
     };
 
     return (
-        <Auth action='/forgot-passsword' titleText='Forgot Password'
+        <Auth titleText='Forgot Password'
               footer={[{
-                  to: '/signup',
+                  to: SIGN_UP,
                   text: 'Don\'t you have an account?',
                   children: 'Sign Up'
               },
                   {
-                      to: '/login',
+                      to: LOG_IN,
                       text: 'Remember your password?',
                       children: 'Log In'
                   }
@@ -62,7 +63,7 @@ export default function ForgotPassword() {
               onSubmit={handleSubmit}
               isSubmitting={mutation.isLoading}>
             <Input type="email" id="email" name="email"
-                   label="Email" placeholder="e.g. johnsmith@email.com"
+                   label="Email" placeholder="Enter your email"
                    error={mutation.data?.data?.email?.[0]}
                    isOnError={isOnError}
                    required/>

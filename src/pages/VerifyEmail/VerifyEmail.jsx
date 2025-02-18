@@ -7,6 +7,7 @@ import {REDIRECT_DURATION} from "../../constants.js";
 import {useAuth} from "../../context/Auth.jsx";
 import ModalLayout from "../../layouts/Modal/Modal.jsx";
 import {useTimer} from "../../hooks/timer.jsx";
+import {DASHBOARD, LOG_IN} from "../../endpoints.js";
 
 // Verify email request handler
 export async function VerifyEmailHandleRequest(token) {
@@ -33,10 +34,10 @@ export default function VerifyEmail() {
     } = useQuery(['verify-email', token], () => VerifyEmailHandleRequest(token));
     const {isAuth} = useAuth();
     const navigate = useNavigate();
-    const {redirectIn, setIsActive}=useTimer({
+    const {redirectIn, setIsActive} = useTimer({
         onTimerEnd: useCallback(() => {
-            if (isAuth) navigate('/dashboard');
-            else navigate('/login');
+            if (isAuth) navigate(DASHBOARD);
+            else navigate(LOG_IN);
         }, [navigate, isAuth]),
         timerDuration: REDIRECT_DURATION,
         timerInterval: 1000,

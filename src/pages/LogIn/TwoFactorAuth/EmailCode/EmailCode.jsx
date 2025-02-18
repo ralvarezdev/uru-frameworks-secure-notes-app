@@ -9,18 +9,18 @@ import {LogInHandleRequest} from '../../LogIn.jsx'
 import {
     DASHBOARD,
     TWO_FACTOR_AUTHENTICATION_EMAIL_CODE,
+    TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
     TWO_FACTOR_AUTHENTICATOR_TOTP_CODE
 } from "../../../../endpoints.js";
-import {RECOVERY_CODE_2FA_METHOD} from "../../../../constants.js";
 
-// 2FA Recovery code page
-export default function RecoveryCode() {
+// 2FA Email code page
+export default function EmailCode() {
     const navigate = useNavigate();
-    const {logIn, setLogIn,} = useLogIn();
+    const {logIn, setLogIn} = useLogIn();
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
-    // 2FA Recovery code mutation
+    // 2FA Email code mutation
     const mutation = useMutation(LogInHandleRequest, {
         onSuccess: (data) => {
             if (data?.status !== 'success')
@@ -36,21 +36,21 @@ export default function RecoveryCode() {
 
     // Handle the form submission
     const handleSubmit = (formData) => {
-        const recoveryCode = formData.get("recovery-code");
+        const emailCode = formData.get("email-code");
         mutation.mutate({
             username: logIn?.username,
             password: logIn?.password,
-            twoFactorAuthenticationCode: recoveryCode,
-            twoFactorAuthenticationCodeType: RECOVERY_CODE_2FA_METHOD
+            twoFactorAuthenticationCode: emailCode,
+            twoFactorAuthenticationCodeType: TWO_FACTOR_AUTHENTICATION_EMAIL_CODE
         });
     };
 
     return (
-        <Auth titleText='Recovery Code'
+        <Auth titleText='Email Code'
               footer={[{
-                  to: TWO_FACTOR_AUTHENTICATION_EMAIL_CODE,
-                  text: 'Do you have access to your email?',
-                  children: 'Email Code'
+                  to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
+                  text: 'Don\'t you have access to your 2FA?',
+                  children: 'Recovery Code'
               },
                   {
                       logIn?.twoFactorAuthenticationMethods?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
@@ -63,8 +63,8 @@ export default function RecoveryCode() {
               isOnError={isOnError} setOnError={setOnError}
               onSubmit={handleSubmit}
               isSubmitting={mutation.isLoading}>
-            <Input type="text" id="recovery-code" name="recovery-code"
-                   label="Recovery code" placeholder="Enter your recovery code"
+            <Input type="text" id="email-code" name="email-code"
+                   label="Email code" placeholder="Enter your email code"
                    error={mutation.data?.data?.["2fa_code"]?.[0]}
                    isOnError={isOnError}
                    required/>

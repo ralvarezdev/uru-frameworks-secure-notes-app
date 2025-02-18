@@ -1,6 +1,6 @@
+import './index.css'
 import {lazy, StrictMode, Suspense} from 'react'
 import {createRoot} from 'react-dom/client'
-import './index.css'
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import AuthProvider from "./context/Auth.jsx";
 import {loadVite} from "@ralvarezdev/js-mode";
@@ -13,6 +13,17 @@ import {
 import LogInProvider from "./context/LogIn.jsx";
 import NotificationProvider from "./context/Notification.jsx";
 import {QueryClient, QueryClientProvider} from "react-query";
+import {
+    DASHBOARD,
+    FORGOT_PASSWORD,
+    LOG_IN,
+    RESET_PASSWORD,
+    SIGN_UP,
+    TWO_FACTOR_AUTHENTICATION_EMAIL_CODE,
+    TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
+    TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
+    VERIFY_EMAIL
+} from "./endpoints.js";
 
 // Import the pages
 const App = lazy(() => import('./App.jsx'))
@@ -23,8 +34,9 @@ const NotFound = lazy(() => import('./pages/NotFound/NotFound.jsx'))
 const LogIn = lazy(() => import('./pages/LogIn/LogIn.jsx'))
 const SignUp = lazy(() => import('./pages/SignUp/SignUp.jsx'))
 const ForgotPassword = lazy(() => import('./pages/ForgotPassword/ForgotPassword.jsx'))
-const TOTP = lazy(() => import('./pages/LogIn/TwoFactorAuth/TOTP/TOTP.jsx'))
+const TOTPCode = lazy(() => import('./pages/LogIn/TwoFactorAuth/TOTPCode/TOTPCode.jsx'))
 const RecoveryCode = lazy(() => import('./pages/LogIn/TwoFactorAuth/RecoveryCode/RecoveryCode.jsx'))
+const EmailCode = lazy(() => import('./pages/LogIn/TwoFactorAuth/EmailCode/EmailCode.jsx'))
 
 // Load environment variables
 loadVite()
@@ -33,14 +45,18 @@ loadVite()
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path='/' element={<App/>}>
-            <Route path="/login" element={<LogIn/>}/>
-            <Route path="/signup" element={<SignUp/>}/>
-            <Route path="/login/2fa/totp" element={<TOTP/>}/>
-            <Route path="/login/2fa/recovery-code" element={<RecoveryCode/>}/>
-            <Route path="/verify-email/:token" element={<VerifyEmail/>}/>
-            <Route path="/forgot-password" element={<ForgotPassword/>}/>
-            <Route path="/reset-password/:token" element={<ResetPassword/>}/>
-            <Route path="/dashboard" element={<Dashboard/>}/>
+            <Route path={LOG_IN} element={<LogIn/>}/>
+            <Route path={SIGN_UP} element={<SignUp/>}/>
+            <Route path={TWO_FACTOR_AUTHENTICATOR_TOTP_CODE}
+                   element={<TOTPCode/>}/>
+            <Route path={TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE}
+                   element={<RecoveryCode/>}/>
+            <Route path={TWO_FACTOR_AUTHENTICATION_EMAIL_CODE}
+                   element={<EmailCode/>}/>
+            <Route path={VERIFY_EMAIL} element={<VerifyEmail/>}/>
+            <Route path={FORGOT_PASSWORD} element={<ForgotPassword/>}/>
+            <Route path={RESET_PASSWORD} element={<ResetPassword/>}/>
+            <Route path={DASHBOARD} element={<Dashboard/>}/>
             <Route path="*" element={<NotFound/>}/>
         </Route>
     )

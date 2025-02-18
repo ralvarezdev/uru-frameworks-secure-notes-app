@@ -4,6 +4,7 @@ import {sendAuthenticatedRequest} from "../../utils/api.js";
 import {useCallback} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {useNavigate} from "react-router-dom";
+import {LOG_IN} from "../../endpoints.js";
 
 // Dashboard page
 export default function Dashboard() {
@@ -18,7 +19,7 @@ export default function Dashboard() {
         // Check if log out was successful
         if (response?.status === 'success') {
             addInfoNotification('Logged out successfully!');
-            navigate('/login');
+            navigate(LOG_IN);
         }
 
         // Check if there was an error

@@ -1,0 +1,12 @@
+// Authentication endpoints
+export const LOG_IN = '/login'
+export const SIGN_UP = '/signup'
+export const FORGOT_PASSWORD = '/forgot-password'
+export const TWO_FACTOR_AUTHENTICATOR_TOTP_CODE = '/login/2fa/totp-code'
+export const TWO_FACTOR_AUTHENTICATION_EMAIL_CODE = '/login/2fa/email-code'
+export const TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE = '/login/2fa/recovery-code'
+export const VERIFY_EMAIL = '/verify-email/:token'
+export const BASE_VERIFY_EMAIL = '/verify-email/'
+export const RESET_PASSWORD = '/reset-password/:token'
+export const BASE_RESET_PASSWORD = '/reset-password/'
+export const DASHBOARD = '/dashboard'

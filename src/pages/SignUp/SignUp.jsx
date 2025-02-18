@@ -7,6 +7,7 @@ import {sendRequest} from "../../utils/api.js";
 import {useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {useMutation} from "react-query";
+import {LOG_IN} from "../../endpoints.js";
 
 // Sign up request handler
 async function SignUpHandleRequest({
@@ -54,7 +55,7 @@ export default function SignUp() {
                 setOnError(true);
             else {
                 addInfoNotification('Signed up successfully!');
-                navigate('/login');
+                navigate(LOG_IN);
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -81,7 +82,7 @@ export default function SignUp() {
     return (
         <Auth titleText='Sign Up'
               footer={[{
-                  to: '/login',
+                  to: LOG_IN,
                   text: 'Do you have an account?',
                   children: 'Log In'
               }]}
@@ -89,32 +90,32 @@ export default function SignUp() {
               onSubmit={handleSubmit}
               isSubmitting={mutation.isLoading}>
             <Input type="text" id="first-name" name="first-name"
-                   label="First Name" placeholder="e.g. John"
+                   label="First Name" placeholder="Enter your first name"
                    error={mutation.data?.data?.first_name?.[0]}
                    isOnError={isOnError}
                    required/>
             <Input type="text" id="last-name" name="last-name"
-                   label="Last Name" placeholder="e.g. Smith"
+                   label="Last Name" placeholder="Enter your last name"
                    error={mutation.data?.data?.last_name?.[0]}
                    isOnError={isOnError}
                    required/>
             <Input type="text" id="username" name="username"
-                   label="Username" placeholder="e.g. user123"
+                   label="Username" placeholder="Enter your username"
                    error={mutation.data?.data?.username?.[0]}
                    isOnError={isOnError}
                    required/>
             <Input type="email" id="email" name="email"
-                   label="Email" placeholder="e.g. johnsmith@email.com"
+                   label="Email" placeholder="Enter your email"
                    error={mutation.data?.data?.email?.[0]}
                    isOnError={isOnError}
                    required/>
             <Password id="password" name="password" label="Password"
-                      placeholder="e.g. SecureNotesBestApp100$$"
+                      placeholder="Enter your password"
                       error={mutation.data?.data?.password?.[0]}
                       isOnError={isOnError} required/>
             <Password id="password-confirmation" name="password-confirmation"
                       label="Password Confirmation"
-                      placeholder="e.g. SecureNotesBestApp100$$"
+                      placeholder="Confirm your password"
                       error={mutation.data?.data?.password?.[0]}
                       isOnError={isOnError} required/>
         </Auth>

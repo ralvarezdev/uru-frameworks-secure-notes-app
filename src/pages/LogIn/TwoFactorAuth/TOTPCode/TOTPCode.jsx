@@ -1,5 +1,5 @@
 import Input from "../../../../components/Input/Input.jsx";
-import Auth from "../../../../layouts/Auth/Auth.jsx";
+import AuthLayout from "../../../../layouts/Auth/Auth.jsx";
 import {useNavigate} from "react-router-dom";
 import {useLogIn} from "../../../../context/LogIn.jsx";
 import {useState} from "react";
@@ -46,7 +46,7 @@ export default function TOTPCode() {
     };
 
     return (
-        <Auth titleText='TOTP'
+        <AuthLayout titleText='TOTP'
               footer={[
                   {
                       to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
@@ -66,6 +66,6 @@ export default function TOTPCode() {
                    error={mutation.data?.data?.["2fa_code"]?.[0]}
                    isOnError={isOnError}
                    required/>
-        </Auth>
+        </AuthLayout>
     );
 }

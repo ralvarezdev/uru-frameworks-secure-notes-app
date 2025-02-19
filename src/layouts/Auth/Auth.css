@@ -29,9 +29,10 @@
     background-color: var(--background-color);
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: subgrid;
+    grid-template-rows: auto 1fr;
     place-items: center;
     width: 100%;
+    height: 100%;
 }
 
 /* Content container styles */
@@ -40,6 +41,7 @@
     grid-row: 1/-1;
     width: 100%;
     max-width: 50rem;
+    margin: auto;
     padding: 2rem 0;
     display: flex;
     flex-direction: column;
@@ -70,9 +72,23 @@
 }
 
 /* Logo styles */
-.asset--logo--graphic-text__container.logo {
+.asset--logo--graphic-text__container.auth__main-container__right-container__content-container__title-container__logo--graphic-text {
     grid-column: 2/-1;
     grid-row: 1/-1;
+}
+
+.asset--logo--graphic__container.auth__main-container__right-container__content-container__title-container__logo--graphic {
+    grid-column: 2/-1;
+    grid-row: 1/-1;
+    display: none;
+}
+
+.asset--logo--graphic-text__container.auth__main-container__right-container__logo--graphic-text
+{
+    grid-column: 1/-1;
+    grid-row: 1/2;
+    justify-self: end;
+    display: none;
 }
 
 /* Form styles */
@@ -109,9 +125,6 @@
         grid-row: 1/-1;
         background-color: transparent;
         padding: 3rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
 
     .auth__main-container__right-container__content-container {
@@ -129,7 +142,7 @@
     }
 
     .auth__main-container__right-container__content-container {
-        padding: 2rem 4rem;
+        padding: 4rem;
         border-radius: 0;
     }
 
@@ -149,8 +162,12 @@
         padding-left: 0;
     }
 
-    .asset--logo--graphic-text__container.logo {
+    .asset--logo--graphic-text__container.auth__main-container__right-container__content-container__title-container__logo--graphic-text {
         display: none;
+    }
+
+    .asset--logo--graphic__container.auth__main-container__right-container__content-container__title-container__logo--graphic {
+        display: grid;
     }
 }
 
@@ -164,11 +181,21 @@
     }
 
     .auth__main-container__right-container__content-container {
+        grid-row: 2/-1;
         padding: 1rem 3rem;
         border-radius: 0;
     }
 
     .auth__main-container__right-container__content-container__footer-container {
         padding-top: 1rem;
+    }
+
+     .asset--logo--graphic__container.auth__main-container__right-container__content-container__title-container__logo--graphic {
+        display: none;
+    }
+
+    .asset--logo--graphic-text__container.auth__main-container__right-container__logo--graphic-text {
+        padding: 2rem 3rem;
+        display: grid;
     }
 }

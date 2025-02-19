@@ -38,6 +38,6 @@
 .app__main-container__notifications-container--absolute__item {
     rotate: 180deg;
     pointer-events: auto;
-    animation: moveBottom var(--animation-move-duration) ease-in-out forwards;
+    animation: move-from-top var(--animation-move-duration) ease-in-out forwards;
     backdrop-filter: blur(4px);
 }

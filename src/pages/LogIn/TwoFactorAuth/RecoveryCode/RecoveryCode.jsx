@@ -1,5 +1,5 @@
 import Input from "../../../../components/Input/Input.jsx";
-import Auth from "../../../../layouts/Auth/Auth.jsx";
+import AuthLayout from "../../../../layouts/Auth/Auth.jsx";
 import {useNavigate} from "react-router-dom";
 import {useLogIn} from "../../../../context/LogIn.jsx";
 import {useState} from "react";
@@ -46,7 +46,7 @@ export default function RecoveryCode() {
     };
 
     return (
-        <Auth titleText='Recovery Code'
+        <AuthLayout titleText='Recovery Code'
               footer={[{
                   to: TWO_FACTOR_AUTHENTICATION_EMAIL_CODE,
                   text: 'Do you have access to your email?',
@@ -67,6 +67,6 @@ export default function RecoveryCode() {
                    error={mutation.data?.data?.["2fa_code"]?.[0]}
                    isOnError={isOnError}
                    required/>
-        </Auth>
+        </AuthLayout>
     );
 }

@@ -1,4 +1,4 @@
-import Auth from "../../layouts/Auth/Auth.jsx";
+import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import Input from "../../components/Input/Input.jsx";
 import {useNavigate} from "react-router-dom";
 import {useNotification} from "../../context/Notification.jsx";
@@ -47,7 +47,7 @@ export default function ForgotPassword() {
     };
 
     return (
-        <Auth titleText='Forgot Password'
+        <AuthLayout titleText='Forgot Password'
               footer={[{
                   to: SIGN_UP,
                   text: 'Don\'t you have an account?',
@@ -67,6 +67,6 @@ export default function ForgotPassword() {
                    error={mutation.data?.data?.email?.[0]}
                    isOnError={isOnError}
                    required/>
-        </Auth>
+        </AuthLayout>
     )
 }

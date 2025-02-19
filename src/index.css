@@ -26,9 +26,11 @@
     --animation-move-duration: 0.5s;
     --input--horizontal-padding: 1.2rem;
     --outline-width: 0.2rem;
-    --icon-size: 2rem;
-    --icon-weight: 500;
-    --graphic-size: 4rem;
+    --icon--size: 2rem;
+    --icon--weight: 500;
+    --logo--graphic--size: 4rem;
+    --logo--graphic-text--size: 1.8rem;
+    --logo--graphic-text--gap: 1rem;
     --text--title--font-size: 4.2rem;
     --text--title--font-weight: 800;
     --text--title--letter-spacing: 1px;
@@ -52,7 +54,10 @@
     --text--button--letter-spacing: 2px;
     --text--link--font-size: 1.6rem;
     --text--link--font-weight: 600;
-    --text--link--letter-spacing: 1px
+    --text--link--letter-spacing: 1px;
+    --text--logo--font-size: 2.2rem;
+    --text--logo--font-weight: 700;
+    --text--logo--letter-spacing: 1px;
 }
 
 /* Global Styles */
@@ -136,7 +141,7 @@ li {
     }
 }
 
-@keyframes moveBottom {
+@keyframes move-from-top {
     from {
         opacity: 0;
         transform: translateY(-100%);
@@ -144,6 +149,50 @@ li {
     to {
         opacity: 1;
         transform: translateY(0%);
+    }
+}
+
+@keyframes move-from-left {
+    from {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes move-to-right {
+    from {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+}
+
+@keyframes move-from-right {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+}
+
+@keyframes move-to-left {
+    from {
+        opacity: 1;
+        transform: translateX(0%);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-100%);
     }
 }
 

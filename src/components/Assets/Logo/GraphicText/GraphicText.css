@@ -1,13 +1,33 @@
 /* Graphic Text component styles */
 .asset--logo--graphic-text__container {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: auto 1fr;
     grid-template-rows: 1fr;
+    gap: var(--logo--graphic-text--gap);
     place-items: center;
 }
 
-.asset--logo--graphic-text__container__svg {
-    grid-row: 1 / -1;
-    grid-column: 1 / -1;
-    height: var(--graphic-size);
+.asset--logo--graphic-text__container__graphic.asset--logo--graphic__container__svg{
+    height: var(--logo--graphic-text--size);
 }
+
+.asset--logo--graphic-text__container--right .asset--logo--graphic-text__container__graphic{
+    grid-column: 2/-1;
+    grid-row: 1/-1;
+}
+
+.asset--logo--graphic-text__container--right .asset--logo--graphic-text__container__text {
+    grid-column: 1/2;
+    grid-row: 1/-1;
+}
+
+.asset--logo--graphic-text__container--left .asset--logo--graphic-text__container__graphic{
+    grid-column: 1/2;
+    grid-row: 1/-1;
+}
+
+.asset--logo--graphic-text__container--left .asset--logo--graphic-text__container__text {
+    grid-column: 2/-1;
+    grid-row: 1/-1;
+}
+

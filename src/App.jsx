@@ -69,10 +69,8 @@ export default function App() {
         }
 
         // Redirect to the login page if the user is not authenticated
-        /*
         if (!NO_AUTH_ENABLED_ENDPOINTS.includes(parsedPath))
             navigate(LOG_IN)
-         */
     }, [path, navigate, isAuth, logIn]);
 
     return (

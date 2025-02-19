@@ -1,0 +1,7 @@
+/* Logo text component styles */
+.text--logo {
+    font-size: var(--text--logo--font-size);
+    font-weight: var(--text--logo--font-weight);
+    letter-spacing: var(--text--logo--letter-spacing);
+    color: var(--color-dark-primary);
+}

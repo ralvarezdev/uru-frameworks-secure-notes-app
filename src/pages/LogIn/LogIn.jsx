@@ -1,5 +1,5 @@
 import Input from "../../components/Input/Input.jsx";
-import Auth from "../../layouts/Auth/Auth.jsx";
+import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
 import {useNavigate} from "react-router-dom";
 import {sendRequest} from "../../utils/api.js";
@@ -88,7 +88,7 @@ export default function LogIn() {
     };
 
     return (
-        <Auth titleText='Log In'
+        <AuthLayout titleText='Log In'
               footer={[{
                   to: SIGN_UP,
                   text: 'Don\'t you have an account?',
@@ -113,6 +113,6 @@ export default function LogIn() {
                       autoComplete="current-password"
                       error={mutation.data?.data?.password?.[0]}
                       isOnError={isOnError} required/>
-        </Auth>
+        </AuthLayout>
     );
 }

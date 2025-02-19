@@ -1,7 +1,7 @@
 import {sendRequest} from "../../utils/api.js";
 import {useLocation, useNavigate} from "react-router-dom";
 import Password from "../../components/Input/Password/Password.jsx";
-import Auth from "../../layouts/Auth/Auth.jsx";
+import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import {useNotification} from "../../context/Notification.jsx";
 import {useState} from "react";
 import {useMutation} from "react-query";
@@ -63,7 +63,7 @@ export default function ResetPassword() {
     };
 
     return (
-        <Auth titleText='Reset Password'
+        <AuthLayout titleText='Reset Password'
               footer={[{
                   to: LOG_IN,
                   text: 'Remembered your password?',
@@ -81,6 +81,6 @@ export default function ResetPassword() {
                       placeholder="Confirm your password"
                       error={mutation.data?.data?.new_password?.[0]}
                       isOnError={isOnError} required/>
-        </Auth>
+        </AuthLayout>
     );
 }

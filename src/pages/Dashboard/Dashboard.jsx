@@ -5,6 +5,7 @@ import {useCallback} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {useNavigate} from "react-router-dom";
 import {LOG_IN} from "../../endpoints.js";
+import HomeLayout from "../../layouts/Home/Home.jsx";
 
 // Dashboard page
 export default function Dashboard() {
@@ -27,11 +28,12 @@ export default function Dashboard() {
             addErrorNotification(response?.message);
     }, [addErrorNotification, addInfoNotification, navigate]);
 
+    /*
+    <PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>
+     */
+
     return (
-        <div>
-            <h1>Home</h1>
-            <p>Welcome to the Home page</p>
-            <PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>
-        </div>
+        <HomeLayout>
+        </HomeLayout>
     )
 }

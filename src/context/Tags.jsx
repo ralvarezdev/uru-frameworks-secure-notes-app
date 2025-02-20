@@ -1,60 +1,95 @@
 import {createContext, useCallback, useContext, useState} from 'react';
+import {
+    DeleteUserTag,
+    ReadAllUserTags,
+    UpsertUserTag
+} from "../indexeddb/transactions.js";
+import {db} from "../indexeddb/init.js";
 
 // Create a context
-const NotificationContext = createContext();
+const TagsContext = createContext();
 
 // Create a provider
-export default function NotificationProvider({children}) {
-    const [notifications, setNotifications] = useState([]);
+export default function TagsProvider({children}) {
+    const [tags, setTags] = useState([]);
 
-    // Add a notification to the list
-    const addNotification = useCallback((notification) => {
-        // Check if the notification contains a message
-        if (!notification.message)
-            notification.message = 'An error occurred';
+    // Upsert a tag to the list
+    const upsertTag = useCallback(async (tag, alterIndexedDB) => {
+        setTags((prevTags) => prevTags.map((prevTag) => {
+            if (prevTag.id === tag.id)
+                return {...prevTag, ...tag};
+            return prevTag;
+        }));
 
-        // Add the notification to the list
-        setNotifications((prevNotifications) => [...prevNotifications, {
-            ...notification,
-            id: prevNotifications.length === 0 ? 1 : prevNotifications[prevNotifications.length - 1].id + 1
-        }]);
+        // Alter the IndexedDB
+        if (alterIndexedDB)
+            await UpsertUserTag(db, tag);
     }, []);
 
-    // Add error notification to the list
-    const addErrorNotification = useCallback((message) => {
-        addNotification({type: 'error', message});
-    }, [addNotification]);
+    // Upsert multiple tags to the list
+    const upsertTags = useCallback(async (tags, alterIndexedDB) => {
+        const newTags=tags
 
-    // Add info notification to the list
-    const addInfoNotification = useCallback((message) => {
-        addNotification({type: 'info', message});
-    }, [addNotification]);
+        setTags((prevTags) => prevTags.map(
+            (prevTag) => {
+                // Find the tag index
+                const tagIndex = tags.findIndex((tag) => tag.id === prevTag.id);
+                if (tagIndex>=0) {
+                    newTags.splice(tagIndex, 1);
+                    return {...prevTag, ...tags[tagIndex]};
+                } else
+                    return prevTag;
+            }
+        ));
 
-    // Clear the notifications
-    const clearNotifications = useCallback(() => {
-        setNotifications([]);
+        // Add the new tags
+        setTags((prevTags) => [...prevTags, ...newTags]);
+
+        // Alter the IndexedDB
+        if (alterIndexedDB)
+            for (const tag of tags)
+                await UpsertUserTag(db, tag);
+
     }, []);
 
-    // Remove a notification from the list
-    const removeNotification = useCallback((id) => {
-        setNotifications((prevNotifications) => prevNotifications.filter((notification) => notification.id !== id));
+    // Remove all tags
+    const clearTags = useCallback(() => {
+        setTags([]);
     }, []);
+
+    // Remove a tag from the list by ID
+    const removeTagByID = useCallback(async (id, alterIndexedDB) => {
+        setTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
+
+        // Alter the IndexedDB
+        if (alterIndexedDB)
+            await DeleteUserTag(db, id);
+    }, []);
+
+    // Load from IndexedDB
+    const loadTags = useCallback(() => {
+        // Clear the current tags
+        clearTags();
+
+        // Load from IndexedDB
+        ReadAllUserTags(db).then((tags) => upsertTags(tags, false));
+    }, [clearTags, upsertTags]);
 
     return (
-        <NotificationContext.Provider value={{
-            notifications,
-            addNotification,
-            addErrorNotification,
-            addInfoNotification,
-            removeNotification,
-            clearNotifications
+        <TagsContext.Provider value={{
+            tags,
+            upsertTag,
+            upsertTags,
+            removeTagByID,
+            clearTags,
+            loadTags
         }}>
             {children}
-        </NotificationContext.Provider>
+        </TagsContext.Provider>
     );
 }
 
 // Custom hook that shorthands the context
-export function useNotification() {
-    return useContext(NotificationContext);
+export function useTags() {
+    return useContext(TagContext);
 }

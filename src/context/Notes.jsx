@@ -8,53 +8,88 @@ export default function NotesProvider({children}) {
     const [notes, setNotes] = useState([]);
 
     // Add a note to the list
-    const addNotification = useCallback((notification) => {
-        // Check if the notification contains a message
-        if (!notification.message)
-            notification.message = 'An error occurred';
-
-        // Add the notification to the list
-        setNotifications((prevNotifications) => [...prevNotifications, {
-            ...notification,
-            id: prevNotifications.length === 0 ? 1 : prevNotifications[prevNotifications.length - 1].id + 1
-        }]);
+    const addNote = useCallback((note) => {
+        setNotes((prevNotes) => [...prevNotes, ...note]);
     }, []);
 
-    // Add error notification to the list
-    const addErrorNotification = useCallback((message) => {
-        addNotification({type: 'error', message});
-    }, [addNotification]);
-
-    // Add info notification to the list
-    const addInfoNotification = useCallback((message) => {
-        addNotification({type: 'info', message});
-    }, [addNotification]);
-
-    // Clear the notifications
-    const clearNotifications = useCallback(() => {
-        setNotifications([]);
+    // Remove a note from the list by ID
+    const removeNoteByID = useCallback((id) => {
+        setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
     }, []);
 
-    // Remove a notification from the list
-    const removeNotification = useCallback((id) => {
-        setNotifications((prevNotifications) => prevNotifications.filter((notification) => notification.id !== id));
+    // Clear all notes
+    const clearNotes = useCallback(() => {
+        setNotes([]);
+    }, []);
+
+    // Add a note tag to the list
+    const addNoteTag = useCallback((id, noteTag) => {
+        setNotes((prevNotes) => prevNotes.map((note) => {
+            if (note.id === id) {
+                return {...note, noteTags: [...note.noteTags, noteTag]};
+            }
+            return note;
+        }));
+    }, []);
+
+    // Remove a note tag from the list by note tag ID
+    const removeNoteTagByNoteTagID = useCallback((id, noteTagID) => {
+        setNotes((prevNotes) => prevNotes.map((note) => {
+            if (note.id === id) {
+                return {...note, noteTags: note.noteTags.filter((noteTag) => noteTag.id !== noteTagID)};
+            }
+            return note;
+        }));
+    }, []);
+
+    // Remove a note tag from the list by tag ID
+    const removeNoteTagByTagID = useCallback((id, tagID) => {
+        setNotes((prevNotes) => prevNotes.map((note) => {
+            if (note.id === id) {
+                return {...note, noteTags: note.noteTags.filter((noteTag) => noteTag.tagID !== tagID)};
+            }
+            return note;
+        }));
+    }, []);
+
+    // Add a note version to the list
+    const addNoteVersion = useCallback((id, noteVersion) => {
+        setNotes((prevNotes) => prevNotes.map((note) => {
+            if (note.id === id) {
+                return {...note, noteVersions: [...note.noteVersions, noteVersion]};
+            }
+            return note;
+        }));
+    }, []);
+
+    // Remove a note version from the list by note version ID
+    const removeNoteVersionByNoteVersionID = useCallback((id, noteVersionID) => {
+        setNotes((prevNotes) => prevNotes.map((note) => {
+            if (note.id === id) {
+                return {...note, noteVersions: note.noteVersions.filter((noteVersion) => noteVersion.id !== noteVersionID)};
+            }
+            return note;
+        }));
     }, []);
 
     return (
-        <NotificationContext.Provider value={{
-            notifications,
-            addNotification,
-            addErrorNotification,
-            addInfoNotification,
-            removeNotification,
-            clearNotifications
+        <NotesContext.Provider value={{
+            notes,
+            addNote,
+            removeNoteByID,
+            clearNotes,
+            addNoteTag,
+            removeNoteTagByNoteTagID,
+            removeNoteTagByTagID,
+            addNoteVersion,
+            removeNoteVersionByNoteVersionID
         }}>
             {children}
-        </NotificationContext.Provider>
+        </NotesContext.Provider>
     );
 }
 
 // Custom hook that shorthands the context
-export function useNotification() {
-    return useContext(NotificationContext);
+export function useNotes() {
+    return useContext(NotesContext);
 }

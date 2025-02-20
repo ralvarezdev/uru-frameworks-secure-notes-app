@@ -3,7 +3,7 @@ import {OBJECT_STORES} from "./init.js";
 // Errors that can be thrown by the transactions
 export const ADD_DATA_ERROR = 'Add data error';
 export const READ_DATA_ERROR = 'Read data error';
-export const UPDATE_DATA_ERROR = 'Update data error';
+export const UPDATE_DATA_ERROR = 'Upsert data error';
 export const DELETE_DATA_ERROR = 'Delete data error';
 export const READ_ALL_DATA_ERROR = 'Read all data error';
 
@@ -48,7 +48,7 @@ export function readData(db, storeName, key) {
 }
 
 // Read All Data
-export function readAllData(db, storeName, query, count) {
+export function readAllData(db, storeName, query=null, count=undefined) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
         const transaction = db.transaction([storeName], 'readonly');
@@ -67,8 +67,8 @@ export function readAllData(db, storeName, query, count) {
     });
 }
 
-// Update Data
-export function updateData(db, storeName, data) {
+// Upsert Data
+export function upsertData(db, storeName, data) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
         const transaction = db.transaction([storeName], 'readwrite');
@@ -122,9 +122,9 @@ export function ReadAllUserTags(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_TAGS, query, count);
 }
 
-// Update User Tag
-export function UpdateUserTag(db, userTag) {
-    return updateData(db, OBJECT_STORES.USER_TAGS, userTag);
+// Upsert User Tag
+export function UpsertUserTag(db, userTag) {
+    return upsertData(db, OBJECT_STORES.USER_TAGS, userTag);
 }
 
 // Delete User Tag
@@ -147,9 +147,9 @@ export function ReadAllUserNotes(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_NOTES, query, count);
 }
 
-// Update User Note
-export function UpdateUserNote(db, userNote) {
-    return updateData(db, OBJECT_STORES.USER_NOTES, userNote);
+// Upsert User Note
+export function UpsertUserNote(db, userNote) {
+    return upsertData(db, OBJECT_STORES.USER_NOTES, userNote);
 }
 
 // Delete User Note
@@ -172,9 +172,9 @@ export function ReadAllUserNoteVersions(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_NOTE_VERSIONS, query, count);
 }
 
-// Update User Note Version
-export function UpdateUserNoteVersion(db, userNoteVersion) {
-    return updateData(db, OBJECT_STORES.USER_NOTE_VERSIONS, userNoteVersion);
+// Upsert User Note Version
+export function UpsertUserNoteVersion(db, userNoteVersion) {
+    return upsertData(db, OBJECT_STORES.USER_NOTE_VERSIONS, userNoteVersion);
 }
 
 // Delete User Note Version
@@ -197,67 +197,12 @@ export function ReadAllUserNoteTags(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_NOTE_TAGS, query, count);
 }
 
-// Update User Note Tag
-export function UpdateUserNoteTag(db, userNoteTag) {
-    return updateData(db, OBJECT_STORES.USER_NOTE_TAGS, userNoteTag);
+// Upsert User Note Tag
+export function UpsertUserNoteTag(db, userNoteTag) {
+    return upsertData(db, OBJECT_STORES.USER_NOTE_TAGS, userNoteTag);
 }
 
 // Delete User Note Tag
 export function DeleteUserNoteTag(db, key) {
     return deleteData(db, OBJECT_STORES.USER_NOTE_TAGS, key);
-}
-
-// UserTag is the response DTO for the user tag
-UserTag
-struct
-{
-    Name
-    string`json:"name"`
-    CreatedAt
-    time.Time`json:"created_at"`
-    UpdatedAt
-    time.Time`json:"updated_at"`
-    DeletedAt * time.Time`json:"deleted_at,omitempty"`
-}
-
-// UserNote is the response DTO for the user note
-UserNote
-struct
-{
-    Title
-    string`json:"title"`
-    string`json:"note_tags_id"`
-    Color * string`json:"color,omitempty"`
-    CreatedAt
-    time.Time`json:"created_at"`
-    UpdatedAt * time.Time`json:"updated_at,omitempty"`
-    PinnedAt * time.Time`json:"pinned_at,omitempty"`
-    StarredAt * time.Time`json:"starred_at,omitempty"`
-    ArchivedAt * time.Time`json:"archived_at,omitempty"`
-    TrashedAt * time.Time`json:"trashed_at,omitempty"`
-    DeletedAt * time.Time`json:"deleted_at,omitempty"`
-    LatestNoteVersionID * int64`json:"latest_note_version_id,omitempty"`
-}
-
-// UserNoteVersion is the response DTO for the user note version
-UserNoteVersion
-struct
-{
-    NoteID * int64`json:"note_id,omitempty"`
-    EncryptedContent
-    string`json:"encrypted_content"`
-    CreatedAt
-    time.Time`json:"created_at"`
-    DeletedAt * time.Time`json:"deleted_at,omitempty"`
-}
-
-// UserNoteTag is the response DTO for the user note tag
-UserNoteTag
-struct
-{
-    TagID
-    int64`json:"tag_id"`
-    AssignedAt
-    time.Time`json:"assigned_at"`
-    DeletedAt * time.Time`json:"deleted_at,omitempty"`
 }

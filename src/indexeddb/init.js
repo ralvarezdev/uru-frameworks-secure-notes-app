@@ -13,7 +13,6 @@ export const OBJECT_STORES = DeepFreeze({
     USER_NOTES: 'user_notes',
     USER_NOTE_TAGS: 'user_note_tags',
     USER_NOTE_VERSIONS: 'user_note_versions',
-    TO_SYNC: 'to_sync',
 });
 
 // Function to get the database name
@@ -37,34 +36,23 @@ export function openDatabase({
         // Create the object stores
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_TAGS)) {
             const tagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_TAGS, {keyPath: 'id'});
-            tagsObjectStore.createIndex('name', 'name', {unique: false});
-            tagsObjectStore.createIndex('is_synced', 'is_synced', {unique: false});
+            tagsObjectStore.createIndex('name', 'name', {unique: true});
         }
 
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTES)) {
             const notesObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTES, {keyPath: 'id'});
             notesObjectStore.createIndex('title', 'title', {unique: false});
-            notesObjectStore.createIndex('is_synced', 'is_synced', {unique: false});
-
         }
 
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_TAGS)) {
-            const noteTagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_TAGS, {keyPath: ['note_id', 'tag_id']});
-            noteTagsObjectStore.createIndex('is_synced', 'is_synced', {unique: false});
+            const noteTagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_TAGS, {keyPath: 'id'});
+            noteTagsObjectStore.createIndex('note_id', 'note_id', {unique: false});
+            noteTagsObjectStore.createIndex('tag_id', 'tag_id', {unique: false});
         }
 
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_VERSIONS)) {
             const noteVersionObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_VERSIONS, {keyPath: 'id'});
             noteVersionObjectStore.createIndex('note_id', 'note_id', {unique: false});
-            noteVersionObjectStore.createIndex('is_synced', 'is_synced', {unique: false});
-        }
-
-        if (!db.objectStoreNames.contains(OBJECT_STORES.TO_SYNC)) {
-            const toSyncObjectStore = db.createObjectStore(OBJECT_STORES.TO_SYNC, {keyPath: 'id'});
-            toSyncObjectStore.createIndex('object_store', 'object_store', {unique: false});
-            toSyncObjectStore.createIndex('object_id', 'object_id', {unique: false});
-            toSyncObjectStore.createIndex('action', 'action', {unique: false});
-            toSyncObjectStore.createIndex('field', 'field', {unique: false});
         }
 
         console.log('Database created successfully');
@@ -79,4 +67,9 @@ export function openDatabase({
     dbRequest.onerror = function (event) {
         onError(event)
     };
+}
+
+// Close the database
+export function closeDatabase() {
+    db?.close();
 }

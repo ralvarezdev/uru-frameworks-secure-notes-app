@@ -86,7 +86,7 @@
 /* Responsive styles */
 @media (max-width: 1200px) {
     .home__main-container {
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns: repeat(6, 1fr);
     }
 
     .home__main-container__menu-container {

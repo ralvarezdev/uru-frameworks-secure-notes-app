@@ -1,4 +1,3 @@
-import './NotFound.css'
 import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../context/Auth.jsx";
 import {useCallback, useEffect} from "react";

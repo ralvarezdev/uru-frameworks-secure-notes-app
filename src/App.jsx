@@ -22,6 +22,8 @@ import {
     TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
     VERIFY_EMAIL
 } from "./endpoints.js";
+import ErrorMemo from "./components/Notification/Error/ErrorMemo.jsx";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 
 // Authentication endpoints
 const NO_AUTH_ENABLED_ENDPOINTS = [LOG_IN, SIGN_UP, FORGOT_PASSWORD, RESET_PASSWORD, VERIFY_EMAIL]
@@ -76,7 +78,9 @@ export default function App() {
     return (
         <AppLayout>
             <div className='app__main-container__app-container'>
-                <Outlet/>
+                <ErrorBoundary>
+                    <Outlet/>
+                </ErrorBoundary>
             </div>
         </AppLayout>
     )

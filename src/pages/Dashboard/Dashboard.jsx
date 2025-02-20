@@ -31,7 +31,6 @@ export default function Dashboard() {
     /*
     <PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>
      */
-
     return (
         <HomeLayout>
         </HomeLayout>

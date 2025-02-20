@@ -23,8 +23,11 @@ export default function RecoveryCode() {
     // 2FA Recovery code mutation
     const mutation = useMutation(LogInHandleRequest, {
         onSuccess: (data) => {
-            if (data?.status !== 'success')
+            if (data?.status !== 'success'){
                 setOnError(true);
+
+                // HANDLE NEW RECOVERY CODES
+            }
             else {
                 setLogIn(null)
                 addInfoNotification('Logged in successfully!');

@@ -56,7 +56,10 @@ const router = createBrowserRouter(
             <Route path={VERIFY_EMAIL} element={<VerifyEmail/>}/>
             <Route path={FORGOT_PASSWORD} element={<ForgotPassword/>}/>
             <Route path={RESET_PASSWORD} element={<ResetPassword/>}/>
-            <Route path={DASHBOARD} element={<Dashboard/>}/>
+            <Route path={DASHBOARD} element={
+                    <Dashboard/>
+
+                }/>
             <Route path="*" element={<NotFound/>}/>
         </Route>
     )
@@ -78,24 +81,22 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
-            <ErrorBoundary>
-                <NotificationProvider>
-                    <AuthProvider>
-                        <LogInProvider>
-                            <Suspense fallback={
-                                <div className='app__loading-container'>
-                                    <div
-                                        className='app__loading-container__spinner'/>
-                                </div>
-                            }>
-                                <RouterProvider router={router}>
+            <NotificationProvider>
+                <AuthProvider>
+                    <LogInProvider>
+                        <Suspense fallback={
+                            <div className='app__loading-container'>
+                                <div
+                                    className='app__loading-container__spinner'/>
+                            </div>
+                        }>
+                            <RouterProvider router={router}>
                                     <App/>
-                                </RouterProvider>
-                            </Suspense>
-                        </LogInProvider>
-                    </AuthProvider>
-                </NotificationProvider>
-            </ErrorBoundary>
+                            </RouterProvider>
+                        </Suspense>
+                    </LogInProvider>
+                </AuthProvider>
+            </NotificationProvider>
         </QueryClientProvider>
     </StrictMode>
 )

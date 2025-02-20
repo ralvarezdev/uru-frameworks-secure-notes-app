@@ -1,5 +1,5 @@
 import './App.css'
-import {Outlet, useNavigate} from "react-router-dom";
+import {Outlet} from "react-router-dom";
 import {useEffect} from "react";
 import AppLayout from "./layouts/App/App.jsx";
 import {useAuth} from "./context/Auth.jsx";
@@ -22,7 +22,6 @@ import {
     TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
     VERIFY_EMAIL
 } from "./endpoints.js";
-import ErrorMemo from "./components/Notification/Error/ErrorMemo.jsx";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 
 // Authentication endpoints
@@ -31,7 +30,6 @@ const AUTH_DISABLED_ENDPOINTS = [...NO_AUTH_ENABLED_ENDPOINTS, TWO_FACTOR_AUTHEN
 
 // App component
 export default function App() {
-    const navigate = useNavigate();
     const {isAuth} = useAuth();
     const {logIn} = useLogIn();
     const path = window.location.pathname;
@@ -49,7 +47,7 @@ export default function App() {
 
         if (isAuth) {
             if (AUTH_DISABLED_ENDPOINTS.includes(parsedPath))
-                navigate(DASHBOARD);
+                window.location.href = DASHBOARD;
             return;
         }
 
@@ -66,14 +64,14 @@ export default function App() {
             if (twoFactorAuthenticationMethods.includes(RECOVERY_CODE_2FA_METHOD) && parsedPath === TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE)
                 return;
 
-            navigate(TWO_FACTOR_AUTHENTICATION_EMAIL_CODE);
+            window.location.href=TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
             return;
         }
 
         // Redirect to the login page if the user is not authenticated
         if (!NO_AUTH_ENABLED_ENDPOINTS.includes(parsedPath))
-            navigate(LOG_IN)
-    }, [path, navigate, isAuth, logIn]);
+            window.location.href=LOG_IN
+    }, [path, isAuth, logIn]);
 
     return (
         <AppLayout>

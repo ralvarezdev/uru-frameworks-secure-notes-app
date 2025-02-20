@@ -1,4 +1,3 @@
-import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../context/Auth.jsx";
 import {useCallback, useEffect} from "react";
 import {REDIRECT_DURATION} from "../../constants.js";
@@ -10,12 +9,10 @@ import {DASHBOARD, LOG_IN} from "../../endpoints.js";
 // Not found page
 export default function NotFound() {
     const {isAuth} = useAuth();
-    const navigate = useNavigate();
     const {redirectIn, setIsActive} = useTimer({
         onTimerEnd: useCallback(() => {
-            if (isAuth) navigate(DASHBOARD);
-            else navigate(LOG_IN);
-        }, [navigate, isAuth]),
+            window.location.href=isAuth?DASHBOARD:LOG_IN;
+        }, [isAuth]),
         timerDuration: REDIRECT_DURATION,
         timerInterval: 1000,
     })

@@ -1,6 +1,5 @@
 import Input from "../../../../components/Input/Input.jsx";
 import AuthLayout from "../../../../layouts/Auth/Auth.jsx";
-import {useNavigate} from "react-router-dom";
 import {useLogIn} from "../../../../context/LogIn.jsx";
 import {useState} from "react";
 import {useNotification} from "../../../../context/Notification.jsx";
@@ -15,7 +14,6 @@ import {
 
 // 2FA Email code page
 export default function EmailCode() {
-    const navigate = useNavigate();
     const {logIn, setLogIn} = useLogIn();
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
@@ -28,7 +26,7 @@ export default function EmailCode() {
             else {
                 setLogIn(null)
                 addInfoNotification('Logged in successfully!');
-                navigate(DASHBOARD);
+                window.location.href=DASHBOARD;
             }
         },
         onError: (error) => addErrorNotification(error.message)

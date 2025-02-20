@@ -3,13 +3,11 @@ import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
 import {sendAuthenticatedRequest} from "../../utils/api.js";
 import {useCallback} from "react";
 import {useNotification} from "../../context/Notification.jsx";
-import {useNavigate} from "react-router-dom";
 import {LOG_IN} from "../../endpoints.js";
 import HomeLayout from "../../layouts/Home/Home.jsx";
 
 // Dashboard page
 export default function Dashboard() {
-    const navigate = useNavigate()
     const {addInfoNotification, addErrorNotification} = useNotification();
 
     // Handle log out
@@ -20,19 +18,16 @@ export default function Dashboard() {
         // Check if log out was successful
         if (response?.status === 'success') {
             addInfoNotification('Logged out successfully!');
-            navigate(LOG_IN);
+            window.location.href=LOG_IN;
         }
 
         // Check if there was an error
         if (response.status === 'error')
             addErrorNotification(response?.message);
-    }, [addErrorNotification, addInfoNotification, navigate]);
+    }, [addErrorNotification, addInfoNotification]);
 
-    /*
-    <PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>
-     */
     return (
-        <HomeLayout>
+        <HomeLayout settings={<PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>}>
         </HomeLayout>
     )
 }

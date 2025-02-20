@@ -2,7 +2,6 @@ import './SignUp.css'
 import Input from "../../components/Input/Input.jsx";
 import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
-import {useNavigate} from "react-router-dom";
 import {sendRequest} from "../../utils/api.js";
 import {useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
@@ -44,7 +43,6 @@ async function SignUpHandleRequest({
 
 // Sign up page
 export default function SignUp() {
-    const navigate = useNavigate()
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
@@ -55,7 +53,7 @@ export default function SignUp() {
                 setOnError(true);
             else {
                 addInfoNotification('Signed up successfully!');
-                navigate(LOG_IN);
+                window.location.href=LOG_IN;
             }
         },
         onError: (error) => addErrorNotification(error.message)

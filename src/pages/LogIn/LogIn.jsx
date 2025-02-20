@@ -1,7 +1,6 @@
 import Input from "../../components/Input/Input.jsx";
 import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
-import {useNavigate} from "react-router-dom";
 import {sendRequest} from "../../utils/api.js";
 import {useLogIn} from "../../context/LogIn.jsx";
 import {useCallback, useState} from "react";
@@ -50,7 +49,6 @@ export async function LogInHandleRequest({
 
 // Log in page
 export default function LogIn() {
-    const navigate = useNavigate();
     const {setLogIn} = useLogIn();
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
@@ -64,7 +62,7 @@ export default function LogIn() {
                 setOnError(true);
             else {
                 addInfoNotification('Logged in successfully!');
-                navigate(DASHBOARD);
+                window.location.href=DASHBOARD;
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -77,8 +75,8 @@ export default function LogIn() {
                                        twoFactorAuthenticationMethods
                                    }) => {
         setLogIn({username, password, twoFactorAuthenticationMethods});
-        navigate(TWO_FACTOR_AUTHENTICATION_EMAIL_CODE);
-    }, [navigate, setLogIn]);
+        window.location.href=TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
+    }, [setLogIn]);
 
     // Handle the form submission
     const handleSubmit = (formData) => {

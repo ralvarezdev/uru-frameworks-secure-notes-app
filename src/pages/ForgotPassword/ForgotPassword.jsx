@@ -1,6 +1,5 @@
 import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import Input from "../../components/Input/Input.jsx";
-import {useNavigate} from "react-router-dom";
 import {useNotification} from "../../context/Notification.jsx";
 import {useState} from "react";
 import {sendRequest} from "../../utils/api.js";
@@ -23,7 +22,6 @@ export async function ForgotPasswordHandleRequest({email}) {
 
 // Forgot password page
 export default function ForgotPassword() {
-    const navigate = useNavigate()
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
@@ -34,7 +32,7 @@ export default function ForgotPassword() {
                 setOnError(true);
             else {
                 addInfoNotification('Check your email to reset your password!');
-                navigate(LOG_IN);
+                window.location.href=LOG_IN;
             }
         },
         onError: (error) => addErrorNotification(error.message)

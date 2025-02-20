@@ -1,5 +1,5 @@
 import {sendRequest} from "../../utils/api.js";
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import Password from "../../components/Input/Password/Password.jsx";
 import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import {useNotification} from "../../context/Notification.jsx";
@@ -37,7 +37,6 @@ async function ResetPasswordHandleRequest({
 export default function ResetPassword() {
     const location = useLocation();
     const token = location.pathname.split('/')[2];
-    const navigate = useNavigate();
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
@@ -46,7 +45,7 @@ export default function ResetPassword() {
         onSuccess: (data) => {
             if (data?.status === 'success') {
                 addInfoNotification('Password reset successfully!');
-                navigate(LOG_IN);
+                window.location.href=LOG_IN;
             } else if (data?.data?.token?.[0])
                 addErrorNotification(data?.data?.token?.[0]);
             else

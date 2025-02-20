@@ -4,7 +4,7 @@ import TransparentIconButton
 import {useState} from "react";
 
 // Home layout
-export default function Home({}) {
+export default function Home({settings}) {
     const [isMenuOpen, setIsMenuOpen] = useState(null);
     const [isNotesOpen, setIsNotesOpen] = useState(null);
 
@@ -23,13 +23,16 @@ export default function Home({}) {
             <div className={['home__main-container__menu-container', isMenuOpen ? 'home__main-container__menu-container--opened' : '',
             isMenuOpen===false ? 'home__main-container__menu-container--closed' : ''
             ].join(' ')}>
+                <TransparentIconButton className='home__main-container__menu-container__menu-button' onClick={handleMenuButtonClick}>chevron_left</TransparentIconButton>
                 <div className='home__main-container__menu-container__search-container'>
                 </div>
                 <div className='home__main-container__menu-container__views-container'>
                 </div>
                 <div className='home__main-container__menu-container__tags-container'>
                 </div>
-                <TransparentIconButton className='home__main-container__menu-container__menu-button' onClick={handleMenuButtonClick}>chevron_left</TransparentIconButton>
+                <div className='home__main-container__menu-container__settings-container'>
+                    {settings}
+                </div>
             </div>
             <div className='home__main-container__notes-container'>
                 <TransparentIconButton className='home__main-container__notes-container__menu-button' onClick={handleMenuButtonClick}>menu</TransparentIconButton>

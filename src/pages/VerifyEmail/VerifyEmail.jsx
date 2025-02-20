@@ -1,4 +1,4 @@
-import {useLocation, useNavigate} from "react-router-dom";
+import {useLocation} from "react-router-dom";
 import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
 import {sendRequest} from "../../utils/api.js";
 import {useQuery} from "react-query";
@@ -33,12 +33,10 @@ export default function VerifyEmail() {
         error
     } = useQuery(['verify-email', token], () => VerifyEmailHandleRequest(token));
     const {isAuth} = useAuth();
-    const navigate = useNavigate();
     const {redirectIn, setIsActive} = useTimer({
         onTimerEnd: useCallback(() => {
-            if (isAuth) navigate(DASHBOARD);
-            else navigate(LOG_IN);
-        }, [navigate, isAuth]),
+            window.location.href=isAuth?DASHBOARD:LOG_IN;
+        }, [isAuth]),
         timerDuration: REDIRECT_DURATION,
         timerInterval: 1000,
     })

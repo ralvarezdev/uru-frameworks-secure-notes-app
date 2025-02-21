@@ -1,10 +1,10 @@
 import {createContext, useCallback, useContext, useState} from 'react';
 
 // Create a context
-const NotificationContext = createContext();
+const NotificationContext = createContext(null);
 
 // Create a provider
-export default function NotificationProvider({children}) {
+export function NotificationProvider({children}) {
     const [notifications, setNotifications] = useState([]);
 
     // Add a notification to the list

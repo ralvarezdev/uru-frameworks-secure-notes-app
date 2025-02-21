@@ -14,10 +14,10 @@ import {db} from "../indexeddb/init.js";
 import logger from "../logger.js";
 
 // Create a context
-const NotesContext = createContext();
+const NotesContext = createContext(null);
 
 // Create a provider
-export default function NotesProvider({children}) {
+export function NotesProvider({children}) {
     const [notes, setNotes] = useState([]);
     const [noteVersionsByNoteID, setNoteVersionsByNoteID] = useState({});
     const [noteTagsByNoteID, setNoteTagsByNoteID] = useState({});

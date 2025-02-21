@@ -8,10 +8,10 @@ import {db} from "../indexeddb/init.js";
 import logger from "../logger.js";
 
 // Create a context
-const TagsContext = createContext();
+const TagsContext = createContext(null);
 
 // Create a provider
-export default function TagsProvider({children}) {
+export function TagsProvider({children}) {
     const [tags, setTags] = useState([]);
 
     // Upsert a tag to the list

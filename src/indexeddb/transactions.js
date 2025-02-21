@@ -7,7 +7,7 @@ export const UPDATE_DATA_ERROR = 'Upsert data error';
 export const DELETE_DATA_ERROR = 'Delete data error';
 export const READ_ALL_DATA_ERROR = 'Read all data error';
 
-// Add Data
+// Add data
 export function addData(db, storeName, data) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
@@ -27,7 +27,7 @@ export function addData(db, storeName, data) {
     });
 }
 
-// Read Data
+// Read data
 export function readData(db, storeName, key) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
@@ -47,7 +47,7 @@ export function readData(db, storeName, key) {
     });
 }
 
-// Read All Data
+// Read all data
 export function readAllData(db, storeName, query = null, count = undefined) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
@@ -67,7 +67,7 @@ export function readAllData(db, storeName, query = null, count = undefined) {
     });
 }
 
-// Upsert Data
+// Upsert data
 export function upsertData(db, storeName, data) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
@@ -87,7 +87,7 @@ export function upsertData(db, storeName, data) {
     });
 }
 
-// Delete Data
+// Delete data
 function deleteData(db, storeName, key) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
@@ -117,7 +117,7 @@ export function ReadUserTag(db, key) {
     return readData(db, OBJECT_STORES.USER_TAGS, key);
 }
 
-// Read All User Tags
+// Read all User Tags
 export function ReadAllUserTags(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_TAGS, query, count);
 }
@@ -142,7 +142,7 @@ export function ReadUserNote(db, key) {
     return readData(db, OBJECT_STORES.USER_NOTES, key);
 }
 
-// Read All User Notes
+// Read all User Notes
 export function ReadAllUserNotes(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_NOTES, query, count);
 }
@@ -167,7 +167,7 @@ export function ReadUserNoteVersion(db, key) {
     return readData(db, OBJECT_STORES.USER_NOTE_VERSIONS, key);
 }
 
-// Read All User Note Versions
+// Read all User Note Versions
 export function ReadAllUserNoteVersions(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_NOTE_VERSIONS, query, count);
 }
@@ -192,7 +192,7 @@ export function ReadUserNoteTag(db, key) {
     return readData(db, OBJECT_STORES.USER_NOTE_TAGS, key);
 }
 
-// Read All User Note Tags
+// Read all User Note Tags
 export function ReadAllUserNoteTags(db, query, count) {
     return readAllData(db, OBJECT_STORES.USER_NOTE_TAGS, query, count);
 }
@@ -205,4 +205,29 @@ export function UpsertUserNoteTag(db, userNoteTag) {
 // Delete User Note Tag
 export function DeleteUserNoteTag(db, key) {
     return deleteData(db, OBJECT_STORES.USER_NOTE_TAGS, key);
+}
+
+// Add To Sync
+export function AddToSync(db, toSync) {
+    return addData(db, OBJECT_STORES.TO_SYNC, toSync);
+}
+
+// Read To Sync
+export function ReadToSync(db, key) {
+    return readData(db, OBJECT_STORES.TO_SYNC, key);
+}
+
+// Read all To Sync
+export function ReadAllToSync(db, query, count) {
+    return readAllData(db, OBJECT_STORES.TO_SYNC, query, count);
+}
+
+// Upsert To Sync
+export function UpsertToSync(db, toSync) {
+    return upsertData(db, OBJECT_STORES.TO_SYNC, toSync);
+}
+
+// Delete To Sync
+export function DeleteToSync(db, key) {
+    return deleteData(db, OBJECT_STORES.TO_SYNC, key);
 }

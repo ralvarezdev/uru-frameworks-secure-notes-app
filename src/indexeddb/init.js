@@ -13,6 +13,7 @@ export const OBJECT_STORES = DeepFreeze({
     USER_NOTES: 'user_notes',
     USER_NOTE_TAGS: 'user_note_tags',
     USER_NOTE_VERSIONS: 'user_note_versions',
+    TO_SYNC: 'to_sync'
 });
 
 // Function to get the database name
@@ -53,6 +54,11 @@ export function openDatabase({
         if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_VERSIONS)) {
             const noteVersionObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_VERSIONS, {keyPath: 'id'});
             noteVersionObjectStore.createIndex('note_id', 'note_id', {unique: false});
+        }
+
+        if (!db.objectStoreNames.contains(OBJECT_STORES.TO_SYNC)) {
+            const toSyncObjectStore = db.createObjectStore(OBJECT_STORES.TO_SYNC, {keyPath: 'id'});
+            toSyncObjectStore.createIndex('action', 'action', {unique: false});
         }
 
         console.log('Database created successfully');

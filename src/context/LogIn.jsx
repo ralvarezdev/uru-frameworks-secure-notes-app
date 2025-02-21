@@ -4,7 +4,7 @@ import {createContext, useContext, useState} from "react";
 const LogInContext = createContext(null);
 
 // Create a provider
-export default function LogInProvider({children}) {
+export function LogInProvider({children}) {
     const [logIn, setLogIn] = useState(null);
 
     return (

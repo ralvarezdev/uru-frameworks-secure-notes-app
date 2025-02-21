@@ -13,7 +13,7 @@ const initialIsAuth = cookieExists(import.meta.env.COOKIE_USER_ID_NAME)
 if (import.meta.env.IS_DEBUG) LOGGER.info(`User is ${initialIsAuth ? "authenticated" : "not authenticated"}`)
 
 // Create a provider
-export default function AuthProvider({children}) {
+export function AuthProvider({children}) {
     const {loadTags, clearTags} = useTags();
     const {loadNotes, clearNotes} = useNotes();
     const [userID, setUserID] = useState(null);

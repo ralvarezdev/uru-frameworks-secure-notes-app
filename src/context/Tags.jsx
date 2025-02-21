@@ -111,5 +111,5 @@ export default function TagsProvider({children}) {
 
 // Custom hook that shorthands the context
 export function useTags() {
-    return useContext(TagContext);
+    return useContext(TagsContext);
 }

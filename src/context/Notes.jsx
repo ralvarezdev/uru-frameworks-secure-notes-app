@@ -12,7 +12,6 @@ import {
 } from "../indexeddb/transactions.js";
 import {db} from "../indexeddb/init.js";
 import logger from "../logger.js";
-import {IS_DEBUG} from "@ralvarezdev/js-mode";
 
 // Create a context
 const NotesContext = createContext();
@@ -27,7 +26,7 @@ export default function NotesProvider({children}) {
     const upsertNote = useCallback(async (note, alterIndexedDB) => {
         // Check if the note has an ID
         if (!note?.id) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Note ID is required")
             return;
         }
@@ -47,7 +46,7 @@ export default function NotesProvider({children}) {
     const upsertNotes = useCallback(async (notes, alterIndexedDB) => {
         // Check if the notes have an ID
         if (notes.some((note) => !note?.id)) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Note ID is required")
             return;
         }
@@ -107,7 +106,7 @@ export default function NotesProvider({children}) {
     const upsertNoteVersion = useCallback(async (noteVersion, alterIndexedDB) => {
         // Check if the note version has an ID
         if (!noteVersion?.id) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Note version ID is required")
             return;
         }
@@ -133,7 +132,7 @@ export default function NotesProvider({children}) {
     const upsertNoteVersions = useCallback(async (noteVersions, alterIndexedDB) => {
         // Check if the note versions have an ID
         if (noteVersions.some((noteVersion) => !noteVersion?.id)) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Note version ID is required")
             return;
         }
@@ -226,7 +225,7 @@ export default function NotesProvider({children}) {
     const upsertNoteTag = useCallback(async (noteTag, alterIndexedDB) => {
         // Check if the note tag has an ID
         if (!noteTag?.id) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Note tag ID is required")
             return;
         }
@@ -252,7 +251,7 @@ export default function NotesProvider({children}) {
     const upsertNoteTags = useCallback(async (noteTags, alterIndexedDB) => {
         // Check if the note tags have an ID
         if (noteTags.some((noteTag) => !noteTag?.id)) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Note tag ID is required")
             return;
         }

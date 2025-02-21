@@ -7,14 +7,14 @@
     "dev": "vite --host --mode dev",
     "build": "vite build",
     "lint": "eslint uru-frameworks-secure-notes-app",
-    "preview": "vite --host --mode preview",
+    "preview": "vite --host preview",
     "debug": "vite --host --mode debug",
     "prod": "vite build && vite preview --host --mode prod"
   },
   "dependencies": {
     "@ralvarezdev/js-deep-freeze": "^0.1.1",
     "@ralvarezdev/js-logger": "^0.1.13",
-    "@ralvarezdev/js-mode": "^0.1.4",
+    "@ralvarezdev/js-mode": "^0.1.9",
     "dotenv": "^16.4.7",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",

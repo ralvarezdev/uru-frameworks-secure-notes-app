@@ -1,6 +1,5 @@
 import {createContext, useContext, useState} from 'react';
 import cookieExists, {getCookie} from "../utils/cookies.js";
-import {IS_DEBUG} from "@ralvarezdev/js-mode";
 import LOGGER from "../logger.js";
 import {onLogIn, onLogOut} from "../utils/init.js";
 import {useTags} from "./Tags.jsx";
@@ -11,8 +10,7 @@ const AuthContext = createContext(null);
 
 // Check if the salt cookie exists
 const initialIsAuth = cookieExists(import.meta.env.COOKIE_USER_ID_NAME)
-if (IS_DEBUG) LOGGER.info(`User is ${initialIsAuth ? "authenticated" : "not authenticated"}`)
-console.log(`User is ${initialIsAuth ? "authenticated" : "not authenticated"}`)
+if (import.meta.env.IS_DEBUG) LOGGER.info(`User is ${initialIsAuth ? "authenticated" : "not authenticated"}`)
 
 // Create a provider
 export default function AuthProvider({children}) {
@@ -23,7 +21,7 @@ export default function AuthProvider({children}) {
 
     // Add logger to the setter
     let modifiedSetIsAuth = (value) => setIsAuth(value);
-    if (IS_DEBUG)
+    if (import.meta.env.IS_DEBUG)
         // Add logger to the setter
         modifiedSetIsAuth = (value) => {
             // Check if the value is different
@@ -43,8 +41,8 @@ export default function AuthProvider({children}) {
             } else {
                 // Get the user ID from the cookie
                 const userID = getCookie(import.meta.env.COOKIE_USER_ID_NAME)
-                if (!userID && IS_DEBUG) LOGGER.error("User ID not found in the cookie")
-                else if (IS_DEBUG) LOGGER.info(`User ID found in the cookie: ${userID}`)
+                if (!userID && import.meta.env.IS_DEBUG) LOGGER.error("User ID not found in the cookie")
+                else if (import.meta.env.IS_DEBUG) LOGGER.info(`User ID found in the cookie: ${userID}`)
 
                 // Call the onAuth function
                 onLogIn(userID, null, null, loadTags, loadNotes).then()

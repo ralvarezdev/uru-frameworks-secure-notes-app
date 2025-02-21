@@ -1,6 +1,6 @@
-// Database name and version
 import DeepFreeze from "@ralvarezdev/js-deep-freeze";
 
+// Database name and version
 export const DB_NAME = 'secure-notes';
 export const DB_VERSION = 1;
 

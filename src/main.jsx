@@ -1,7 +1,6 @@
 import './index.css'
 import {lazy, StrictMode, Suspense} from 'react'
 import {createRoot} from 'react-dom/client'
-import {loadVite} from "@ralvarezdev/js-mode";
 import {
     createBrowserRouter,
     createRoutesFromElements,
@@ -34,9 +33,6 @@ const ForgotPassword = lazy(() => import('./pages/ForgotPassword/ForgotPassword.
 const TOTPCode = lazy(() => import('./pages/LogIn/TwoFactorAuth/TOTPCode/TOTPCode.jsx'))
 const RecoveryCode = lazy(() => import('./pages/LogIn/TwoFactorAuth/RecoveryCode/RecoveryCode.jsx'))
 const EmailCode = lazy(() => import('./pages/LogIn/TwoFactorAuth/EmailCode/EmailCode.jsx'))
-
-// Load environment variables
-loadVite()
 
 // Create the browser router
 const router = createBrowserRouter(

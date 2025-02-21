@@ -1,4 +1,3 @@
-import {IS_DEBUG} from "@ralvarezdev/js-mode";
 import {clearCookies} from "./cookies.js";
 
 // Log formats
@@ -21,7 +20,7 @@ export async function sendRequest(method, path, bodyObject) {
     }
 
     // Log the request
-    if (IS_DEBUG) console.log(REQUEST_LOG_FORMAT, method, path, JSON.stringify(bodyObject));
+    if (import.meta.env.IS_DEBUG) console.log(REQUEST_LOG_FORMAT, method, path, JSON.stringify(bodyObject));
 
     // Fetch the API
     const response = await fetch(`/api${path}`, apiRequest);
@@ -32,7 +31,7 @@ export async function sendRequest(method, path, bodyObject) {
         body = await response.json();
     } catch (error) {
         // Log the error
-        if (IS_DEBUG) console.error(ERROR_LOG_FORMAT, method, path, error.message);
+        if (import.meta.env.IS_DEBUG) console.error(ERROR_LOG_FORMAT, method, path, error.message);
 
         // Return an error response
         return [response.status, {
@@ -42,7 +41,7 @@ export async function sendRequest(method, path, bodyObject) {
     }
 
     // Log the body
-    if (IS_DEBUG) console.log(RESPONSE_LOG_FORMAT, method, path, response.status, JSON.stringify(body));
+    if (import.meta.env.IS_DEBUG) console.log(RESPONSE_LOG_FORMAT, method, path, response.status, JSON.stringify(body));
     return [response.status, {...body}];
 }
 

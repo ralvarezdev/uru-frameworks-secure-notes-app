@@ -5,7 +5,6 @@ import {
     UpsertUserTag
 } from "../indexeddb/transactions.js";
 import {db} from "../indexeddb/init.js";
-import {IS_DEBUG} from "@ralvarezdev/js-mode";
 import logger from "../logger.js";
 
 // Create a context
@@ -19,7 +18,7 @@ export default function TagsProvider({children}) {
     const upsertTag = useCallback(async (tag, alterIndexedDB) => {
         // Check if the tag has an ID
         if (!tag?.id) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Tag ID is required")
             return;
         }
@@ -39,7 +38,7 @@ export default function TagsProvider({children}) {
     const upsertTags = useCallback(async (tags, alterIndexedDB) => {
         // Check if the tags have an ID
         if (tags.some((tag) => !tag?.id)) {
-            if (IS_DEBUG)
+            if (import.meta.env.IS_DEBUG)
                 logger.error("Tag ID is required")
             return;
         }

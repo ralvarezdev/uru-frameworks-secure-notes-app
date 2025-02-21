@@ -1,7 +1,7 @@
 import './Graphic.css'
 
 // Graphic logo asset component
-export default function GraphicLogoAsset({className,...props}) {
+export default function GraphicLogoAsset({className, ...props}) {
     return (
         <div
             className={['asset--logo--graphic__container', className].join(' ')} {...props}>

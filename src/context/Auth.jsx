@@ -17,7 +17,7 @@ console.log(`User is ${initialIsAuth ? "authenticated" : "not authenticated"}`)
 // Create a provider
 export default function AuthProvider({children}) {
     const {loadTags, clearTags} = useTags();
-    const {loadNotes, clearNotes}=useNotes();
+    const {loadNotes, clearNotes} = useNotes();
     const [userID, setUserID] = useState(null);
     const [isAuth, setIsAuth] = useState(initialIsAuth);
 
@@ -40,22 +40,23 @@ export default function AuthProvider({children}) {
 
                 // Call the onLogOut function
                 onLogOut(clearTags, clearNotes).then()
-            }else {
-                    // Get the user ID from the cookie
-                    const userID = getCookie(import.meta.env.COOKIE_USER_ID_NAME)
-                    if (!userID && IS_DEBUG) LOGGER.error("User ID not found in the cookie")
-                    else if (IS_DEBUG) LOGGER.info(`User ID found in the cookie: ${userID}`)
+            } else {
+                // Get the user ID from the cookie
+                const userID = getCookie(import.meta.env.COOKIE_USER_ID_NAME)
+                if (!userID && IS_DEBUG) LOGGER.error("User ID not found in the cookie")
+                else if (IS_DEBUG) LOGGER.info(`User ID found in the cookie: ${userID}`)
 
-                    // Call the onAuth function
-                    onLogIn(userID, null,  null,  loadTags, loadNotes).then()
+                // Call the onAuth function
+                onLogIn(userID, null, null, loadTags, loadNotes).then()
 
-                    // Set the user ID
-                    setUserID(userID)
+                // Set the user ID
+                setUserID(userID)
             }
         }
 
     return (
-        <AuthContext.Provider value={{isAuth, setIsAuth: modifiedSetIsAuth, userID}}>
+        <AuthContext.Provider
+            value={{isAuth, setIsAuth: modifiedSetIsAuth, userID}}>
             {children}
         </AuthContext.Provider>
     );

@@ -26,7 +26,7 @@ export default function TOTPCode() {
             else {
                 setLogIn(null)
                 addInfoNotification('Logged in successfully!');
-                window.location.href=DASHBOARD;
+                window.location.href = DASHBOARD;
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -45,20 +45,20 @@ export default function TOTPCode() {
 
     return (
         <AuthLayout titleText='TOTP'
-              footer={[
-                  {
-                      to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
-                      text: 'Don\'t you have access to your 2FA?',
-                      children: 'Recovery Code'
-                  },
-                  {
-                      to: TWO_FACTOR_AUTHENTICATION_EMAIL_CODE,
-                      text: 'Do you have access to your email?',
-                      children: 'Email Code'
-                  }]}
-              isOnError={isOnError} setOnError={setOnError}
-              onSubmit={handleSubmit}
-              isSubmitting={mutation.isLoading}>
+                    footer={[
+                        {
+                            to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
+                            text: 'Don\'t you have access to your 2FA?',
+                            children: 'Recovery Code'
+                        },
+                        {
+                            to: TWO_FACTOR_AUTHENTICATION_EMAIL_CODE,
+                            text: 'Do you have access to your email?',
+                            children: 'Email Code'
+                        }]}
+                    isOnError={isOnError} setOnError={setOnError}
+                    onSubmit={handleSubmit}
+                    isSubmitting={mutation.isLoading}>
             <Input type="text" id="totp-code" name="totp-code"
                    label="TOTP code" placeholder="Enter your TOTP code"
                    error={mutation.data?.data?.["2fa_code"]?.[0]}

@@ -1,7 +1,6 @@
 import {Component} from 'react';
 import Error from "../../pages/Error/Error.jsx";
 import {IS_PROD} from "@ralvarezdev/js-mode";
-import TitleText from "../Text/Title/Title.jsx";
 import ParagraphText from "../Text/Paragraph/Paragraph.jsx";
 
 // ErrorBoundary is a class component that catches JavaScript errors anywhere in their child component tree, log those errors, and display a fallback UI instead of crashing the whole app
@@ -31,7 +30,8 @@ export default class ErrorBoundary extends Component {
             return (
                 <Error>
                     <ParagraphText>Something went wrong.</ParagraphText>
-                    <ParagraphText>Please refresh the page or try again later.</ParagraphText>
+                    <ParagraphText>Please refresh the page or try again
+                        later.</ParagraphText>
                 </Error>
             );
 

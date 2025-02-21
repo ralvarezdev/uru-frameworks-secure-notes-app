@@ -11,7 +11,7 @@ export default function NotFound() {
     const {isAuth} = useAuth();
     const {redirectIn, setIsActive} = useTimer({
         onTimerEnd: useCallback(() => {
-            window.location.href=isAuth?DASHBOARD:LOG_IN;
+            window.location.href = isAuth ? DASHBOARD : LOG_IN;
         }, [isAuth]),
         timerDuration: REDIRECT_DURATION,
         timerInterval: 1000,

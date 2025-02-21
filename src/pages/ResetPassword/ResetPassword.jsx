@@ -45,7 +45,7 @@ export default function ResetPassword() {
         onSuccess: (data) => {
             if (data?.status === 'success') {
                 addInfoNotification('Password reset successfully!');
-                window.location.href=LOG_IN;
+                window.location.href = LOG_IN;
             } else if (data?.data?.token?.[0])
                 addErrorNotification(data?.data?.token?.[0]);
             else
@@ -63,14 +63,14 @@ export default function ResetPassword() {
 
     return (
         <AuthLayout titleText='Reset Password'
-              footer={[{
-                  to: LOG_IN,
-                  text: 'Remembered your password?',
-                  children: 'Log In'
-              }]}
-              isOnError={isOnError} setOnError={setOnError}
-              onSubmit={handleSubmit}
-              isSubmitting={mutation.isLoading}>
+                    footer={[{
+                        to: LOG_IN,
+                        text: 'Remembered your password?',
+                        children: 'Log In'
+                    }]}
+                    isOnError={isOnError} setOnError={setOnError}
+                    onSubmit={handleSubmit}
+                    isSubmitting={mutation.isLoading}>
             <Password id="password" name="password" label="Password"
                       placeholder="Enter your password"
                       error={mutation.data?.data?.new_password?.[0]}

@@ -53,7 +53,7 @@ export default function SignUp() {
                 setOnError(true);
             else {
                 addInfoNotification('Signed up successfully!');
-                window.location.href=LOG_IN;
+                window.location.href = LOG_IN;
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -79,14 +79,14 @@ export default function SignUp() {
 
     return (
         <AuthLayout titleText='Sign Up'
-              footer={[{
-                  to: LOG_IN,
-                  text: 'Do you have an account?',
-                  children: 'Log In'
-              }]}
-              isOnError={isOnError} setOnError={setOnError}
-              onSubmit={handleSubmit}
-              isSubmitting={mutation.isLoading}>
+                    footer={[{
+                        to: LOG_IN,
+                        text: 'Do you have an account?',
+                        children: 'Log In'
+                    }]}
+                    isOnError={isOnError} setOnError={setOnError}
+                    onSubmit={handleSubmit}
+                    isSubmitting={mutation.isLoading}>
             <Input type="text" id="first-name" name="first-name"
                    label="First Name" placeholder="Enter your first name"
                    error={mutation.data?.data?.first_name?.[0]}

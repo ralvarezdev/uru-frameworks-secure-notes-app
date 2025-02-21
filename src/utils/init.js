@@ -1,7 +1,9 @@
 import {closeDatabase, openDatabase} from "../indexeddb/init.js";
 
 // Handle on log in
-export async function onLogIn(userID, onSuccess, onError, loadTagsFn=async ()=>{}, loadNotesFn=async ()=>{}) {
+export async function onLogIn(userID, onSuccess, onError, loadTagsFn = async () => {
+}, loadNotesFn = async () => {
+}) {
     // Open the database
     openDatabase({userID, onSuccess, onError});
 
@@ -11,7 +13,9 @@ export async function onLogIn(userID, onSuccess, onError, loadTagsFn=async ()=>{
 }
 
 // Handle on log out
-export async function onLogOut(clearTagsFn=async ()=>{}, clearNotesFn=async ()=>{}) {
+export async function onLogOut(clearTagsFn = async () => {
+}, clearNotesFn = async () => {
+}) {
     // Close the database
     closeDatabase()
 

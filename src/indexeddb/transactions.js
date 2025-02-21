@@ -48,7 +48,7 @@ export function readData(db, storeName, key) {
 }
 
 // Read All Data
-export function readAllData(db, storeName, query=null, count=undefined) {
+export function readAllData(db, storeName, query = null, count = undefined) {
     return new Promise((resolve, reject) => {
         // Create a new transaction
         const transaction = db.transaction([storeName], 'readonly');

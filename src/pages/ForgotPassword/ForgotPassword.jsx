@@ -32,7 +32,7 @@ export default function ForgotPassword() {
                 setOnError(true);
             else {
                 addInfoNotification('Check your email to reset your password!');
-                window.location.href=LOG_IN;
+                window.location.href = LOG_IN;
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -46,20 +46,20 @@ export default function ForgotPassword() {
 
     return (
         <AuthLayout titleText='Forgot Password'
-              footer={[{
-                  to: SIGN_UP,
-                  text: 'Don\'t you have an account?',
-                  children: 'Sign Up'
-              },
-                  {
-                      to: LOG_IN,
-                      text: 'Remember your password?',
-                      children: 'Log In'
-                  }
-              ]}
-              isOnError={isOnError} setOnError={setOnError}
-              onSubmit={handleSubmit}
-              isSubmitting={mutation.isLoading}>
+                    footer={[{
+                        to: SIGN_UP,
+                        text: 'Don\'t you have an account?',
+                        children: 'Sign Up'
+                    },
+                        {
+                            to: LOG_IN,
+                            text: 'Remember your password?',
+                            children: 'Log In'
+                        }
+                    ]}
+                    isOnError={isOnError} setOnError={setOnError}
+                    onSubmit={handleSubmit}
+                    isSubmitting={mutation.isLoading}>
             <Input type="email" id="email" name="email"
                    label="Email" placeholder="Enter your email"
                    error={mutation.data?.data?.email?.[0]}

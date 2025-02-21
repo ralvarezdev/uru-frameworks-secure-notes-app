@@ -70,18 +70,17 @@
 /* Buttons styles */
 .home__main-container__menu-container__menu-button,
 .home__main-container__notes-container__menu-button,
-.home__main-container__note-container__notes-button
-{
+.home__main-container__note-container__notes-button {
     display: none;
     background: cornflowerblue;
 }
 
- .home__main-container__menu-container,
- .home__main-container__note-container,
- .home__main-container__notes-container {
-        transition: move-right var(--animation-move-duration) ease-in-out,
-                    move-left var(--animation-move-duration) ease-in-out;
-    }
+.home__main-container__menu-container,
+.home__main-container__note-container,
+.home__main-container__notes-container {
+    transition: move-right var(--animation-move-duration) ease-in-out,
+    move-left var(--animation-move-duration) ease-in-out;
+}
 
 /* Responsive styles */
 @media (max-width: 1200px) {
@@ -142,7 +141,7 @@
         animation: move-to-right var(--animation-move-duration) ease-in-out forwards;
     }
 
-    .home__main-container__note-container__notes-button{
+    .home__main-container__note-container__notes-button {
         display: block;
     }
 }

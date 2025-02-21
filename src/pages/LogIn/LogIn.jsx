@@ -62,7 +62,7 @@ export default function LogIn() {
                 setOnError(true);
             else {
                 addInfoNotification('Logged in successfully!');
-                window.location.href=DASHBOARD;
+                window.location.href = DASHBOARD;
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -75,7 +75,7 @@ export default function LogIn() {
                                        twoFactorAuthenticationMethods
                                    }) => {
         setLogIn({username, password, twoFactorAuthenticationMethods});
-        window.location.href=TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
+        window.location.href = TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
     }, [setLogIn]);
 
     // Handle the form submission
@@ -87,19 +87,19 @@ export default function LogIn() {
 
     return (
         <AuthLayout titleText='Log In'
-              footer={[{
-                  to: SIGN_UP,
-                  text: 'Don\'t you have an account?',
-                  children: 'Sign Up'
-              },
-                  {
-                      to: FORGOT_PASSWORD,
-                      text: 'Forgot your password',
-                      children: 'Reset'
-                  }]}
-              isOnError={isOnError} setOnError={setOnError}
-              onSubmit={handleSubmit}
-              isSubmitting={mutation.isLoading}>
+                    footer={[{
+                        to: SIGN_UP,
+                        text: 'Don\'t you have an account?',
+                        children: 'Sign Up'
+                    },
+                        {
+                            to: FORGOT_PASSWORD,
+                            text: 'Forgot your password',
+                            children: 'Reset'
+                        }]}
+                    isOnError={isOnError} setOnError={setOnError}
+                    onSubmit={handleSubmit}
+                    isSubmitting={mutation.isLoading}>
             <Input type="text" id="username" name="username"
                    label="Username" placeholder="Enter your username"
                    autoComplete="username"

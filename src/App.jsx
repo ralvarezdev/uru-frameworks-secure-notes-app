@@ -64,13 +64,13 @@ export default function App() {
             if (twoFactorAuthenticationMethods.includes(RECOVERY_CODE_2FA_METHOD) && parsedPath === TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE)
                 return;
 
-            window.location.href=TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
+            window.location.href = TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
             return;
         }
 
         // Redirect to the login page if the user is not authenticated
         if (!NO_AUTH_ENABLED_ENDPOINTS.includes(parsedPath))
-            window.location.href=LOG_IN
+            window.location.href = LOG_IN
     }, [path, isAuth, logIn]);
 
     return (

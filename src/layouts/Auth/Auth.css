@@ -83,8 +83,7 @@
     display: none;
 }
 
-.asset--logo--graphic-text__container.auth__main-container__right-container__logo--graphic-text
-{
+.asset--logo--graphic-text__container.auth__main-container__right-container__logo--graphic-text {
     grid-column: 1/-1;
     grid-row: 1/2;
     justify-self: end;
@@ -190,7 +189,7 @@
         padding-top: 1rem;
     }
 
-     .asset--logo--graphic__container.auth__main-container__right-container__content-container__title-container__logo--graphic {
+    .asset--logo--graphic__container.auth__main-container__right-container__content-container__title-container__logo--graphic {
         display: none;
     }
 

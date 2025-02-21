@@ -22,15 +22,18 @@ export default function Auth({
         <div className='auth__main-container'>
             <BackgroundAsset className='auth__main-container__background'/>
             <div className='auth__main-container__right-container'>
-                <GraphicTextLogoAsset className='auth__main-container__right-container__logo--graphic-text asset--logo--graphic-text__container--right'/>
+                <GraphicTextLogoAsset
+                    className='auth__main-container__right-container__logo--graphic-text asset--logo--graphic-text__container--right'/>
                 <div
                     className='auth__main-container__right-container__content-container'>
                     <div
                         className='auth__main-container__right-container__content-container__title-container'>
                         <TitleText
                             className='auth__main-container__right-container__content-container__title-container__title'>{titleText}</TitleText>
-                        <GraphicTextLogoAsset className='auth__main-container__right-container__content-container__title-container__logo--graphic-text'/>
-                        <GraphicLogoAsset className='auth__main-container__right-container__content-container__title-container__logo--graphic'/>
+                        <GraphicTextLogoAsset
+                            className='auth__main-container__right-container__content-container__title-container__logo--graphic-text'/>
+                        <GraphicLogoAsset
+                            className='auth__main-container__right-container__content-container__title-container__logo--graphic'/>
                     </div>
 
                     <Separator

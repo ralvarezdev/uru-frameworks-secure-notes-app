@@ -26,7 +26,7 @@ export default function EmailCode() {
             else {
                 setLogIn(null)
                 addInfoNotification('Logged in successfully!');
-                window.location.href=DASHBOARD;
+                window.location.href = DASHBOARD;
             }
         },
         onError: (error) => addErrorNotification(error.message)
@@ -45,21 +45,21 @@ export default function EmailCode() {
 
     return (
         <AuthLayout titleText='Email Code'
-              footer={[{
-                  to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
-                  text: 'Don\'t you have access to your 2FA?',
-                  children: 'Recovery Code'
-              },
-                      logIn?.twoFactorAuthenticationMethods?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
-                      ? {
-                          to: TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
-                          text: 'Do you have access to your TOTP?',
-                          children: 'TOTP Code'
-                      } : null,
-              ]}
-              isOnError={isOnError} setOnError={setOnError}
-              onSubmit={handleSubmit}
-              isSubmitting={mutation.isLoading}>
+                    footer={[{
+                        to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
+                        text: 'Don\'t you have access to your 2FA?',
+                        children: 'Recovery Code'
+                    },
+                        logIn?.twoFactorAuthenticationMethods?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
+                            ? {
+                                to: TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
+                                text: 'Do you have access to your TOTP?',
+                                children: 'TOTP Code'
+                            } : null,
+                    ]}
+                    isOnError={isOnError} setOnError={setOnError}
+                    onSubmit={handleSubmit}
+                    isSubmitting={mutation.isLoading}>
             <Input type="text" id="email-code" name="email-code"
                    label="Email code" placeholder="Enter your email code"
                    error={mutation.data?.data?.["2fa_code"]?.[0]}

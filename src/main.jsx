@@ -1,8 +1,6 @@
 import './index.css'
 import {lazy, StrictMode, Suspense} from 'react'
 import {createRoot} from 'react-dom/client'
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
-import AuthProvider from "./context/Auth.jsx";
 import {loadVite} from "@ralvarezdev/js-mode";
 import {
     createBrowserRouter,
@@ -10,8 +8,6 @@ import {
     Route,
     RouterProvider,
 } from "react-router-dom";
-import LogInProvider from "./context/LogIn.jsx";
-import NotificationProvider from "./context/Notification.jsx";
 import {QueryClient, QueryClientProvider} from "react-query";
 import {
     DASHBOARD,
@@ -24,6 +20,7 @@ import {
     TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
     VERIFY_EMAIL
 } from "./endpoints.js";
+import CombinedProvider from "./context/Combined.jsx";
 
 // Import the pages
 const App = lazy(() => import('./App.jsx'))
@@ -78,22 +75,18 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')).render(
     <StrictMode>
         <QueryClientProvider client={queryClient}>
-            <NotificationProvider>
-                <AuthProvider>
-                    <LogInProvider>
-                        <Suspense fallback={
-                            <div className='app__loading-container'>
-                                <div
-                                    className='app__loading-container__spinner'/>
-                            </div>
-                        }>
-                            <RouterProvider router={router}>
-                                    <App/>
-                            </RouterProvider>
-                        </Suspense>
-                    </LogInProvider>
-                </AuthProvider>
-            </NotificationProvider>
+            <Suspense fallback={
+                <div className='app__loading-container'>
+                    <div
+                        className='app__loading-container__spinner'/>
+                </div>
+            }>
+                <CombinedProvider>
+                    <RouterProvider router={router}>
+                        <App/>
+                    </RouterProvider>
+                </CombinedProvider>
+            </Suspense>
         </QueryClientProvider>
     </StrictMode>
 )

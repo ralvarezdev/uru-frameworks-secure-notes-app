@@ -67,7 +67,7 @@ export default function Dashboard() {
                       isOnError={isOnError} required/>
                 <SecondaryButton className='modal__content-container__content__button' onClick={handleEnteredPassword}>Continue</SecondaryButton>
             </Modal>}
-            <HomeLayout settings={<PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>}>
+            <HomeLayout menu={<SecondaryButton onClick={handleLogOut}>Log Out</SecondaryButton>}>
             </HomeLayout>
         </>
     )

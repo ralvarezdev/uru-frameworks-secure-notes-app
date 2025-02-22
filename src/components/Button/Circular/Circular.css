@@ -1,0 +1,47 @@
+/* Circular button component styles */
+.button--circular {
+    padding: 0.6rem;
+    border-radius: 50%;
+}
+
+@media (prefers-color-scheme: light) {
+    .button--circular {
+        background-color: var(--color-medium-primary);
+        color: var(--color-darker-grey);
+    }
+
+    .button--circular:hover {
+        background-color: var(--color-light-primary);
+    }
+
+    .button--circular:active {
+        background-color: var(--color-dark-primary);
+        color: var(--color-lighter-grey);
+    }
+
+    .button--circular:disabled {
+        background-color: var(--color-light-primary);
+        color: var(--color-dark-grey);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .button--circular {
+        background-color: var(--color-dark-primary);
+        color: var(--color-lighter-grey);
+    }
+
+    .button--circular:hover {
+        background-color: var(--color-medium-primary);
+    }
+
+    .button--circular:active {
+        background-color: var(--color-light-primary);
+        color: var(--color-darker-grey);
+    }
+
+    .button--circular:disabled {
+        background-color: var(--color-dark-grey);
+        color: var(--color-light-primary);
+    }
+}

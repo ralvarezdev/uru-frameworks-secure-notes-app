@@ -12,6 +12,7 @@ import {
 } from "../indexedDB/transactions.js";
 import {db} from "../indexedDB/init.js";
 import logger from "../logger.js";
+import {encryptNoteVersionContent} from "../utils/crypto.js";
 
 // Create a context
 const NotesContext = createContext(null);
@@ -87,6 +88,15 @@ export function NotesProvider({children}) {
         return notes.find((note) => note.id === id);
     }, [notes]);
 
+    // Get the latest note
+    const getLatestNote = useCallback(() => {
+        return notes.reduce((latestNote, note) => {
+            if (!latestNote || note.updated_at > latestNote.updated_at)
+                return note;
+            return latestNote;
+        }, null);
+    }, [notes]);
+
     // Clear all notes
     const clearNotes = useCallback(() => {
         setNotes([]);
@@ -124,8 +134,12 @@ export function NotesProvider({children}) {
         });
 
         // Alter the IndexedDB
-        if (alterIndexedDB)
+        if (alterIndexedDB) {
+            // Encrypt the note version content
+            noteVersion.encrypted_content = await encryptNoteVersionContent(noteVersion.encrypted_content);
+
             await UpsertUserNoteVersion(db, noteVersion);
+        }
     }, [setNoteVersionsByNoteID]);
 
     // Upsert multiple note versions to the list
@@ -182,8 +196,12 @@ export function NotesProvider({children}) {
 
         // Alter the IndexedDB
         if (alterIndexedDB)
-            for (const noteVersion of noteVersions)
+            for (const noteVersion of noteVersions) {
+                // Encrypt the note version content
+                noteVersion.encrypted_content = await encryptNoteVersionContent(noteVersion.encrypted_content);
+
                 await UpsertUserNoteVersion(db, noteVersion);
+            }
     }, [setNoteVersionsByNoteID]);
 
     // Remove a note version from the list by note ID and ID
@@ -206,6 +224,16 @@ export function NotesProvider({children}) {
         return noteVersionsByNoteID?.[noteID]?.find((noteVersion) => noteVersion.id === id);
     }, [noteVersionsByNoteID]);
 
+    // Get latest note version by note ID
+    const getLatestNoteVersionByNoteID = useCallback((noteID) => {
+        const noteVersions = noteVersionsByNoteID?.[noteID] || [];
+        return noteVersions.reduce((latestNoteVersion, noteVersion) => {
+            if (!latestNoteVersion || noteVersion.created_at > latestNoteVersion.created_at)
+                return noteVersion;
+            return latestNoteVersion;
+        }, null);
+    }, [noteVersionsByNoteID]);
+
     // Clear all note versions
     const clearNoteVersions = useCallback(() => {
         setNoteVersionsByNoteID({});
@@ -218,6 +246,12 @@ export function NotesProvider({children}) {
 
         // Add the note versions
         const noteVersions = await ReadAllUserNoteVersions(db);
+
+        // Decrypt the note version content
+        for (const noteVersion of noteVersions) {
+            noteVersion.content = await encryptNoteVersionContent(noteVersion.encrypted_content);
+        }
+
         await upsertNoteVersions(noteVersions, false);
     }, [upsertNoteVersions, clearNoteVersions]);
 
@@ -347,6 +381,7 @@ export function NotesProvider({children}) {
             upsertNotes,
             removeNoteByID,
             getNoteByID,
+            getLatestNote,
             clearNotes,
             loadNotesFromIndexedDB,
             noteVersionsByNoteID,
@@ -354,6 +389,7 @@ export function NotesProvider({children}) {
             upsertNoteVersions,
             removeNoteVersionByNoteIDAndID,
             getNoteVersionByNoteIDAndID,
+            getLatestNoteVersionByNoteID,
             clearNoteVersions,
             loadNoteVersionsFromIndexedDB,
             noteTagsByNoteID,

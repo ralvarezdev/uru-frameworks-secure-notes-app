@@ -1,6 +1,34 @@
 // PBDKF2 configuration
+import {compressString, decompressString} from "./zlib.js";
+
 const PBKDF2_ITERATIONS = import.meta.env.PBKDF2_ITERATIONS;
-const PBKDF2_KEY_LENGTH = import.meta.env.PBKDF2_KEY_LENGTH
+const PBKDF2_KEY_LENGTH = import.meta.env.PBKDF2_KEY_LENGTH;
+
+// Encrypts the text using the provided key with AES-256-CTR
+export async function encryptText(text, key) {
+    // Generate a random IV
+    const iv = crypto.getRandomValues(new Uint8Array(16));
+
+    // Encrypt the data
+    const encryptedData = await crypto.subtle.encrypt(
+    {
+      name: 'AES-CTR',
+      counter: iv,
+      length: 32
+    },
+    key,
+    new TextEncoder().encode(text)
+  );
+
+  // Combine the IV and the encrypted data
+  const encryptedDataArray = new Uint8Array(encryptedData);
+  const encryptedArray = new Uint8Array(iv.length + encryptedDataArray.length);
+  encryptedArray.set(iv);
+  encryptedArray.set(encryptedDataArray, iv.length);
+
+  // Convert the encrypted data to a hexadecimal string
+  return encryptedArray.reduce((str, byte) => str + byte.toString(16).padStart(2, '0'), '');
+}
 
 // Decrypts the text using the provided key with AES-256-CTR
 export async function decryptText(encryptedText, key) {
@@ -50,4 +78,22 @@ export async function deriveKey(password, salt) {
     true,
     ['encrypt', 'decrypt']
   );
+}
+
+// Encrypts the note version content using the provided key
+export async function encryptNoteVersionContent(key, content) {
+  // Compress the content
+    const compressedContent=compressString(content);
+
+    // Encrypt the content
+    return await encryptText(compressedContent, key);
+}
+
+// Decrypts the note version content using the provided key
+export async function decryptNoteVersionContent(key, content) {
+  // Decrypt the content
+    const decryptedContent=await decryptText(content, key);
+
+    // Decompress the content
+    return decompressString(decryptedContent);
 }

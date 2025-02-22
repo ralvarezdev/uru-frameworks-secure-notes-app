@@ -61,6 +61,7 @@
     --text--logo--font-size: 2.2rem;
     --text--logo--font-weight: 700;
     --text--logo--letter-spacing: 1px;
+    --modal--opacity: 0.5;
 }
 
 /* Global Styles */
@@ -205,5 +206,46 @@ li {
     }
     to {
         opacity: 1;
+    }
+}
+
+@keyframes disappear {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes appear--modal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: var(--modal--opacity);
+    }
+}
+
+@keyframes appear-and-move-a-bit-down {
+    from {
+        opacity: 0;
+        transform: translateY(-10%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+
+}
+
+@keyframes appear-and-move-a-bit-up {
+    from {
+        opacity: 0;
+        transform: translateY(10%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0%);
     }
 }

@@ -1,4 +1,4 @@
-const zlib = require('zlib');
+import zlib from 'zlib';
 
 // Compresses a string using gzip
 export function compressString(string) {

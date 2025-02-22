@@ -2,6 +2,7 @@
 export const COOKIE_SALT_NAME = import.meta.env.COOKIE_SALT_NAME;
 export const COOKIE_ENCRYPTED_KEY_NAME = import.meta.env.COOKIE_ENCRYPTED_KEY_NAME;
 export const COOKIE_USER_ID_NAME = import.meta.env.COOKIE_USER_ID_NAME;
+export const COOKIE_USER_PASSWORD_HASH_NAME = import.meta.env.COOKIE_USER_PASSWORD_HASH_NAME;
 
 // cookieExists is a utility function that checks if a cookie with a given name exists in the document
 export default function cookieExists(cookieName) {
@@ -39,4 +40,9 @@ export function getEncryptedKeyFromCookie() {
 // getSaltFromCookie is a utility function that retrieves the salt from the salt cookie
 export function getSaltFromCookie() {
     return getCookie(COOKIE_SALT_NAME);
+}
+
+// getPasswordHashFromCookie is a utility function that retrieves the password hash from the password hash cookie
+export function getPasswordHashFromCookie() {
+    return getCookie(COOKIE_USER_PASSWORD_HASH_NAME);
 }

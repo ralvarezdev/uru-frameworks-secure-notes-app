@@ -59,8 +59,13 @@ export default function LogIn() {
     // Log in mutation
     const mutation = useMutation(LogInHandleRequest, {
         onSuccess: (data) => {
+            // Store the log in data in the session storage
+            setUsername(data?.username);
+            setPassword(data?.password)
+            set2FAMethods(data?.twoFactorAuthenticationMethods);
+
             if (data?.status === 'fail' && data?.data?.twoFactorAuthenticationMethods)
-                handle2FA(data?.data);
+                handle2FA();
             else if (data?.status !== 'success')
                 setOnError(true);
             else {
@@ -72,15 +77,7 @@ export default function LogIn() {
     });
 
     // Handle the 2FA
-    const handle2FA = useCallback(({
-                                       username,
-                                       password,
-                                       twoFactorAuthenticationMethods
-                                   }) => {
-        // Store the log in data in the session storage
-        setUsername(username);
-        setPassword(password)
-        set2FAMethods(twoFactorAuthenticationMethods);
+    const handle2FA = useCallback(() => {
         setIsLoggingIn(true);
         window.location.href = TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
     }, []);

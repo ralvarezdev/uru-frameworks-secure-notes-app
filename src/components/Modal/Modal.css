@@ -7,7 +7,7 @@
     width: 100vw;
     height: 100vh;
     background-color:var(--color-dark-grey);
-    opacity:0.5;
+    animation: appear--modal var(--opacity-transition-duration) ease-in-out forwards;
 }
 
 /* Modal content container styles */
@@ -17,6 +17,12 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    display: grid;
+    place-items: center;
+}
+
+/* Modal content styles */
+.modal__content-container__content {
     background-color: var(--background-color);
     padding: 6rem;
     border-radius: 10px;
@@ -27,23 +33,25 @@
     gap: 3rem 0;
     box-shadow: 0 0.25rem 0.5rem 0.1rem var(--color-dark-grey);
     opacity: 1;
+    animation: appear-and-move-a-bit-up var(--opacity-transition-duration) ease-in-out forwards;
 }
 
-.modal__content-container * {
+.modal__content-container__content > * {
     grid-column: 1/-1;
 }
 
-.modal__content-container:has(.modal__content-container__close-container) {
+.modal__content-container__content:has(.modal__content-container__content__close-container) {
     grid-template-columns: 1fr auto;
     padding: 3rem;
+    gap: 3rem 1rem
 }
 
-.modal__content-container:has(.modal__content-container__close-container) * {
+.modal__content-container__content:has(.modal__content-container__content__close-container) > * {
     grid-column: 1/2;
 }
 
 /* Close container styles */
-.modal__content-container .modal__content-container__close-container {
+.modal__content-container__content .modal__content-container__content__close-container {
     grid-column: 2/-1;
     grid-row: 1/-1;
     justify-self: end;
@@ -52,6 +60,6 @@
     transition: transform var(--scale-transition-duration) ease-in-out;
 }
 
-.modal__content-container .modal__content-container__close-container:hover {
+.modal__content-container__content .modal__content-container__content__close-container:hover {
     transform: scale(1.1);
 }

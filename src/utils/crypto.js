@@ -1,6 +1,7 @@
-// PBDKF2 configuration
 import {compressString, decompressString} from "./zlib.js";
+import bcrypt from 'bcryptjs';
 
+// PBDKF2 configuration
 const PBKDF2_ITERATIONS = import.meta.env.PBKDF2_ITERATIONS;
 const PBKDF2_KEY_LENGTH = import.meta.env.PBKDF2_KEY_LENGTH;
 
@@ -96,4 +97,9 @@ export async function decryptNoteVersionContent(key, content) {
 
     // Decompress the content
     return decompressString(decryptedContent);
+}
+
+// Compares the provided password with the stored password hash
+export async function comparePasswordWithHash(password, hash) {
+    return bcrypt.compareSync(password, hash);
 }

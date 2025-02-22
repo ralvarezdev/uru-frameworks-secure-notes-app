@@ -1,26 +1,41 @@
 import './Dashboard.css'
 import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
 import {sendAuthenticatedRequest} from "../../utils/api.js";
-import {useCallback} from "react";
+import {useCallback, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {LOG_IN} from "../../endpoints.js";
 import HomeLayout from "../../layouts/Home/Home.jsx";
-import {getPassword} from "../../sessionStorage/sessionStorage.js";
+import {getPassword, setPassword} from "../../sessionStorage/sessionStorage.js";
 import Modal from "../../components/Modal/Modal.jsx";
 import TitleText from "../../components/Text/Title/Title.jsx";
-import {decryptText, deriveKey} from "../../utils/crypto.js";
-import {
-    getEncryptedKeyFromCookie,
-    getSaltFromCookie
-} from "../../utils/cookies.js";
 import Separator from "../../components/Separator/Separator.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
+import SecondaryButton from "../../components/Button/Secondary/Secondary.jsx";
+import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
+import {comparePasswordWithHash} from "../../utils/crypto.js";
+import {getPasswordHashFromCookie} from "../../utils/cookies.js";
 
 // Dashboard page
 export default function Dashboard() {
     const {addInfoNotification, addErrorNotification} = useNotification();
+    const [isOnError, setOnError] = useState(false);
 
     // Handle entered password
+    const handleEnteredPassword = useCallback(async () => {
+        const password = document.getElementById('password').value;
+
+        // Compare the entered password with the stored password
+        const match=await comparePasswordWithHash(password, getPasswordHashFromCookie())
+        if (match) {
+            setOnError(false);
+            setPassword(password);
+            addInfoNotification('Password entered successfully!');
+            return;
+        }
+
+        setOnError(true);
+    }, [addInfoNotification]);
+
 
     // Handle log out
     const handleLogOut = useCallback(async () => {
@@ -41,16 +56,16 @@ export default function Dashboard() {
     return (
         <>
             {!getPassword()&&
-            <Modal>
+            <Modal id='password-auth-modal'>
                 <TitleText>Authentication</TitleText>
                 <Separator/>
-                <p>Please enter your password to continue</p>
+                <ParagraphText>Please enter your password to continue</ParagraphText>
                 <Password id="password" name="password" label="Password"
                       placeholder="Enter your password"
                       autoComplete="current-password"
-                      error={mutation.data?.data?.password?.[0]}
+                      error={isOnError&&"Invalid password"}
                       isOnError={isOnError} required/>
-
+                <SecondaryButton className='modal__content-container__content__button' onClick={handleEnteredPassword}>Continue</SecondaryButton>
             </Modal>}
             <HomeLayout settings={<PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>}>
             </HomeLayout>

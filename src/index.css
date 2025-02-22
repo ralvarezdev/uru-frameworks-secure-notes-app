@@ -49,9 +49,12 @@
     --text--input--font-size: 1.6rem;
     --text--input--font-weight: 300;
     --text--input--letter-spacing: 0;
-    --text--button--font-size: 1.6rem;
-    --text--button--font-weight: 700;
-    --text--button--letter-spacing: 2px;
+    --text--button--primary--font-size: 1.6rem;
+    --text--button--primary--font-weight: 700;
+    --text--button--primary--letter-spacing: 2px;
+    --text--button--secondary--font-size: 1.4rem;
+    --text--button--secondary--font-weight: 600;
+    --text--button--secondary--letter-spacing: 1px;
     --text--link--font-size: 1.6rem;
     --text--link--font-weight: 600;
     --text--link--letter-spacing: 1px;

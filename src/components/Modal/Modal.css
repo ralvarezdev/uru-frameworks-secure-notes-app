@@ -24,21 +24,34 @@
     display: grid;
     grid-template-columns: 1fr;
     place-items: center;
-    gap: 3rem;
+    gap: 3rem 0;
     box-shadow: 0 0.25rem 0.5rem 0.1rem var(--color-dark-grey);
     opacity: 1;
 }
 
+.modal__content-container * {
+    grid-column: 1/-1;
+}
+
 .modal__content-container:has(.modal__content-container__close-container) {
     grid-template-columns: 1fr auto;
-    padding: 2rem 3rem;
+    padding: 3rem;
+}
+
+.modal__content-container:has(.modal__content-container__close-container) * {
+    grid-column: 1/2;
 }
 
 /* Close container styles */
-.modal__content-container__close-container {
-    grid-column: 2/3;
+.modal__content-container .modal__content-container__close-container {
+    grid-column: 2/-1;
     grid-row: 1/-1;
     justify-self: end;
     align-self: start;
     cursor: pointer;
+    transition: transform var(--scale-transition-duration) ease-in-out;
+}
+
+.modal__content-container .modal__content-container__close-container:hover {
+    transform: scale(1.1);
 }

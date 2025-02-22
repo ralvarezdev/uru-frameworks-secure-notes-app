@@ -1,61 +1,60 @@
-/* Primary button component styles */
-.button--primary {
-    font-size: var(--text--button--primary--font-size);
-    font-weight: var(--text--button--primary--font-weight);
-    letter-spacing: var(--text--button--primary--letter-spacing);
+/* Secondary button component styles */
+.button--secondary {
+    font-size: var(--text--button--secondary--font-size);
+    font-weight: var(--text--button--secondary--font-weight);
+    letter-spacing: var(--text--button--secondary--letter-spacing);
     text-transform: uppercase;
     border-radius: 8px;
-    padding: 1.6rem 2.4rem;
+    padding: 1.2rem 1.6rem;
     transition: background-color var(--color-transition-duration), color var(--color-transition-duration);
 }
 
-.button--primary.button--secondary--unfilled {
+.button--secondary.button--secondary--unfilled {
     background-color: transparent;
 }
 
-.button--primary.button--secondary--stroke {
+.button--secondary.button--secondary--stroke {
     background-color: transparent;
     border: 1px solid var(--color-light-grey);
 }
 
-
 @media (prefers-color-scheme: light) {
-    .button--primary {
+    .button--secondary {
         background-color: var(--color-medium-primary);
         color: var(--color-dark-grey);
     }
 
-    .button--primary:hover {
+    .button--secondary:hover {
         background-color: var(--color-light-primary);
     }
 
-    .button--primary:active {
+    .button--secondary:active {
         background-color: var(--color-dark-primary);
         color: var(--color-light-grey);
     }
 
-    .button--primary:disabled {
+    .button--secondary:disabled {
         background-color: var(--color-light-primary);
         color: var(--color-dark-grey);
     }
 }
 
 @media (prefers-color-scheme: dark) {
-    .button--primary {
+    .button--secondary {
         background-color: var(--color-dark-primary);
         color: var(--color-light-grey);
     }
 
-    .button--primary:hover {
+    .button--secondary:hover {
         background-color: var(--color-medium-primary);
     }
 
-    .button--primary:active {
+    .button--secondary:active {
         background-color: var(--color-light-primary);
         color: var(--color-dark-grey);
     }
 
-    .button--primary:disabled {
+    .button--secondary:disabled {
         background-color: var(--color-dark-grey);
         color: var(--color-light-primary);
     }

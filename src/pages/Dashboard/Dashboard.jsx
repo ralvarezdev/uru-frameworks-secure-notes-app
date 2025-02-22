@@ -13,6 +13,8 @@ import {
     getEncryptedKeyFromCookie,
     getSaltFromCookie
 } from "../../utils/cookies.js";
+import Separator from "../../components/Separator/Separator.jsx";
+import Password from "../../components/Input/Password/Password.jsx";
 
 // Dashboard page
 export default function Dashboard() {
@@ -39,8 +41,15 @@ export default function Dashboard() {
     return (
         <>
             {!getPassword()&&
-            <Modal closable={true}>
-                <TitleText>Enter your password</TitleText>
+            <Modal>
+                <TitleText>Authentication</TitleText>
+                <Separator/>
+                <p>Please enter your password to continue</p>
+                <Password id="password" name="password" label="Password"
+                      placeholder="Enter your password"
+                      autoComplete="current-password"
+                      error={mutation.data?.data?.password?.[0]}
+                      isOnError={isOnError} required/>
 
             </Modal>}
             <HomeLayout settings={<PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>}>

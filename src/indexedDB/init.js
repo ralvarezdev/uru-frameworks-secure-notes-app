@@ -28,7 +28,7 @@ export function openDatabase({
     }, onError = () => {
     }
                              }) {
-    return new Promise((resolve,  reject)=> {
+    return new Promise((resolve, reject) => {
         // Create the database request
         const dbRequest = indexedDB.open(getDatabaseName(userID), DB_VERSION);
 

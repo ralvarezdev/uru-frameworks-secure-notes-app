@@ -3,7 +3,6 @@ import {sendAuthenticatedRequest} from "../../utils/api.js";
 import {useCallback, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {LOG_IN} from "../../endpoints.js";
-import HomeLayout from "../../layouts/Home/Home.jsx";
 import {getPassword, setPassword} from "../../sessionStorage/sessionStorage.js";
 import Modal from "../../components/Modal/Modal.jsx";
 import TitleText from "../../components/Text/Title/Title.jsx";
@@ -11,27 +10,54 @@ import Password from "../../components/Input/Password/Password.jsx";
 import SecondaryButton from "../../components/Button/Secondary/Secondary.jsx";
 import {comparePasswordWithHash} from "../../utils/crypto.js";
 import {getPasswordHashFromCookie} from "../../utils/cookies.js";
+import Form from "../../components/Form/Form.jsx";
+import Input from "../../components/Input/Input.jsx";
+import ColorPalette from "../../components/ColorPalette/ColorPalette.jsx";
+import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
+import TransparentBigIconButton
+    from "../../components/Button/Transparent/Icon/Big/Big.jsx";
+import SubtitleText from "../../components/Text/Subtitle/Subtitle.jsx";
+import CircularBigIconButton
+    from "../../components/Button/Circular/Icon/Big/Big.jsx";
+import Note from "../../components/Note/Note.jsx";
+import {useNotes} from "../../context/Notes.jsx";
+import {useMutation} from "react-query";
 
 
 // Dashboard page
 export default function Dashboard() {
-    const {addInfoNotification, addErrorNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
+    const [isMenuContainerOpen, setIsMenuContainerOpen] = useState(null);
+    const [isNoteContainerOpen, setIsNoteContainerOpen] = useState(null);
+    const {
+        notes,
+        getNoteByID,
+        getLatestNoteID,
+        getLatestNoteVersionByNoteID,
+        upsertNote,
+        removeNoteByID
+    } = useNotes();
+    const [isViewNoteModalOpen, setIsViewNoteModalOpen] = useState(false);
+    const [isCreateNoteModalOpen, setIsCreateNoteModalOpen] = useState(false);
+    const [isDeleteNoteModalOpen, setIsDeleteNoteModalOpen] = useState(false);
+    const [newNoteColor, setNewNoteColor] = useState(null)
+    const [selectedNote, setSelectedNote] = useState(null)
+    const [isOnError, setIsOnError] = useState(null)
+    const {addInfoNotification, addErrorNotification} = useNotification()
 
     // Handle entered password
     const handleEnteredPassword = useCallback(async () => {
         const password = document.getElementById('password').value;
 
         // Compare the entered password with the stored password
-        const match=await comparePasswordWithHash(password, getPasswordHashFromCookie())
+        const match = await comparePasswordWithHash(password, getPasswordHashFromCookie())
         if (match) {
-            setOnError(false);
+            setIsOnError(false);
             setPassword(password);
             addInfoNotification('Password entered successfully!');
             return;
         }
 
-        setOnError(true);
+        setIsOnError(true);
     }, [addInfoNotification]);
 
 
@@ -51,22 +77,256 @@ export default function Dashboard() {
             addErrorNotification(response?.message);
     }, [addErrorNotification, addInfoNotification]);
 
+    // Handle the menu container button click
+    const handleMenuContainerButtonClick = useCallback(() => {
+        setIsMenuContainerOpen((prevState) => !prevState);
+    }, []);
+
+    // Handle the notes container button click
+    const handleNotesContainerButtonClick = useCallback(() => {
+        setIsMenuContainerOpen((prevState) => !prevState);
+    }, []);
+
+    // Handle the note container button click
+    const handleNoteContainerButtonClick = useCallback(() => {
+        setIsNoteContainerOpen((prevState) => !prevState);
+    }, []);
+
+    // Handle the note view modal
+    const handleNoteViewModal = useCallback((id) => {
+        setSelectedNote(id ? getNoteByID(id) : null)
+        setIsViewNoteModalOpen((prevState) => !prevState);
+    }, [getNoteByID])
+
+    // Handle the note creation modal
+    const handleNoteCreationModal = useCallback(() => {
+        setIsOnError(false)
+        setNewNoteColor(null)
+        setIsCreateNoteModalOpen((prevState) => !prevState);
+    }, []);
+
+    // Handle the note deletion modal
+    const handleNoteDeletionModal = useCallback((id) => {
+        setSelectedNote(id ? getNoteByID(id) : null)
+        setIsDeleteNoteModalOpen((prevState) => !prevState);
+    }, [getNoteByID]);
+
+    // Handle the note deletion
+    const handleOnDeleteNote = useCallback(() => {
+        removeNoteByID(selectedNote.id)
+        handleNoteDeletionModal(null)
+    }, [selectedNote, removeNoteByID, handleNoteDeletionModal])
+
+    // Handle the new note color
+    const handleNewNoteColor = useCallback((color) => {
+        setNewNoteColor(color)
+    }, [])
+
+    // Handle the note creation
+    const handleNoteCreation = useCallback(async ({id, title, color}) => {
+        // Check if the color hasn't been selected
+        let failData = {}
+        if (!color)
+            failData.color = ["Invalid color"]
+
+        //  Check the title
+        if (!title)
+            failData.title = ['Invalid title']
+
+        // Check if there are any errors
+        if (Object.keys(failData).length)
+            return {status: 'fail', data: failData}
+
+        // Create note
+        const currentTime = new Date()
+        await upsertNote({
+            id,
+            title,
+            color,
+            created_at: currentTime,
+            updated_at: currentTime
+        })
+        return {status: 'success'}
+    }, [upsertNote])
+
+    // Create note mutation
+    const createNoteMutation = useMutation(handleNoteCreation, {
+        onSuccess: (data) => {
+            if (data?.status === 'success') {
+                addInfoNotification('Note created successfully!');
+
+                // Update the states
+                setIsCreateNoteModalOpen((prevState) => !prevState);
+                setNewNoteColor(null)
+            } else
+                setIsOnError(true);
+        }
+    })
+
+    // Handle the note creation submit
+    const handleNoteCreationSubmit = useCallback(() => {
+        //  Get the note title
+        const newNoteTitle = document.querySelector('#title').value
+
+        // Get the note ID
+        const latestNoteID = getLatestNoteID()
+        const noteID = latestNoteID ? latestNoteID + 1 : 1
+
+        createNoteMutation.mutate({
+            id: noteID,
+            title: newNoteTitle,
+            color: newNoteColor
+        });
+    }, [createNoteMutation, getLatestNoteID, newNoteColor])
+
     return (
         <>
-            {!getPassword()&&
-            <Modal header={(
+            {!getPassword() &&
+                <Modal header={(
                     <TitleText>Authentication</TitleText>
                 )}>
-                <Password id="password" name="password" label="Please enter your password to continue"
-                          isLabelInside={false}
-                      placeholder="Enter your password"
-                      autoComplete="current-password"
-                      error={isOnError&&"Invalid password"}
-                      isOnError={isOnError} required/>
-                <SecondaryButton className='modal__content-container__content__button' onClick={handleEnteredPassword}>Continue</SecondaryButton>
-            </Modal>}
-            <HomeLayout menu={<SecondaryButton onClick={handleLogOut}>Log Out</SecondaryButton>}>
-            </HomeLayout>
+                    <Password id="password" name="password"
+                              label="Please enter your password to continue"
+                              isLabelInside={false}
+                              placeholder="Enter your password"
+                              autoComplete="current-password"
+                              error={isOnError && "Invalid password"}
+                              isOnError={isOnError} required/>
+                    <SecondaryButton
+                        className='modal__content-container__content__button'
+                        onClick={handleEnteredPassword}>Continue</SecondaryButton>
+                </Modal>}
+            {isCreateNoteModalOpen && (
+                <Modal header={(
+                    <TitleText>New Note</TitleText>
+                )} className='dashboard__note-creation-modal'
+                       onClose={handleNoteCreationModal} style={newNoteColor&&{outlineColor:newNoteColor}}>
+                    <Form
+                        className='dashboard__note-creation-modal__form'
+                        isOnError={isOnError}
+                        setIsOnError={setIsOnError}
+                        onSubmit={handleNoteCreationSubmit}>
+                        <Input type="text" id="title" name="title"
+                               label="Title"
+                               isLabelInside={false}
+                               placeholder="Enter your title"
+                               style={newNoteColor&&{outlineColor:newNoteColor}}
+                               error={createNoteMutation.data?.data?.title?.[0]}
+                               isOnError={isOnError}/>
+                        <ColorPalette onSelectedColor={handleNewNoteColor}
+                                      error={createNoteMutation.data?.data?.color?.[0]}
+                                      isOnError={isOnError}/>
+                    </Form>
+                </Modal>
+            )}
+            {isDeleteNoteModalOpen && (
+                <Modal header={(
+                    <TitleText>Delete Note</TitleText>
+                )} className='dashboard__note-deletion-modal'
+                       onClose={handleNoteDeletionModal}>
+                    <ParagraphText>Are you sure you want to delete this
+                        note?</ParagraphText>
+                    <div
+                        className='dashboard__note-deletion-modal__buttons-container'>
+                        <SecondaryButton className='button--secondary--unfilled'
+                                         onClick={handleOnDeleteNote}>Yes</SecondaryButton>
+                        <SecondaryButton
+                            onClick={handleNoteDeletionModal}>No</SecondaryButton>
+                    </div>
+                </Modal>
+            )}
+            {isViewNoteModalOpen && (
+                <Modal header={(
+                    <TitleText>add name</TitleText>
+                )} className='dashboard__note-view-modal'
+                       onClose={handleNoteViewModal}>
+                    {getLatestNoteVersionByNoteID(selectedNote.id)}
+                </Modal>
+            )}
+            <div className='dashboard__main-container'>
+                <div
+                    className={['dashboard__main-container__menu-container', isMenuContainerOpen ? 'dashboard__main-container__menu-container--opened' : '',
+                        isMenuContainerOpen === false ? 'dashboard__main-container__menu-container--closed' : ''
+                    ].join(' ')}>
+                    <div
+                        className='dashboard__main-container__menu-container__header-container'>
+                        <div
+                            className={'dashboard__main-container__menu-container__header-container__header'}>
+                            <TransparentBigIconButton
+                                className='dashboard__main-container__menu-container__header-container__header__button'
+                                onClick={handleMenuContainerButtonClick}>chevron_left</TransparentBigIconButton>
+                            <SubtitleText
+                                className='dashboard__main-container__menu-container__header-container__header__subtitle'>Menu</SubtitleText>
+                        </div>
+                    </div>
+                    <div
+                        className='dashboard__main-container__menu-container__search-container'>
+                    </div>
+                    <div
+                        className='dashboard__main-container__menu-container__views-container'>
+                    </div>
+                    <div
+                        className='dashboard__main-container__menu-container__tags-container'>
+                    </div>
+                    <div
+                        className='dashboard__main-container__menu-container__menu-container'>
+                        <SecondaryButton onClick={handleLogOut}>Log
+                            Out</SecondaryButton>
+                    </div>
+                </div>
+                <div className='dashboard__main-container__notes-container'>
+                    <div
+                        className='dashboard__main-container__notes-container__header-container'>
+                        <div
+                            className={'dashboard__main-container__notes-container__header-container__header'}>
+                            <TransparentBigIconButton
+                                className='dashboard__main-container__notes-container__header-container__header__button'
+                                onClick={handleNotesContainerButtonClick}>menu</TransparentBigIconButton>
+                            <SubtitleText
+                                className='dashboard__main-container__notes-container__header-container__header__subtitle'>Notes</SubtitleText>
+                        </div>
+                        <CircularBigIconButton
+                            onClick={handleNoteCreationModal}>
+                            add
+                        </CircularBigIconButton>
+                    </div>
+
+                    <div
+                        className='dashboard__main-container__notes-container__content-container'>
+                        <div
+                            className='dashboard__main-container__notes-container__content-container__content'>
+                            {notes.map((note) => (
+                                <Note key={note.id} id={note.id}
+                                      title={note.title}
+                                      color={note.color}
+                                      onView={handleNoteViewModal}
+                                      onDelete={handleNoteDeletionModal}
+                                      className='dashboard__main-container__notes-container__content-container__content__note'>
+                                    {getLatestNoteVersionByNoteID(note.id)?.content ?? ''}
+                                </Note>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+                <div
+                    className={['dashboard__main-container__note-container', isNoteContainerOpen ? 'dashboard__main-container__note-container--opened' : '',
+                        isNoteContainerOpen === false ? 'dashboard__main-container__note-container--closed' : ''
+                    ].join(' ')}>
+                    <div
+                        className='dashboard__main-container__note-container__header-container'>
+                        <div
+                            className={'dashboard__main-container__note-container__header-container__header'}>
+                            <TransparentBigIconButton
+                                className='dashboard__main-container__note-container__header-container__header__button'
+                                onClick={handleNoteContainerButtonClick}>chevron_left</TransparentBigIconButton>
+                            <SubtitleText
+                                className='dashboard__main-container__note-container__header-container__header__subtitle'>
+                                {selectedNote ? selectedNote.title : 'Note'}
+                            </SubtitleText>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </>
     )
 }

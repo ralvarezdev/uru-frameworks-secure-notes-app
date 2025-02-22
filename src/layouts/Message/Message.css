@@ -62,7 +62,7 @@
 }
 
 @media (max-width: 700px) {
-    .message__main-container__modal__title-container > .modal__content-container__content__header-container__header{
+    .message__main-container__modal__title-container > .modal__content-container__content__header-container__header {
         padding: 0;
     }
 }

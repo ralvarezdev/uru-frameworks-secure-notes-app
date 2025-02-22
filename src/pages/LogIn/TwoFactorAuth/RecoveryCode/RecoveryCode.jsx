@@ -13,7 +13,8 @@ import {RECOVERY_CODE_2FA_METHOD} from "../../../../constants.js";
 import {
     get2FAMethods,
     getPassword,
-    getUsername, setIsLoggingIn
+    getUsername,
+    setIsLoggingIn
 } from "../../../../sessionStorage/sessionStorage.js";
 
 // 2FA Recovery code page

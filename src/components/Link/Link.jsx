@@ -8,7 +8,7 @@ export default function Link({className, to, onClick, children, ...props}) {
     if (!to) {
         return (
             <TransparentButton className={['link__text', className].join(' ')}
-                    onClick={onClick} {...props}>
+                               onClick={onClick} {...props}>
                 {children}
             </TransparentButton>
         )

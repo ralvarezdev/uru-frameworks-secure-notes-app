@@ -8,22 +8,24 @@ export default function Input({
                                   id,
                                   className,
                                   label,
-                                    isLabelInside=true,
+                                  isLabelInside = true,
                                   error,
                                   isOnError,
                                   children,
+                                    style,
                                   ...props
                               }) {
     if (isLabelInside)
         return (
             <div className='input__main-container'>
-                <div className='input__main-container__input-container'>
+                <div className='input__main-container__input-container' style={style}>
                     <Label
                         className='input__main-container__input-container__label'
                         htmlFor={id}>{label}</Label>
                     <input
                         className={['input__main-container__input-container__input', className].join(' ')}
-                        id={id} {...props}/>
+                        id={id}
+                        {...props}/>
                     {children}
                 </div>
                 <div className='input__main-container__error-container'>

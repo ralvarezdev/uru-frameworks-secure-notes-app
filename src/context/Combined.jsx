@@ -9,9 +9,9 @@ export default function CombinedProvider({children}) {
         <NotificationProvider>
             <NotesProvider>
                 <TagsProvider>
-                     <AuthProvider>
-                         {children}
-                     </AuthProvider>
+                    <AuthProvider>
+                        {children}
+                    </AuthProvider>
                 </TagsProvider>
             </NotesProvider>
         </NotificationProvider>

@@ -13,7 +13,7 @@
 .app__main-container__notifications-container--relative {
     --notifications-container-max-width: 30rem;
 
-    z-index: 10;
+    z-index: var(--notifications--z-index);
     rotate: 180deg;
     justify-self: end;
     align-self: end;

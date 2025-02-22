@@ -1,6 +1,7 @@
 import './Notification.css'
 import MemoizedFadeOut from "../FadeOut/FadeOutMemo.jsx";
-import TransparentIconButton from "../Button/Transparent/Icon/Icon.jsx";
+import TransparentMediumIconButton
+    from "../Button/Transparent/Icon/Medium/Medium.jsx";
 import {useCallback, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 
@@ -34,10 +35,10 @@ export default function Notification({
                     className='notification__main-container__content-container'>
                     <div
                         className="notification__main-container__content-container__close-container">
-                        <TransparentIconButton
+                        <TransparentMediumIconButton
                             className='notification__main-container__content-container__close-container__button'
                             onClick={handleClose}>close
-                        </TransparentIconButton>
+                        </TransparentMediumIconButton>
                     </div>
                     <div
                         className='notification__main-container__content-container__content'>

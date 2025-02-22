@@ -1,6 +1,6 @@
 /* Notification main container styles */
 .notification__main-container {
-    z-index: 1;
+    z-index: calc(var(--notifications--z-index) + 1);
     position: relative;
     padding: 0.6rem 0.8rem;
     width: 100%;
@@ -11,7 +11,7 @@
 }
 
 .notification__main-container::before {
-    z-index: 2;
+    z-index: calc(var(--notifications--z-index) + 2);
     content: '';
     position: absolute;
     top: 0;
@@ -26,7 +26,7 @@
 
 /* Notification content container styles */
 .notification__main-container__content-container {
-    z-index: 3;
+    z-index: calc(var(--notifications--z-index) + 3);
     display: grid;
     position: relative;
     grid-template-columns: 1fr auto;

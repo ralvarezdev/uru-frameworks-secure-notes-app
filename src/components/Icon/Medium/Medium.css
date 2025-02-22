@@ -1,0 +1,7 @@
+/* Medium icon component styles */
+.icon--medium__container {
+    font-size: var(--icon--medium--size);
+    font-weight: var(--icon--medium--weight);
+    height: min-content;
+}
+

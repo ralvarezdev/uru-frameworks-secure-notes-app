@@ -13,6 +13,6 @@
 
 @media (prefers-color-scheme: dark) {
     .separator {
-        background-color: var(--color-light-grey);
+        background-color: var(--color-medium-grey);
     }
 }

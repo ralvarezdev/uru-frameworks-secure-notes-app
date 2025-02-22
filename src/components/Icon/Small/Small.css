@@ -1,0 +1,7 @@
+/* Small icon component styles */
+.icon--small__container {
+    font-size: var(--icon--small--size);
+    font-weight: var(--icon--small--weight);
+    height: min-content;
+}
+

@@ -1,7 +1,7 @@
 import './Password.css'
 import '../Input.css'
 import {useCallback, useState} from "react";
-import TransparentIconButton from "../../Button/Transparent/Icon/Icon.jsx";
+import TransparentIconButton from "../../Button/Transparent/Icon/Big/Big.jsx";
 import Input from "../Input.jsx";
 
 // Password input component

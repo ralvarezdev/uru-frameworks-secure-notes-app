@@ -24,7 +24,7 @@ export function NotesProvider({children}) {
     const [noteTagsByNoteID, setNoteTagsByNoteID] = useState({});
 
     // Upsert a note to the list
-    const upsertNote = useCallback(async (note, alterIndexedDB=true) => {
+    const upsertNote = useCallback(async (note, alterIndexedDB = true) => {
 
         // Check if the note has an ID
         if (!note?.id) {
@@ -33,9 +33,9 @@ export function NotesProvider({children}) {
             return;
         }
 
-        setNotes((prevNotes) =>{
-            let foundNote=false
-            const newNotes= prevNotes.map((prevNote) => {
+        setNotes((prevNotes) => {
+            let foundNote = false
+            const newNotes = prevNotes.map((prevNote) => {
                 if (prevNote.id === note.id) {
                     foundNote = true
                     return {...prevNote, ...note};
@@ -55,7 +55,7 @@ export function NotesProvider({children}) {
     }, [setNotes]);
 
     // Upsert multiple notes to the list
-    const upsertNotes = useCallback(async (notes, alterIndexedDB=true) => {
+    const upsertNotes = useCallback(async (notes, alterIndexedDB = true) => {
         // Check if the notes have an ID
         if (notes.some((note) => !note?.id)) {
             if (import.meta.env.IS_DEBUG)
@@ -86,7 +86,7 @@ export function NotesProvider({children}) {
     }, [setNotes]);
 
     // Remove a note from the list by ID
-    const removeNoteByID = useCallback(async (id, alterIndexedDB=true) => {
+    const removeNoteByID = useCallback(async (id, alterIndexedDB = true) => {
         setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
 
         // Alter the IndexedDB
@@ -129,7 +129,7 @@ export function NotesProvider({children}) {
     }, [upsertNotes, clearNotes]);
 
     // Upsert a note version to the list
-    const upsertNoteVersion = useCallback(async (noteVersion, alterIndexedDB=true) => {
+    const upsertNoteVersion = useCallback(async (noteVersion, alterIndexedDB = true) => {
         // Check if the note version has an ID
         if (!noteVersion?.id) {
             if (import.meta.env.IS_DEBUG)
@@ -140,10 +140,10 @@ export function NotesProvider({children}) {
         setNoteVersionsByNoteID((prevNoteVersionsByNoteID) => {
             const noteID = noteVersion.note_id;
             const noteVersions = prevNoteVersionsByNoteID?.[noteID] || [];
-            let foundNoteVersion=false
+            let foundNoteVersion = false
             const newNoteVersions = noteVersions.map((prevNoteVersion) => {
                 if (prevNoteVersion.id === noteVersion.id) {
-                    foundNoteVersion=true
+                    foundNoteVersion = true
                     return {...prevNoteVersion, ...noteVersion};
                 }
                 return prevNoteVersion;
@@ -152,7 +152,10 @@ export function NotesProvider({children}) {
             if (foundNoteVersion)
                 return {...prevNoteVersionsByNoteID, [noteID]: newNoteVersions}
 
-            return {...prevNoteVersionsByNoteID, [noteID]: [...noteVersions, noteVersion]};
+            return {
+                ...prevNoteVersionsByNoteID,
+                [noteID]: [...noteVersions, noteVersion]
+            };
         });
 
         // Alter the IndexedDB
@@ -165,7 +168,7 @@ export function NotesProvider({children}) {
     }, [setNoteVersionsByNoteID]);
 
     // Upsert multiple note versions to the list
-    const upsertNoteVersions = useCallback(async (noteVersions, alterIndexedDB=true) => {
+    const upsertNoteVersions = useCallback(async (noteVersions, alterIndexedDB = true) => {
         // Check if the note versions have an ID
         if (noteVersions.some((noteVersion) => !noteVersion?.id)) {
             if (import.meta.env.IS_DEBUG)
@@ -227,7 +230,7 @@ export function NotesProvider({children}) {
     }, [setNoteVersionsByNoteID]);
 
     // Remove a note version from the list by note ID and ID
-    const removeNoteVersionByNoteIDAndID = useCallback(async (noteID, id, alterIndexedDB=true) => {
+    const removeNoteVersionByNoteIDAndID = useCallback(async (noteID, id, alterIndexedDB = true) => {
         setNoteVersionsByNoteID((prevNoteVersionsByNoteID) => {
             const noteVersions = prevNoteVersionsByNoteID?.[noteID] || [];
             return {
@@ -278,7 +281,7 @@ export function NotesProvider({children}) {
     }, [upsertNoteVersions, clearNoteVersions]);
 
     // Upsert a note tag to the list
-    const upsertNoteTag = useCallback(async (noteTag, alterIndexedDB=true) => {
+    const upsertNoteTag = useCallback(async (noteTag, alterIndexedDB = true) => {
         // Check if the note tag has an ID
         if (!noteTag?.id) {
             if (import.meta.env.IS_DEBUG)
@@ -289,10 +292,10 @@ export function NotesProvider({children}) {
         setNoteTagsByNoteID((prevNoteTagsByNoteID) => {
             const noteID = noteTag.note_id;
             const noteTags = prevNoteTagsByNoteID?.[noteID] || [];
-            let foundNoteTag=false
+            let foundNoteTag = false
             const newNoteTags = noteTags.map((prevNoteTag) => {
                 if (prevNoteTag.id === noteTag.id) {
-                    foundNoteTag=true
+                    foundNoteTag = true
                     return {...prevNoteTag, ...noteTag};
                 }
                 return prevNoteTag;
@@ -310,7 +313,7 @@ export function NotesProvider({children}) {
     }, [setNoteTagsByNoteID]);
 
     // Upsert multiple note tags to the list
-    const upsertNoteTags = useCallback(async (noteTags, alterIndexedDB=true) => {
+    const upsertNoteTags = useCallback(async (noteTags, alterIndexedDB = true) => {
         // Check if the note tags have an ID
         if (noteTags.some((noteTag) => !noteTag?.id)) {
             if (import.meta.env.IS_DEBUG)
@@ -368,7 +371,7 @@ export function NotesProvider({children}) {
     }, [setNoteTagsByNoteID]);
 
     // Remove a note tag from the list by note ID and ID
-    const removeNoteTagByNoteIDAndID = useCallback(async (noteID, id, alterIndexedDB=true) => {
+    const removeNoteTagByNoteIDAndID = useCallback(async (noteID, id, alterIndexedDB = true) => {
         setNoteTagsByNoteID((prevNoteTagsByNoteID) => {
             const noteTags = prevNoteTagsByNoteID?.[noteID] || [];
             return {

@@ -11,7 +11,6 @@ import Modal from "../../components/Modal/Modal.jsx";
 import SecondaryButton from "../../components/Button/Secondary/Secondary.jsx";
 import TitleText from "../../components/Text/Title/Title.jsx";
 import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
-import Separator from "../../components/Separator/Separator.jsx";
 
 // Reset password request handler
 async function ResetPasswordHandleRequest({
@@ -80,44 +79,54 @@ export default function ResetPassword() {
 
     return (
         <>
-            {showFirstConfirmationModal&&(
+            {showFirstConfirmationModal && (
                 <Modal header={(
                     <TitleText>Reset Password</TitleText>
                 )} onClose={handleShowFirstConfirmationModal}>
-                    <ParagraphText>Are you sure you want to reset your password?</ParagraphText>
-                    <ParagraphText>Your notes, note tags and tags WILL be deleted!</ParagraphText>
+                    <ParagraphText>Are you sure you want to reset your
+                        password?</ParagraphText>
+                    <ParagraphText>Your notes, note tags and tags WILL be
+                        deleted!</ParagraphText>
                     <div className='modal__content-container__footer-container'>
-                        <SecondaryButton className='button--secondary--unfilled'  onClick={handleShowSecondConfirmationModal}>Continue</SecondaryButton>
-                        <SecondaryButton onClick={handleShowFirstConfirmationModal}>Go Back</SecondaryButton>
+                        <SecondaryButton className='button--secondary--unfilled'
+                                         onClick={handleShowSecondConfirmationModal}>Continue</SecondaryButton>
+                        <SecondaryButton
+                            onClick={handleShowFirstConfirmationModal}>Go
+                            Back</SecondaryButton>
                     </div>
                 </Modal>
             )}
-            {showSecondConfirmationModal&&(
+            {showSecondConfirmationModal && (
                 <Modal header={(
                     <TitleText>Reset Password</TitleText>
                 )} onClose={handleShowSecondConfirmationModal}>
                     <ParagraphText>Are you sure 100% sure?</ParagraphText>
-                    <ParagraphText>This action cannot be reverted</ParagraphText>
+                    <ParagraphText>This action cannot be
+                        reverted</ParagraphText>
                     <div className='modal__content-container__footer-container'>
-                        <SecondaryButton className='button--secondary--unfilled'  onClick={handleSubmit}>Continue</SecondaryButton>
-                        <SecondaryButton onClick={handleShowSecondConfirmationModal}>Go Back</SecondaryButton>
+                        <SecondaryButton className='button--secondary--unfilled'
+                                         onClick={handleSubmit}>Continue</SecondaryButton>
+                        <SecondaryButton
+                            onClick={handleShowSecondConfirmationModal}>Go
+                            Back</SecondaryButton>
                     </div>
                 </Modal>
             )}
             <AuthLayout titleText='Reset Password'
-                    footer={[{
-                        to: LOG_IN,
-                        text: 'Remembered your password?',
-                        children: 'Log In'
-                    }]}
-                    isOnError={isOnError} setIsOnError={setIsOnError}
-                    onSubmit={handleShowFirstConfirmationModal}
-                    isSubmitting={mutation.isLoading}>
+                        footer={[{
+                            to: LOG_IN,
+                            text: 'Remembered your password?',
+                            children: 'Log In'
+                        }]}
+                        isOnError={isOnError} setIsOnError={setIsOnError}
+                        onSubmit={handleShowFirstConfirmationModal}
+                        isSubmitting={mutation.isLoading}>
                 <Password id="password" name="password" label="Password"
                           placeholder="Enter your password"
                           error={mutation.data?.data?.new_password?.[0]}
                           isOnError={isOnError} required/>
-                <Password id="password-confirmation" name="password-confirmation"
+                <Password id="password-confirmation"
+                          name="password-confirmation"
                           label="Password Confirmation"
                           placeholder="Confirm your password"
                           error={mutation.data?.data?.new_password?.[0]}

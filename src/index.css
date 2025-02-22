@@ -27,8 +27,12 @@
     --input--horizontal-padding: 1.2rem;
     --outline-width: 0.2rem;
     --border-width: 0.2rem;
-    --icon--size: 2rem;
-    --icon--weight: 500;
+    --icon--big--size: 2rem;
+    --icon--big--weight: 500;
+    --icon--medium--size: 1.8rem;
+    --icon--medium--weight: 400;
+    --icon--small--size: 1.6rem;
+    --icon--small--weight: 400;
     --logo--graphic--size: 4rem;
     --logo--graphic-text--size: 1.8rem;
     --logo--graphic-text--gap: 1rem;
@@ -64,6 +68,11 @@
     --text--logo--letter-spacing: 1px;
     --modal--opacity: 0.5;
     --label--gap: 0.8rem;
+    --modal--z-index: 10;
+    --notifications--z-index: 5;
+    --auth--z-index: 1;
+    --dashboard--note-container--z-index: 2;
+    --dashboard--menu-container--z-index: 2;
 }
 
 /* Global Styles */
@@ -220,23 +229,14 @@ li {
     }
 }
 
-@keyframes appear--modal {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: var(--modal--opacity);
-    }
-}
-
 @keyframes appear-and-move-a-bit-down {
     from {
         opacity: 0;
-        transform: translateY(-10%);
+        transform: translateY(-2rem);
     }
     to {
         opacity: 1;
-        transform: translateY(0%);
+        transform: translateY(0);
     }
 
 }
@@ -244,10 +244,10 @@ li {
 @keyframes appear-and-move-a-bit-up {
     from {
         opacity: 0;
-        transform: translateY(10%);
+        transform: translateY(2rem);
     }
     to {
         opacity: 1;
-        transform: translateY(0%);
+        transform: translateY(0);
     }
 }

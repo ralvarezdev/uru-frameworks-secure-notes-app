@@ -1,7 +1,5 @@
 import {createContext, useContext, useState} from 'react';
-import cookieExists, {
-    getUserIDFromCookie
-} from "../utils/cookies.js";
+import cookieExists, {getUserIDFromCookie} from "../utils/cookies.js";
 import LOGGER from "../logger.js";
 import {onLogOut} from "../utils/init.js";
 import {useTags} from "./Tags.jsx";

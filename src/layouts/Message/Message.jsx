@@ -12,13 +12,14 @@ export default function MessageLayout({title, children, className, ...props}) {
         <div className='message__main-container'>
             <BackgroundAsset className='message__main-container__background'/>
             <Modal header={(
-                    <div className='message__main-container__modal__title-container'>
-                        <TitleText>{title}</TitleText>
-                        <GraphicTextLogoAsset className='logo--graphic-text'/>
-                        <GraphicLogoAsset className='logo--graphic'/>
-                    </div>
-                )}
-                className={['message__main-container__modal',className].join(' ')} {...props}>
+                <div
+                    className='message__main-container__modal__title-container'>
+                    <TitleText>{title}</TitleText>
+                    <GraphicTextLogoAsset className='logo--graphic-text'/>
+                    <GraphicLogoAsset className='logo--graphic'/>
+                </div>
+            )}
+                   className={['message__main-container__modal', className].join(' ')} {...props}>
                 <div
                     className='message__main-container__modal__content'>
                     {children}

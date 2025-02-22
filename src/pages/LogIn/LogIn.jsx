@@ -12,7 +12,8 @@ import {
     TWO_FACTOR_AUTHENTICATION_EMAIL_CODE
 } from "../../endpoints.js";
 import {
-    set2FAMethods, setIsLoggingIn,
+    set2FAMethods,
+    setIsLoggingIn,
     setPassword,
     setUsername
 } from "../../sessionStorage/sessionStorage.js";

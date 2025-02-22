@@ -23,7 +23,8 @@ import {
 } from "./endpoints.js";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import {
-    get2FAMethods, getIsLoggingIn,
+    get2FAMethods,
+    getIsLoggingIn,
 } from "./sessionStorage/sessionStorage.js";
 import {useNotes} from "./context/Notes.jsx";
 import {useTags} from "./context/Tags.jsx";
@@ -62,7 +63,7 @@ export default function App() {
 
                 // Load database
                 setDatabaseLoaded(true)
-                onDashboardLoad(userID, null, null,  loadTagsFromIndexedDB, loadNotesFromIndexedDB).then()
+                onDashboardLoad(userID, null, null, loadTagsFromIndexedDB, loadNotesFromIndexedDB).then()
             }
 
             if (AUTH_DISABLED_ENDPOINTS.includes(parsedPath))
@@ -72,7 +73,7 @@ export default function App() {
 
         // Check if the user has entered his credentials and is on the 2FA step
         if (getIsLoggingIn()) {
-            const twoFactorAuthenticationMethods =get2FAMethods()
+            const twoFactorAuthenticationMethods = get2FAMethods()
 
             if (twoFactorAuthenticationMethods.includes(TOTP_CODE_2FA_METHOD) && parsedPath === TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
                 return;

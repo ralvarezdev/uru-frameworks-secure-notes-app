@@ -11,8 +11,10 @@ import {
     TWO_FACTOR_AUTHENTICATOR_TOTP_CODE
 } from "../../../../endpoints.js";
 import {
-    get2FAMethods, getPassword,
-    getUsername, setIsLoggingIn
+    get2FAMethods,
+    getPassword,
+    getUsername,
+    setIsLoggingIn
 } from "../../../../sessionStorage/sessionStorage.js";
 import {sendRequest} from "../../../../utils/api.js";
 
@@ -30,8 +32,8 @@ export default function EmailCode() {
 
         if (response?.status === 'error')
             addErrorNotification(response.message)
-        else if(response?.status === 'fail')
-            addErrorNotification(response?.data?.username?.[0]??response?.data?.password?.[0]);
+        else if (response?.status === 'fail')
+            addErrorNotification(response?.data?.username?.[0] ?? response?.data?.password?.[0]);
         else
             addInfoNotification('Email code sent successfully!');
     }, [addInfoNotification, addErrorNotification]);
@@ -70,10 +72,10 @@ export default function EmailCode() {
                             children: 'Send code again'
                         },
                         {
-                        to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
-                        text: 'Don\'t you have access to your 2FA?',
-                        children: 'Recovery Code'
-                    },
+                            to: TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE,
+                            text: 'Don\'t you have access to your 2FA?',
+                            children: 'Recovery Code'
+                        },
                         get2FAMethods()?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
                             ? {
                                 to: TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,

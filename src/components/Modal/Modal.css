@@ -1,18 +1,17 @@
 /* Modal overlay styles */
 .modal__overlay {
-    z-index: 10;
+    z-index: var(--modal--z-index);
     position: fixed;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color:var(--color-dark-grey);
-    animation: appear--modal var(--opacity-transition-duration) ease-in-out forwards;
+    background-color: var(--color-dark-grey);
 }
 
 /* Modal content container styles */
 .modal__content-container {
-    z-index: 11;
+    z-index: calc(var(--modal--z-index) + 1);
     position: absolute;
     top: 50%;
     left: 50%;
@@ -25,7 +24,7 @@
 .modal__content-container__content {
     position: relative;
     background-color: var(--background-color);
-    padding: 6rem;
+    padding: 4rem 6rem;
     border-radius: 10px;
     min-width: 50rem;
     max-width: 85rem;
@@ -36,7 +35,6 @@
     gap: 2rem;
     box-shadow: 0 0.25rem 0.5rem 0.1rem var(--color-dark-grey);
     opacity: 1;
-    animation: appear-and-move-a-bit-up var(--animation-move-duration) ease-in-out forwards;
 }
 
 .modal__content-container__content__header-container {
@@ -48,22 +46,44 @@
 }
 
 /* Close container styles */
-.modal__content-container__content__close-container{
-    z-index: 20;
+.modal__content-container__content__close-container {
+    z-index: calc(var(--modal--z-index) + 2);
     position: absolute;
-    top: 3rem;
-    right: 3rem;
+    top: 2rem;
+    right: 2rem;
     cursor: pointer;
     transition: transform var(--scale-transition-duration) ease-in-out;
+}
+
+.modal__content-container__content__header-container__header{
+    padding: 0 2rem;
 }
 
 .modal__content-container__content__close-container:hover {
     transform: scale(1.1);
 }
 
+.modal__overlay {
+    animation: appear--modal var(--opacity-transition-duration) ease-in-out forwards;
+}
+
+.modal__content-container__content,
+.modal__content-container__content__close-container {
+    animation: appear-and-move-a-bit-up var(--animation-move-duration) ease-in-out forwards;
+}
+
+@keyframes appear--modal {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: var(--modal--opacity);
+    }
+}
+
 /* Responsive styles */
 @media (max-width: 600px) {
-    .modal__content-container{
+    .modal__content-container {
         width: 100%;
     }
 

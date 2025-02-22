@@ -1,0 +1,7 @@
+/* Big icon component styles */
+.icon--big__container {
+    font-size: var(--icon--big--size);
+    font-weight: var(--icon--big--weight);
+    height: min-content;
+}
+

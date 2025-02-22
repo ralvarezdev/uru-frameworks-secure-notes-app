@@ -12,7 +12,8 @@ import {
 import {TOTP_CODE_2FA_METHOD} from "../../../../constants.js";
 import {
     getPassword,
-    getUsername, setIsLoggingIn
+    getUsername,
+    setIsLoggingIn
 } from "../../../../sessionStorage/sessionStorage.js";
 
 // 2FA TOTP code page

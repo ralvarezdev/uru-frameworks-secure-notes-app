@@ -27,13 +27,13 @@ export default function Auth({
                 <div
                     className='auth__main-container__right-container__content-container'>
                     <div
-                        className='auth__main-container__right-container__content-container__title-container'>
+                        className='auth__main-container__right-container__content-container__header-container'>
                         <TitleText
-                            className='auth__main-container__right-container__content-container__title-container__title'>{titleText}</TitleText>
+                            className='auth__main-container__right-container__content-container__header-container__header'>{titleText}</TitleText>
                         <GraphicTextLogoAsset
-                            className='auth__main-container__right-container__content-container__title-container__logo--graphic-text'/>
+                            className='auth__main-container__right-container__content-container__header-container__logo--graphic-text'/>
                         <GraphicLogoAsset
-                            className='auth__main-container__right-container__content-container__title-container__logo--graphic'/>
+                            className='auth__main-container__right-container__content-container__header-container__logo--graphic'/>
                     </div>
 
                     <Separator

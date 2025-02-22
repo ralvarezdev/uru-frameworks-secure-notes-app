@@ -11,9 +11,7 @@ import Password from "../../components/Input/Password/Password.jsx";
 import SecondaryButton from "../../components/Button/Secondary/Secondary.jsx";
 import {comparePasswordWithHash} from "../../utils/crypto.js";
 import {getPasswordHashFromCookie} from "../../utils/cookies.js";
-import {onDashboardLoad} from "../../utils/init.js";
-import {useTags} from "../../context/Tags.jsx";
-import {useNotes} from "../../context/Notes.jsx";
+
 
 // Dashboard page
 export default function Dashboard() {
@@ -30,9 +28,6 @@ export default function Dashboard() {
             setOnError(false);
             setPassword(password);
             addInfoNotification('Password entered successfully!');
-
-            // Open the database
-            openDatabase({userID, onSuccess, onError});
             return;
         }
 

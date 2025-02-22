@@ -74,7 +74,8 @@ export default function Home({menu}) {
             return {status: 'fail', data: failData}
 
         // Create note
-        await upsertNote({id, title, color})
+        const currentTime = new Date()
+        await upsertNote({id, title, color, created_at: currentTime, updated_at: currentTime})
         return {status:'success'}
     }, [upsertNote])
 
@@ -173,7 +174,7 @@ export default function Home({menu}) {
                     </div>
 
                     {notes.map((note) => (
-                    <Note key={note.id} className='home__main-container__notes-container__note'>
+                    <Note key={note.id} title={note.title} color={note.color} className='home__main-container__notes-container__note'>
                         {getLatestNoteVersionByNoteID(note.id)?.content ?? ''}
                     </Note>
                     ))}

@@ -14,22 +14,33 @@ import Input from "../../components/Input/Input.jsx";
 import Form from "../../components/Form/Form.jsx";
 import {useMutation} from "react-query";
 import {useNotification} from "../../context/Notification.jsx";
+import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
+import SecondaryButton from "../../components/Button/Secondary/Secondary.jsx";
 
 // Home layout
 export default function Home({menu}) {
     const [isMenuContainerOpen, setIsMenuContainerOpen] = useState(null);
     const [isNoteContainerOpen, setIsNoteContainerOpen] = useState(null);
-    const {notes, getLatestNote, getLatestNoteID,getLatestNoteVersionByNoteID,upsertNote } = useNotes();
+    const {
+        notes,
+        getLatestNote,
+        getLatestNoteID,
+        getLatestNoteVersionByNoteID,
+        upsertNote,
+        removeNoteByID
+    } = useNotes();
     const [openNote, setOpenNote] = useState(getLatestNote);
     const [isCreateNoteModalOpen, setIsCreateNoteModalOpen] = useState(false);
+    const [isDeleteNoteModalOpen, setIsDeleteNoteModalOpen] = useState(false);
     const [newNoteColor, setNewNoteColor] = useState(null)
-    const [isOnError, setIsOnError]=useState(null)
+    const [deleteNoteID, setDeleteNoteID]=useState(null)
+    const [isOnError, setIsOnError] = useState(null)
     const {addInfoNotification} = useNotification()
 
     // Handle the menu container button click
-    const handleMenuContainerButtonClick=useCallback(()=> {
+    const handleMenuContainerButtonClick = useCallback(() => {
         setIsMenuContainerOpen((prevState) => !prevState);
-    },[]);
+    }, []);
 
     // Handle the notes container button click
     const handleNotesContainerButtonClick = useCallback(() => {
@@ -42,7 +53,7 @@ export default function Home({menu}) {
     }, []);
 
     // Handle the note button click
-    const handleNoteButtonClick = useCallback((id) =>{
+    const handleNoteButtonClick = useCallback((id) => {
         setOpenNote(getLatestNoteVersionByNoteID(id));
     }, [getLatestNoteVersionByNoteID]);
 
@@ -50,24 +61,35 @@ export default function Home({menu}) {
     const handleNoteCreationModal = useCallback(() => {
         setIsOnError(false)
         setIsCreateNoteModalOpen((prevState) => !prevState);
-
     }, []);
-    
+
+    // Handle the note deletion modal
+    const handleNoteDeletionModal = useCallback((id) => {
+        setDeleteNoteID(id)
+        setIsDeleteNoteModalOpen((prevState) => !prevState);
+    }, []);
+
+    // Handle the note deletion
+    const handleOnDeleteNote = useCallback(() => {
+        removeNoteByID(deleteNoteID)
+        handleNoteDeletionModal(null)
+    }, [deleteNoteID,removeNoteByID, handleNoteDeletionModal])
+
     // Handle the new note color
-    const handleNewNoteColor = useCallback((color)=>{
+    const handleNewNoteColor = useCallback((color) => {
         setNewNoteColor(color)
-    },[])
-    
+    }, [])
+
     // Handle the note creation
-    const handleNoteCreation=useCallback(async ({id, title, color})=>{
+    const handleNoteCreation = useCallback(async ({id, title, color}) => {
         // Check if the color hasn't been selected
-        let failData={}
+        let failData = {}
         if (!color)
             failData.color = ["Invalid color"]
 
         //  Check the title
         if (!title)
-            failData.title= ['Invalid title']
+            failData.title = ['Invalid title']
 
         // Check if there are any errors
         if (Object.keys(failData).length)
@@ -75,12 +97,18 @@ export default function Home({menu}) {
 
         // Create note
         const currentTime = new Date()
-        await upsertNote({id, title, color, created_at: currentTime, updated_at: currentTime})
-        return {status:'success'}
+        await upsertNote({
+            id,
+            title,
+            color,
+            created_at: currentTime,
+            updated_at: currentTime
+        })
+        return {status: 'success'}
     }, [upsertNote])
 
     // Create note mutation
-    const createNoteMutation=useMutation(handleNoteCreation, {
+    const createNoteMutation = useMutation(handleNoteCreation, {
         onSuccess: (data) => {
             if (data?.status === 'success') {
                 addInfoNotification('Note created successfully!');
@@ -93,40 +121,57 @@ export default function Home({menu}) {
         }
     })
 
-     // Handle the note creation submit
-    const handleNoteCreationSubmit=useCallback(()=>{
+    // Handle the note creation submit
+    const handleNoteCreationSubmit = useCallback(() => {
         //  Get the note title
         const newNoteTitle = document.querySelector('#title').value
 
         // Get the note ID
-        const latestNoteID=getLatestNoteID()
-        const noteID=latestNoteID?latestNoteID+1:1
+        const latestNoteID = getLatestNoteID()
+        const noteID = latestNoteID ? latestNoteID + 1 : 1
 
-        createNoteMutation.mutate({id: noteID, title: newNoteTitle, color:newNoteColor});
-    },[createNoteMutation, getLatestNoteID, newNoteColor] )
+        createNoteMutation.mutate({
+            id: noteID,
+            title: newNoteTitle,
+            color: newNoteColor
+        });
+    }, [createNoteMutation, getLatestNoteID, newNoteColor])
 
     return (
         <>
-            {isCreateNoteModalOpen&&
-            <Modal header={(
+            {isCreateNoteModalOpen &&
+                <Modal header={(
                     <TitleText>New Note</TitleText>
-                )} className='home__note-creation-modal' onClose={handleNoteCreationModal}>
-                <Form
+                )} className='home__note-creation-modal'
+                       onClose={handleNoteCreationModal}>
+                    <Form
                         className='home__note-creation-modal__form'
                         isOnError={isOnError}
                         setIsOnError={setIsOnError}
                         onSubmit={handleNoteCreationSubmit}>
-                            <Input type="text" id="title" name="title"
-                                   label="Title"
-                                   isLabelInside={false}
+                        <Input type="text" id="title" name="title"
+                               label="Title"
+                               isLabelInside={false}
                                placeholder="Enter your title"
                                error={createNoteMutation.data?.data?.title?.[0]}
                                isOnError={isOnError}/>
-                        <ColorPalette colors={NOTE_COLORS} onSelectedColor={handleNewNoteColor}
-                                error={createNoteMutation.data?.data?.color?.[0]}
-                                isOnError={isOnError}/>
-                </Form>
-            </Modal>}
+                        <ColorPalette colors={NOTE_COLORS}
+                                      onSelectedColor={handleNewNoteColor}
+                                      error={createNoteMutation.data?.data?.color?.[0]}
+                                      isOnError={isOnError}/>
+                    </Form>
+                </Modal>}
+            {isDeleteNoteModalOpen &&
+                <Modal header={(
+                    <TitleText>Delete Note</TitleText>
+                )} className='home__note-deletion-modal'
+                          onClose={handleNoteDeletionModal}>
+                    <ParagraphText>Are you sure you want to delete this note?</ParagraphText>
+                    <div className='home__note-deletion-modal__buttons-container'>
+                        <SecondaryButton className='button--secondary--unfilled' onClick={handleOnDeleteNote}>Yes</SecondaryButton>
+                                                <SecondaryButton onClick={handleNoteDeletionModal}>No</SecondaryButton>
+                    </div>
+                </Modal>}
             <div className='home__main-container'>
                 <div
                     className={['home__main-container__menu-container', isMenuContainerOpen ? 'home__main-container__menu-container--opened' : '',
@@ -169,15 +214,23 @@ export default function Home({menu}) {
                                 className='home__main-container__notes-container__header-container__header__subtitle'>Notes</SubtitleText>
                         </div>
                         <CircularIconButton onClick={handleNoteCreationModal}>
-                        add
+                            add
                         </CircularIconButton>
                     </div>
 
-                    {notes.map((note) => (
-                    <Note key={note.id} title={note.title} color={note.color} className='home__main-container__notes-container__note'>
-                        {getLatestNoteVersionByNoteID(note.id)?.content ?? ''}
-                    </Note>
-                    ))}
+                    <div className='home__main-container__notes-container__content-container'>
+                    <div
+                        className='home__main-container__notes-container__content-container__content'>
+                        {notes.map((note) => (
+                            <Note key={note.id} id={note.id} title={note.title}
+                                  color={note.color}
+                                  onDelete={handleNoteDeletionModal}
+                                  className='home__main-container__notes-container__content-container__content__note'>
+                                {getLatestNoteVersionByNoteID(note.id)?.content ?? ''}
+                            </Note>
+                        ))}
+                    </div>
+                    </div>
                 </div>
                 <div
                     className={['home__main-container__note-container', isNoteContainerOpen ? 'home__main-container__note-container--opened' : '',

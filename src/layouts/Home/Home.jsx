@@ -104,9 +104,9 @@ export default function Home({menu}) {
     return (
         <>
             {isCreateNoteModalOpen&&
-            <Modal className='home__note-creation-modal' onClose={handleNoteCreationModal}>
-                <TitleText>New Note</TitleText>
-                <Separator/>
+            <Modal header={(
+                    <TitleText>New Note</TitleText>
+                )} className='home__note-creation-modal' onClose={handleNoteCreationModal}>
                 <Form
                         className='home__note-creation-modal__form'
                         method='post'

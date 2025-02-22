@@ -16,7 +16,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
     transform: translate(-50%, -50%);
     display: grid;
     place-items: center;
@@ -24,43 +23,53 @@
 
 /* Modal content styles */
 .modal__content-container__content {
+    position: relative;
     background-color: var(--background-color);
     padding: 6rem;
     border-radius: 10px;
+    min-width: 50rem;
     max-width: 85rem;
-    display: grid;
-    grid-template-columns: 1fr;
-    place-items: center;
-    gap: 3rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
     box-shadow: 0 0.25rem 0.5rem 0.1rem var(--color-dark-grey);
     opacity: 1;
     animation: appear-and-move-a-bit-up var(--animation-move-duration) ease-in-out forwards;
 }
 
-.modal__content-container__content > * {
-    grid-column: 1/-1;
-}
-
-.modal__content-container__content:has(.modal__content-container__content__close-container) {
-    grid-template-columns: 1fr auto;
-    padding: 3rem;
-    gap: 3rem 1rem
-}
-
-.modal__content-container__content:has(.modal__content-container__content__close-container) > * {
-    grid-column: 1/2;
+.modal__content-container__content__header-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-items: center;
+    gap: 1rem 0;
 }
 
 /* Close container styles */
-.modal__content-container__content .modal__content-container__content__close-container {
-    grid-column: 2/-1;
-    grid-row: 1/-1;
-    justify-self: end;
-    align-self: start;
+.modal__content-container__content__close-container{
+    z-index: 20;
+    position: absolute;
+    top: 3rem;
+    right: 3rem;
     cursor: pointer;
     transition: transform var(--scale-transition-duration) ease-in-out;
 }
 
-.modal__content-container__content .modal__content-container__content__close-container:hover {
+.modal__content-container__content__close-container:hover {
     transform: scale(1.1);
+}
+
+/* Responsive styles */
+@media (max-width: 600px) {
+    .modal__content-container{
+        width: 100%;
+    }
+
+    .modal__content-container__content {
+        min-width: auto;
+        width: 100%;
+        border-radius: 0;
+    }
 }

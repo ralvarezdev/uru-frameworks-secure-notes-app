@@ -55,11 +55,11 @@ export default function Dashboard() {
     return (
         <>
             {!getPassword()&&
-            <Modal>
-                <TitleText>Authentication</TitleText>
-                <Separator/>
-                <ParagraphText>Please enter your password to continue</ParagraphText>
-                <Password id="password" name="password" label="Password"
+            <Modal header={(
+                    <TitleText>Authentication</TitleText>
+                )}>
+                <Password id="password" name="password" label="Please enter your password to continue"
+                          isLabelInside={false}
                       placeholder="Enter your password"
                       autoComplete="current-password"
                       error={isOnError&&"Invalid password"}

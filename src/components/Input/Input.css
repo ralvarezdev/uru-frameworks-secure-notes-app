@@ -11,11 +11,8 @@
 
 /* Label styles */
 .input__main-container__label {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: var(--label--gap);
+    text-align: center;
+    padding-bottom: var(--label--gap);
 }
 
 /* Input container styles */

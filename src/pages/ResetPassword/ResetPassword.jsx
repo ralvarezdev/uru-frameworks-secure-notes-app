@@ -81,9 +81,9 @@ export default function ResetPassword() {
     return (
         <>
             {showFirstConfirmationModal&&(
-                <Modal onClose={handleShowFirstConfirmationModal}>
+                <Modal header={(
                     <TitleText>Reset Password</TitleText>
-                    <Separator/>
+                )} onClose={handleShowFirstConfirmationModal}>
                     <ParagraphText>Are you sure you want to reset your password?</ParagraphText>
                     <ParagraphText>Your notes, note tags and tags WILL be deleted!</ParagraphText>
                     <div className='modal__content-container__footer-container'>
@@ -93,9 +93,9 @@ export default function ResetPassword() {
                 </Modal>
             )}
             {showSecondConfirmationModal&&(
-                <Modal onClose={handleShowSecondConfirmationModal}>
+                <Modal header={(
                     <TitleText>Reset Password</TitleText>
-                    <Separator/>
+                )} onClose={handleShowSecondConfirmationModal}>
                     <ParagraphText>Are you sure 100% sure?</ParagraphText>
                     <ParagraphText>This action cannot be reverted</ParagraphText>
                     <div className='modal__content-container__footer-container'>

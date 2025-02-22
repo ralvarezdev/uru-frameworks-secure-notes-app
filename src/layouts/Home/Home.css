@@ -109,6 +109,7 @@
     background-color: var(--background-color);
 }
 
+
 /* Responsive styles */
 @media (max-width: 1200px) {
     .home__main-container {

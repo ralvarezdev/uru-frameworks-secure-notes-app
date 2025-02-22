@@ -94,8 +94,13 @@ export function NotesProvider({children}) {
             if (!latestNote || note.updated_at > latestNote.updated_at)
                 return note;
             return latestNote;
-        }, null);
+        }, null)
     }, [notes]);
+
+    // Get the latest note ID
+    const getLatestNoteID = useCallback(() => {
+        return getLatestNote()?.id
+    }, [getLatestNote]);
 
     // Clear all notes
     const clearNotes = useCallback(() => {
@@ -382,6 +387,7 @@ export function NotesProvider({children}) {
             removeNoteByID,
             getNoteByID,
             getLatestNote,
+            getLatestNoteID,
             clearNotes,
             loadNotesFromIndexedDB,
             noteVersionsByNoteID,

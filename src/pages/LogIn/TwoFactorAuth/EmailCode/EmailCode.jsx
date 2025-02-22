@@ -19,7 +19,7 @@ import {sendRequest} from "../../../../utils/api.js";
 // 2FA Email code page
 export default function EmailCode() {
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
+    const [isOnError, setIsOnError] = useState(false);
 
     // Send email code handler
     const handleSendEmailCode = useCallback(async () => {
@@ -81,7 +81,7 @@ export default function EmailCode() {
                                 children: 'TOTP Code'
                             } : null,
                     ]}
-                    isOnError={isOnError} setOnError={setOnError}
+                    isOnError={isOnError} setIsOnError={setIsOnError}
                     onSubmit={handleSubmit}
                     isSubmitting={mutation.isLoading}>
             <Input type="text" id="email-code" name="email-code"

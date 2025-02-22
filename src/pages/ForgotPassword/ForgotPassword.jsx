@@ -23,13 +23,13 @@ export async function ForgotPasswordHandleRequest({email}) {
 // Forgot password page
 export default function ForgotPassword() {
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
+    const [isOnError, setIsOnError] = useState(false);
 
     // Forgot password mutation
     const mutation = useMutation(ForgotPasswordHandleRequest, {
         onSuccess: (data) => {
             if (data?.status !== 'success')
-                setOnError(true);
+                setIsOnError(true);
             else {
                 addInfoNotification('Check your email to reset your password!');
                 window.location.href = LOG_IN;
@@ -57,7 +57,7 @@ export default function ForgotPassword() {
                             children: 'Log In'
                         }
                     ]}
-                    isOnError={isOnError} setOnError={setOnError}
+                    isOnError={isOnError} setIsOnError={setIsOnError}
                     onSubmit={handleSubmit}
                     isSubmitting={mutation.isLoading}>
             <Input type="email" id="email" name="email"

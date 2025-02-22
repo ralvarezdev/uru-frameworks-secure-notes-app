@@ -14,7 +14,7 @@ export default function Auth({
                                  footer,
                                  children,
                                  isOnError,
-                                 setOnError,
+                                 setIsOnError,
                                  onSubmit,
                                  isSubmitting,
                              }) {
@@ -43,7 +43,7 @@ export default function Auth({
                         className='auth__main-container__right-container__content-container__form'
                         method='post'
                         isOnError={isOnError}
-                        setOnError={setOnError}
+                        setIsOnError={setIsOnError}
                         isSubmitting={isSubmitting}
                         onSubmit={onSubmit}>
                         {children}

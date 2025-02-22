@@ -44,13 +44,13 @@ async function SignUpHandleRequest({
 // Sign up page
 export default function SignUp() {
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
+    const [isOnError, setIsOnError] = useState(false);
 
     // Sign up mutation
     const mutation = useMutation(SignUpHandleRequest, {
         onSuccess: (data) => {
             if (data?.status !== 'success')
-                setOnError(true);
+                setIsOnError(true);
             else {
                 addInfoNotification('Signed up successfully!');
                 window.location.href = LOG_IN;
@@ -84,7 +84,7 @@ export default function SignUp() {
                         text: 'Do you have an account?',
                         children: 'Log In'
                     }]}
-                    isOnError={isOnError} setOnError={setOnError}
+                    isOnError={isOnError} setIsOnError={setIsOnError}
                     onSubmit={handleSubmit}
                     isSubmitting={mutation.isLoading}>
             <Input type="text" id="first-name" name="first-name"

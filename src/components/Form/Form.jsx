@@ -8,7 +8,7 @@ export default function Form({
                                  className,
                                  children,
                                  isOnError,
-                                 setOnError,
+                                 setIsOnError,
                                  onSubmit,
                                  isSubmitting,
                                  ...props
@@ -29,11 +29,11 @@ export default function Form({
 
     // Handle the form change
     const handleChange = useCallback(() => {
-        setOnError((prevIsOnError) => {
+        setIsOnError((prevIsOnError) => {
             if (prevIsOnError) return false;
             return prevIsOnError;
         });
-    }, [setOnError]);
+    }, [setIsOnError]);
 
     return (
         <FormRouter ref={formRef}

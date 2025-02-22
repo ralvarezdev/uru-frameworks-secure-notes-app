@@ -44,11 +44,18 @@ export default function ResetPassword() {
     const location = useLocation();
     const token = location.pathname.split('/')[2];
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
-    const [showModal, setShowModal] = useState(false);
+    const [isOnError, setIsOnError] = useState(false);
+    const [showFirstConfirmationModal, setShowFirstConfirmationModal] = useState(false);
+    const [showSecondConfirmationModal, setShowSecondConfirmationModal] = useState(false);
 
-    // Handle show modal
-    const handleShowModal = useCallback(() => setShowModal(prevShowModal => !prevShowModal), []);
+    // Handle show first confirmation modal
+    const handleShowFirstConfirmationModal = useCallback(() => setShowFirstConfirmationModal(prevShowFirstConfirmationModal => !prevShowFirstConfirmationModal), []);
+
+    // Handle show second confirmation modal
+    const handleShowSecondConfirmationModal = useCallback(() => {
+        setShowSecondConfirmationModal(prevShowSecondConfirmationModal => !prevShowSecondConfirmationModal)
+        handleShowFirstConfirmationModal()
+    }, [handleShowFirstConfirmationModal]);
 
     // Reset password mutation
     const mutation = useMutation(ResetPasswordHandleRequest, {
@@ -73,15 +80,27 @@ export default function ResetPassword() {
 
     return (
         <>
-            {showModal&&(
-                <Modal closable={true}>
+            {showFirstConfirmationModal&&(
+                <Modal onClose={handleShowFirstConfirmationModal}>
                     <TitleText>Reset Password</TitleText>
                     <Separator/>
                     <ParagraphText>Are you sure you want to reset your password?</ParagraphText>
                     <ParagraphText>Your notes, note tags and tags WILL be deleted!</ParagraphText>
                     <div className='modal__content-container__footer-container'>
+                        <SecondaryButton className='button--secondary--unfilled'  onClick={handleShowSecondConfirmationModal}>Continue</SecondaryButton>
+                        <SecondaryButton onClick={handleShowFirstConfirmationModal}>Go Back</SecondaryButton>
+                    </div>
+                </Modal>
+            )}
+            {showSecondConfirmationModal&&(
+                <Modal onClose={handleShowSecondConfirmationModal}>
+                    <TitleText>Reset Password</TitleText>
+                    <Separator/>
+                    <ParagraphText>Are you sure 100% sure?</ParagraphText>
+                    <ParagraphText>This action cannot be reverted</ParagraphText>
+                    <div className='modal__content-container__footer-container'>
                         <SecondaryButton className='button--secondary--unfilled'  onClick={handleSubmit}>Continue</SecondaryButton>
-                        <SecondaryButton onClick={handleShowModal}>Go Back</SecondaryButton>
+                        <SecondaryButton onClick={handleShowSecondConfirmationModal}>Go Back</SecondaryButton>
                     </div>
                 </Modal>
             )}
@@ -91,8 +110,8 @@ export default function ResetPassword() {
                         text: 'Remembered your password?',
                         children: 'Log In'
                     }]}
-                    isOnError={isOnError} setOnError={setOnError}
-                    onSubmit={handleShowModal}
+                    isOnError={isOnError} setIsOnError={setIsOnError}
+                    onSubmit={handleShowFirstConfirmationModal}
                     isSubmitting={mutation.isLoading}>
                 <Password id="password" name="password" label="Password"
                           placeholder="Enter your password"

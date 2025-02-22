@@ -19,7 +19,7 @@ import {
 // 2FA Recovery code page
 export default function RecoveryCode() {
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
+    const [isOnError, setIsOnError] = useState(false);
 
     // 2FA Recovery code mutation
     const mutation = useMutation(LogInHandleRequest, {
@@ -62,7 +62,7 @@ export default function RecoveryCode() {
                                 children: 'TOTP Code'
                             } : null,
                     ]}
-                    isOnError={isOnError} setOnError={setOnError}
+                    isOnError={isOnError} setIsOnError={setIsOnError}
                     onSubmit={handleSubmit}
                     isSubmitting={mutation.isLoading}>
             <Input type="text" id="recovery-code" name="recovery-code"

@@ -1,0 +1,39 @@
+/* Color palette container styles */
+.color-palette__main-container {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+/* Text styles */
+.color-palette__main-container__text {}
+
+/* Color container styles */
+.color-palette__main-container__colors-container{
+    display: flex;
+    justify-items: center;
+    align-items: center;
+    gap: var(--label--gap);
+}
+
+/* Color styles */
+.color-palette__main-container__colors-container__color{
+    width: 2rem;
+    height: 2rem;
+    outline: var(--outline-width) solid transparent;
+    transition: outline-color var(--opacity-transition-duration);
+}
+
+@media (prefers-color-scheme: light) {
+    .color-palette__main-container__colors-container__color--selected{
+       outline: var(--outline-width) solid var(--color-darker-grey);
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    .color-palette__main-container__colors-container__color--selected{
+       outline: var(--outline-width) solid var(--color-lighter-grey);
+    }
+}

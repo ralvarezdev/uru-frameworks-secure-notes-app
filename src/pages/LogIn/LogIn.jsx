@@ -54,7 +54,7 @@ export async function LogInHandleRequest({
 // Log in page
 export default function LogIn() {
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
+    const [isOnError, setIsOnError] = useState(false);
 
     // Log in mutation
     const mutation = useMutation(LogInHandleRequest, {
@@ -67,7 +67,7 @@ export default function LogIn() {
             if (data?.status === 'fail' && data?.data?.twoFactorAuthenticationMethods)
                 handle2FA();
             else if (data?.status !== 'success')
-                setOnError(true);
+                setIsOnError(true);
             else {
                 addInfoNotification('Logged in successfully!');
                 window.location.href = DASHBOARD;
@@ -101,7 +101,7 @@ export default function LogIn() {
                             text: 'Forgot your password',
                             children: 'Reset'
                         }]}
-                    isOnError={isOnError} setOnError={setOnError}
+                    isOnError={isOnError} setIsOnError={setIsOnError}
                     onSubmit={handleSubmit}
                     isSubmitting={mutation.isLoading}>
             <Input type="text" id="username" name="username"

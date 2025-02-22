@@ -18,13 +18,13 @@ import {
 // 2FA TOTP code page
 export default function TOTPCode() {
     const {addErrorNotification, addInfoNotification} = useNotification();
-    const [isOnError, setOnError] = useState(false);
+    const [isOnError, setIsOnError] = useState(false);
 
     // 2FA TOTP code mutation
     const mutation = useMutation(LogInHandleRequest, {
         onSuccess: (data) => {
             if (data?.status !== 'success')
-                setOnError(true);
+                setIsOnError(true);
             else {
                 setIsLoggingIn(false)
                 addInfoNotification('Logged in successfully!');
@@ -58,7 +58,7 @@ export default function TOTPCode() {
                             text: 'Do you have access to your email?',
                             children: 'Email Code'
                         }]}
-                    isOnError={isOnError} setOnError={setOnError}
+                    isOnError={isOnError} setIsOnError={setIsOnError}
                     onSubmit={handleSubmit}
                     isSubmitting={mutation.isLoading}>
             <Input type="text" id="totp-code" name="totp-code"

@@ -1,0 +1,13 @@
+/* Error small text styles */
+.text--small.text--small--error {
+    text-transform: uppercase;
+    color: var(--color-error);
+    height: 1em;
+    text-align: end;
+    opacity: 0;
+    transition: opacity var(--color-transition-duration);
+}
+
+.text--small.text--small--error--active {
+    opacity: 1;
+}

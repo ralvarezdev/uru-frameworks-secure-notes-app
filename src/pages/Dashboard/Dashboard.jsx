@@ -1,5 +1,4 @@
 import './Dashboard.css'
-import PrimaryButton from "../../components/Button/Primary/Primary.jsx";
 import {sendAuthenticatedRequest} from "../../utils/api.js";
 import {useCallback, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
@@ -56,7 +55,7 @@ export default function Dashboard() {
     return (
         <>
             {!getPassword()&&
-            <Modal id='password-auth-modal'>
+            <Modal>
                 <TitleText>Authentication</TitleText>
                 <Separator/>
                 <ParagraphText>Please enter your password to continue</ParagraphText>

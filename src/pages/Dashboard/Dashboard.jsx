@@ -10,7 +10,6 @@ import Password from "../../components/Input/Password/Password.jsx";
 import SecondaryButton from "../../components/Button/Secondary/Secondary.jsx";
 import {comparePasswordWithHash} from "../../utils/crypto.js";
 import {getPasswordHashFromCookie} from "../../utils/cookies.js";
-import Form from "../../components/Form/Form.jsx";
 import Input from "../../components/Input/Input.jsx";
 import ColorPalette from "../../components/ColorPalette/ColorPalette.jsx";
 import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
@@ -22,6 +21,7 @@ import CircularBigIconButton
 import Note from "../../components/Note/Note.jsx";
 import {useNotes} from "../../context/Notes.jsx";
 import {useMutation} from "react-query";
+import CallToAction from "../../components/CallToAction/CallToAction.jsx";
 
 
 // Dashboard page
@@ -200,8 +200,9 @@ export default function Dashboard() {
                 <Modal header={(
                     <TitleText>New Note</TitleText>
                 )} className='dashboard__note-creation-modal'
-                       onClose={handleNoteCreationModal} style={newNoteColor&&{outlineColor:newNoteColor}}>
-                    <Form
+                       onClose={handleNoteCreationModal}
+                       style={newNoteColor && {outlineColor: newNoteColor}}>
+                    <CallToAction
                         className='dashboard__note-creation-modal__form'
                         isOnError={isOnError}
                         setIsOnError={setIsOnError}
@@ -210,20 +211,21 @@ export default function Dashboard() {
                                label="Title"
                                isLabelInside={false}
                                placeholder="Enter your title"
-                               style={newNoteColor&&{outlineColor:newNoteColor}}
+                               style={newNoteColor && {outlineColor: newNoteColor}}
                                error={createNoteMutation.data?.data?.title?.[0]}
                                isOnError={isOnError}/>
                         <ColorPalette onSelectedColor={handleNewNoteColor}
                                       error={createNoteMutation.data?.data?.color?.[0]}
                                       isOnError={isOnError}/>
-                    </Form>
+                    </CallToAction>
                 </Modal>
             )}
             {isDeleteNoteModalOpen && (
                 <Modal header={(
                     <TitleText>Delete Note</TitleText>
                 )} className='dashboard__note-deletion-modal'
-                       onClose={handleNoteDeletionModal}>
+                       onClose={handleNoteDeletionModal}
+                       style={{outlineColor: selectedNote.color}}>
                     <ParagraphText>Are you sure you want to delete this
                         note?</ParagraphText>
                     <div
@@ -237,10 +239,18 @@ export default function Dashboard() {
             )}
             {isViewNoteModalOpen && (
                 <Modal header={(
-                    <TitleText>add name</TitleText>
+                    <TitleText>{selectedNote.title}</TitleText>
                 )} className='dashboard__note-view-modal'
-                       onClose={handleNoteViewModal}>
-                    {getLatestNoteVersionByNoteID(selectedNote.id)}
+                       onClose={handleNoteViewModal}
+                       style={{outlineColor: selectedNote.color}}>
+                    <div
+                        className='dashboard__note-view-modal__content-container'>
+                        {getLatestNoteVersionByNoteID(selectedNote.id) ?? (
+                            <TitleText
+                                className='dashboard__note-view-modal__content-container__content--empty'>No
+                                content</TitleText>
+                        )}
+                    </div>
                 </Modal>
             )}
             <div className='dashboard__main-container'>
@@ -298,7 +308,7 @@ export default function Dashboard() {
                             {notes.map((note) => (
                                 <Note key={note.id} id={note.id}
                                       title={note.title}
-                                      color={note.color}
+                                      color={selectedNote?.id !== note.id && note.color}
                                       onView={handleNoteViewModal}
                                       onDelete={handleNoteDeletionModal}
                                       className='dashboard__main-container__notes-container__content-container__content__note'>

@@ -122,11 +122,25 @@
     width: 100%;
 }
 
-/* Dashboard note creation modal styles */
-.dashboard__note-creation-modal{
+/* Dashboard note view modal empty content styles */
+.dashboard__note-view-modal__content-container__content--empty {
+    padding: 1rem;
+    writing-mode: vertical-rl;
+    rotate: -115deg;
+    color: var(--color-dark-error);
+        scale: 1.25;
+
+    outline: var(--border-width) solid var(--color-dark-error);
+}
+
+/* Dashboard note modals styles */
+.dashboard__note-view-modal,
+.dashboard__note-creation-modal,
+.dashboard__note-deletion-modal {
     transition: outline-color var(--color-transition-duration) ease-in-out;
     outline: var(--outline-width) solid transparent;
 }
+
 
 /* Responsive styles */
 @media (max-width: 1200px) {

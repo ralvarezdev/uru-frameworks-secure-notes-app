@@ -1,9 +1,12 @@
 /* Note main container styles */
 .note__main-container {
     border-radius: 4px;
-    border: var(--border-width) solid transparent;
+    border: var(--border-width) solid var(--color);
     padding: 0.6rem 1rem;
     width: 100%;
+    transition: border-color var(--color-transition-duration),
+    background-color var(--color-transition-duration),
+    color var(--color-transition-duration);
 }
 
 /* Header container styles */
@@ -41,6 +44,8 @@
 
 /* Icons styles */
 .note__main-container__header-container__icons-container > * {
+    background-color: var(--color);
+    color: var(--background-color);
     cursor: pointer;
     transition: color var(--opacity-transition-duration);
 }
@@ -54,3 +59,4 @@
     gap: 1.6rem;
     text-align: center;
 }
+

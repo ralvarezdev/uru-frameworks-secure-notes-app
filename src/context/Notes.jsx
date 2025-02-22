@@ -67,7 +67,7 @@ export function NotesProvider({children}) {
         setNotes((prevNotes) => prevNotes.map(
             (prevNote) => {
                 // Find the note index
-                const noteIndex = notes.findIndex((note) => note.id === prevNote.id);
+                const noteIndex = newNotes.findIndex((note) => note.id === prevNote.id);
                 if (noteIndex >= 0) {
                     newNotes.splice(noteIndex, 1);
                     return {...prevNote, ...notes[noteIndex]};

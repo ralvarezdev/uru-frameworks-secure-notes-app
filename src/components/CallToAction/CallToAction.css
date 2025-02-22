@@ -1,0 +1,14 @@
+/* Call to action component styles */
+.cta__container {
+    display: grid;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 0.6rem 1.6rem;
+    width: 100%;
+}
+
+/* Submit button styles */
+.cta__container__submit-button {
+    grid-column: 1/-1;
+    margin-top: 1rem;
+}

@@ -38,7 +38,7 @@ export default function ColorPalette({
                                     onClick={handleColorButtonClick}/>
                 )}
             </div>
-            <div className='input__main-container__error-container'>
+            <div className='color-palette__main-container__error-container'>
                 <ErrorSmallText active={isOnError}>
                     {error}
                 </ErrorSmallText>

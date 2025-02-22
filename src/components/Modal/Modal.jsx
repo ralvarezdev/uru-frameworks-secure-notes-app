@@ -12,7 +12,7 @@ export default function Modal({
                               }) {
     return (
         <div className='modal'>
-            <div className='modal__overlay'>
+            <div className='modal__overlay' onClick={onClose}>
             </div>
             <div
                 className={'modal__content-container'} {...props}>

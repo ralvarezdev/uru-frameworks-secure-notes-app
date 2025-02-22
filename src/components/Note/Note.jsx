@@ -26,6 +26,8 @@ export default function Note({
         onView(id)
     }, [id, onView])
 
+    //
+
     return (
         <div className={['note__main-container', className].join(' ')}
              style={{borderColor: color}} {...props}>
@@ -44,7 +46,8 @@ export default function Note({
                     </CircularSmallIconButton>
                     <CircularSmallIconButton
                         className='note__main-container__header-container__icons-container__edit'
-                        style={{backgroundColor: color}} onClick={onEdit}>
+                        style={{backgroundColor: color}}
+                        onClick={onEdit}>
                         edit
                     </CircularSmallIconButton>
                     <CircularSmallIconButton

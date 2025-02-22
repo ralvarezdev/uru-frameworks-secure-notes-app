@@ -12,13 +12,14 @@ export default function Input({
                                   error,
                                   isOnError,
                                   children,
-                                    style,
+                                  style,
                                   ...props
                               }) {
     if (isLabelInside)
         return (
             <div className='input__main-container'>
-                <div className='input__main-container__input-container' style={style}>
+                <div className='input__main-container__input-container'
+                     style={style}>
                     <Label
                         className='input__main-container__input-container__label'
                         htmlFor={id}>{label}</Label>

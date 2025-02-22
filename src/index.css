@@ -27,12 +27,12 @@
     --input--horizontal-padding: 1.2rem;
     --outline-width: 0.2rem;
     --border-width: 0.2rem;
-    --icon--big--size: 2rem;
+    --icon--big--size: 2.6rem;
     --icon--big--weight: 500;
-    --icon--medium--size: 1.8rem;
-    --icon--medium--weight: 400;
-    --icon--small--size: 1.6rem;
-    --icon--small--weight: 400;
+    --icon--medium--size: 2.2rem;
+    --icon--medium--weight: 500;
+    --icon--small--size: 1.8rem;
+    --icon--small--weight: 500;
     --logo--graphic--size: 4rem;
     --logo--graphic-text--size: 1.8rem;
     --logo--graphic-text--gap: 1rem;
@@ -73,6 +73,8 @@
     --auth--z-index: 1;
     --dashboard--note-container--z-index: 2;
     --dashboard--menu-container--z-index: 2;
+    --color-palette--icon--size: 2.4rem;
+    --color-palette--icon--border--width: 0.35rem;
 }
 
 /* Global Styles */

@@ -55,7 +55,7 @@
     transition: transform var(--scale-transition-duration) ease-in-out;
 }
 
-.modal__content-container__content__header-container__header{
+.modal__content-container__content__header-container__header {
     padding: 0 2rem;
 }
 

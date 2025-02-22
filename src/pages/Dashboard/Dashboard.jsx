@@ -8,6 +8,11 @@ import HomeLayout from "../../layouts/Home/Home.jsx";
 import {getPassword} from "../../sessionStorage/sessionStorage.js";
 import Modal from "../../components/Modal/Modal.jsx";
 import TitleText from "../../components/Text/Title/Title.jsx";
+import {decryptText, deriveKey} from "../../utils/crypto.js";
+import {
+    getEncryptedKeyFromCookie,
+    getSaltFromCookie
+} from "../../utils/cookies.js";
 
 // Dashboard page
 export default function Dashboard() {

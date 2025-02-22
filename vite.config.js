@@ -29,6 +29,8 @@ export default defineConfig({
         'import.meta.env.COOKIE_SALT_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_SALT_NAME),
         'import.meta.env.COOKIE_ENCRYPTED_KEY_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_ENCRYPTED_KEY_NAME),
         'import.meta.env.COOKIE_USER_ID_NAME': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_API_COOKIE_USER_ID_NAME),
+        'import.meta.env.PBKDF2_ITERATIONS': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_PBKDF2_ITERATIONS),
+        'import.meta.env.PBKDF2_KEY_LENGTH': JSON.stringify(process.env.URU_FRAMEWORKS_SECURE_NOTES_PBKDF2_KEY_LENGTH),
         'import.meta.env.IS_DEBUG': JSON.stringify(IS_DEBUG),
         'import.meta.env.IS_DEV': JSON.stringify(IS_DEV),
         'import.meta.env.IS_PROD': JSON.stringify(IS_PROD)

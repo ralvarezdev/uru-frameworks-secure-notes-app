@@ -1,10 +1,10 @@
-import ModalLayout from "../../layouts/Modal/Modal.jsx";
+import MessageLayout from "../../layouts/Message/Message.jsx";
 
 // Error page
 export default function Error({children}) {
     return (
-        <ModalLayout title='An error occurred'>
+        <MessageLayout title='An error occurred'>
             {children}
-        </ModalLayout>
+        </MessageLayout>
     )
 }

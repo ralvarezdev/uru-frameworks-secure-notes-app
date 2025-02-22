@@ -1,4 +1,4 @@
-import './Modal.css'
+import './Message.css'
 import BackgroundAsset from "../../components/Assets/Background/Background.jsx";
 import TitleText from "../../components/Text/Title/Title.jsx";
 import GraphicTextLogoAsset
@@ -7,16 +7,16 @@ import GraphicLogoAsset from "../../components/Assets/Logo/Graphic/Graphic.jsx";
 import Separator from "../../components/Separator/Separator.jsx";
 import Modal from "../../components/Modal/Modal.jsx";
 
-// Modal layout
-export default function ModalLayout({title, children, className, ...props}) {
+// Message layout
+export default function MessageLayout({title, children, className, ...props}) {
     return (
-        <div className='modal__main-container'>
-            <BackgroundAsset className='modal__main-container__background'/>
-            <Modal className={className} {...props}>
+        <div className='message__main-container'>
+            <BackgroundAsset className='message__main-container__background'/>
+            <Modal className={['message__main-container__modal',className].join(' ')} {...props}>
                 <div
-                    className='modal__main-container__content-container__title-container'>
+                    className='message__main-container__modal__title-container'>
                     <TitleText
-                        className='modal__main-container__content-container__title-container__title'>
+                        className='message__main-container__modal__title-container__title'>
                         {title}
                     </TitleText>
                     <GraphicTextLogoAsset className='logo--graphic-text'/>
@@ -24,7 +24,7 @@ export default function ModalLayout({title, children, className, ...props}) {
                 </div>
                 <Separator/>
                 <div
-                    className='modal__main-container__content-container__content'>
+                    className='message__main-container__modal__content'>
                     {children}
                 </div>
             </Modal>

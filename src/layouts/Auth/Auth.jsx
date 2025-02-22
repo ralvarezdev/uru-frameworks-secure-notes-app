@@ -56,6 +56,7 @@ export default function Auth({
                                         <li key={index}
                                             className='auth__main-container__right-container__content-container__footer-container__item'>
                                             <MemoizedReference
+                                                onClick={footerItem.onClick ?? null}
                                                 to={footerItem.to ?? null}
                                                 text={footerItem.text ?? null}>
                                                 {footerItem.children ?? null}

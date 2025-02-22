@@ -3,7 +3,7 @@
     font-size: var(--text--link--font-size);
     font-weight: var(--text--link--font-weight);
     letter-spacing: var(--text--link--letter-spacing);
-
+    text-decoration: underline;
 }
 
 .link__text,

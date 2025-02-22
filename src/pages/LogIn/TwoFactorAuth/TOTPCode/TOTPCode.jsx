@@ -1,6 +1,5 @@
 import Input from "../../../../components/Input/Input.jsx";
 import AuthLayout from "../../../../layouts/Auth/Auth.jsx";
-import {useLogIn} from "../../../../context/LogIn.jsx";
 import {useState} from "react";
 import {useNotification} from "../../../../context/Notification.jsx";
 import {useMutation} from "react-query";
@@ -11,10 +10,13 @@ import {
     TWO_FACTOR_AUTHENTICATION_RECOVERY_CODE
 } from "../../../../endpoints.js";
 import {TOTP_CODE_2FA_METHOD} from "../../../../constants.js";
+import {
+    getPassword,
+    getUsername, setIsLoggingIn
+} from "../../../../sessionStorage/sessionStorage.js";
 
 // 2FA TOTP code page
 export default function TOTPCode() {
-    const {logIn, setLogIn} = useLogIn();
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
@@ -24,7 +26,7 @@ export default function TOTPCode() {
             if (data?.status !== 'success')
                 setOnError(true);
             else {
-                setLogIn(null)
+                setIsLoggingIn(false)
                 addInfoNotification('Logged in successfully!');
                 window.location.href = DASHBOARD;
             }
@@ -36,8 +38,8 @@ export default function TOTPCode() {
     const handleSubmit = (formData) => {
         const totpCode = formData.get("totp-code");
         mutation.mutate({
-            username: logIn?.username,
-            password: logIn?.password,
+            username: getUsername(),
+            password: getPassword(),
             twoFactorAuthenticationCode: totpCode,
             twoFactorAuthenticationCodeType: TOTP_CODE_2FA_METHOD
         });

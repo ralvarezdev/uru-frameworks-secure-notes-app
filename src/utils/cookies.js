@@ -1,3 +1,8 @@
+// Cookies name
+export const COOKIE_SALT_NAME = import.meta.env.COOKIE_SALT_NAME;
+export const COOKIE_ENCRYPTED_KEY_NAME = import.meta.env.COOKIE_ENCRYPTED_KEY_NAME;
+export const COOKIE_USER_ID_NAME = import.meta.env.COOKIE_USER_ID_NAME;
+
 // cookieExists is a utility function that checks if a cookie with a given name exists in the document
 export default function cookieExists(cookieName) {
     const cookies = document.cookie.split(';');
@@ -19,4 +24,19 @@ export function getCookie(cookieName) {
     const cookies = document.cookie.split(';');
     const cookie = cookies.find(cookie => cookie.trim().startsWith(`${cookieName}=`));
     return cookie?.split('=')[1];
+}
+
+// getUserIDFromCookie is a utility function that retrieves the user ID from the user ID cookie
+export function getUserIDFromCookie() {
+    return getCookie(COOKIE_USER_ID_NAME);
+}
+
+// getEncryptedKeyFromCookie is a utility function that retrieves the encrypted key from the encrypted key cookie
+export function getEncryptedKeyFromCookie() {
+    return getCookie(COOKIE_ENCRYPTED_KEY_NAME);
+}
+
+// getSaltFromCookie is a utility function that retrieves the salt from the salt cookie
+export function getSaltFromCookie() {
+    return getCookie(COOKIE_SALT_NAME);
 }

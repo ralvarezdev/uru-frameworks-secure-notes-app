@@ -1,5 +1,5 @@
-/* Modal main container styles */
-.modal__main-container {
+/* Message main container styles */
+.message__main-container {
     position: relative;
     grid-row: 1/-1;
     grid-column: 1/-1;
@@ -8,12 +8,17 @@
 }
 
 /* Background styles */
-.modal__main-container__background {
+.message__main-container__background {
     filter: blur(4px);
 }
 
+/* Modal styles */
+.message__main-container__modal {
+    width: 100%;
+}
+
 /* Title container styles */
-.modal__main-container__content-container__title-container {
+.message__main-container__modal__title-container {
     display: grid;
     padding: 0 2rem;
     grid-template-columns: 1fr auto;
@@ -23,7 +28,7 @@
 }
 
 /* Title styles */
-.modal__main-container__content-container__title-container__title {
+.message__main-container__modal__title-container__title {
     grid-column: 1/2;
     grid-row: 1/-1;
     justify-self: start;
@@ -36,7 +41,7 @@
 }
 
 /* Content styles */
-.modal__main-container__content-container__content {
+.message__main-container__modal__content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,22 +62,22 @@
 }
 
 @media (max-width: 700px) {
-    .modal__main-container__content-container__title-container {
+    .message__main-container__modal__title-container {
         padding: 0;
     }
 }
 
 @media (max-width: 650px) {
-    .modal__main-container__background {
+    .message__main-container__background {
         display: none;
     }
 
-    .modal__main-container__content-container {
+    .message__main-container__modal {
         padding: 4rem 2rem;
         box-shadow: none;
     }
 
-    .modal__main-container__content-container__title-container__title {
+    .message__main-container__modal__title-container__title {
         justify-self: center;
         text-align: center;
     }

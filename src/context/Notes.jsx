@@ -9,8 +9,8 @@ import {
     UpsertUserNote,
     UpsertUserNoteTag,
     UpsertUserNoteVersion
-} from "../indexeddb/transactions.js";
-import {db} from "../indexeddb/init.js";
+} from "../indexedDB/transactions.js";
+import {db} from "../indexedDB/init.js";
 import logger from "../logger.js";
 
 // Create a context

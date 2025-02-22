@@ -3,7 +3,6 @@ import {Outlet} from "react-router-dom";
 import {useEffect} from "react";
 import AppLayout from "./layouts/App/App.jsx";
 import {useAuth} from "./context/Auth.jsx";
-import {useLogIn} from "./context/LogIn.jsx";
 import {
     EMAIL_CODE_2FA_METHOD,
     RECOVERY_CODE_2FA_METHOD,
@@ -23,6 +22,9 @@ import {
     VERIFY_EMAIL
 } from "./endpoints.js";
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
+import {
+    get2FAMethods, getIsLoggingIn,
+} from "./sessionStorage/sessionStorage.js";
 
 // Authentication endpoints
 const NO_AUTH_ENABLED_ENDPOINTS = [LOG_IN, SIGN_UP, FORGOT_PASSWORD, RESET_PASSWORD, VERIFY_EMAIL]
@@ -31,7 +33,6 @@ const AUTH_DISABLED_ENDPOINTS = [...NO_AUTH_ENABLED_ENDPOINTS, TWO_FACTOR_AUTHEN
 // App component
 export default function App() {
     const {isAuth} = useAuth();
-    const {logIn} = useLogIn();
     const path = window.location.pathname;
 
     // Redirect to the login page if the user is not authenticated
@@ -52,8 +53,8 @@ export default function App() {
         }
 
         // Check if the user has entered his credentials and is on the 2FA step
-        if (logIn) {
-            const {twoFactorAuthenticationMethods} = logIn;
+        if (getIsLoggingIn()) {
+            const twoFactorAuthenticationMethods =get2FAMethods()
 
             if (twoFactorAuthenticationMethods.includes(TOTP_CODE_2FA_METHOD) && parsedPath === TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
                 return;
@@ -69,9 +70,11 @@ export default function App() {
         }
 
         // Redirect to the login page if the user is not authenticated
+        /*
         if (!NO_AUTH_ENABLED_ENDPOINTS.includes(parsedPath))
             window.location.href = LOG_IN
-    }, [path, isAuth, logIn]);
+        */
+    }, [path, isAuth]);
 
     return (
         <AppLayout>

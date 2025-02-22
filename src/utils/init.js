@@ -1,4 +1,4 @@
-import {closeDatabase, openDatabase} from "../indexeddb/init.js";
+import {closeDatabase, openDatabase} from "../indexedDB/init.js";
 
 // Handle on log in
 export async function onLogIn(userID, onSuccess, onError, loadTagsFn = async () => {

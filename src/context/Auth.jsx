@@ -1,5 +1,8 @@
 import {createContext, useContext, useState} from 'react';
-import cookieExists, {getCookie} from "../utils/cookies.js";
+import cookieExists, {
+    getCookie,
+    getUserIDFromCookie
+} from "../utils/cookies.js";
 import LOGGER from "../logger.js";
 import {onLogIn, onLogOut} from "../utils/init.js";
 import {useTags} from "./Tags.jsx";
@@ -39,8 +42,8 @@ export function AuthProvider({children}) {
                 // Call the onLogOut function
                 onLogOut(clearTags, clearNotes).then()
             } else {
-                // Get the user ID from the cookie
-                const userID = getCookie(import.meta.env.COOKIE_USER_ID_NAME)
+                // Get the user ID from cookies
+                const userID = getUserIDFromCookie()
                 if (!userID && import.meta.env.IS_DEBUG) LOGGER.error("User ID not found in the cookie")
                 else if (import.meta.env.IS_DEBUG) LOGGER.info(`User ID found in the cookie: ${userID}`)
 

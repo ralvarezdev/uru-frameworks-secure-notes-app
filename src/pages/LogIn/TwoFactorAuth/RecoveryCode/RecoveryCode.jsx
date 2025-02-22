@@ -1,6 +1,5 @@
 import Input from "../../../../components/Input/Input.jsx";
 import AuthLayout from "../../../../layouts/Auth/Auth.jsx";
-import {useLogIn} from "../../../../context/LogIn.jsx";
 import {useState} from "react";
 import {useNotification} from "../../../../context/Notification.jsx";
 import {useMutation} from "react-query";
@@ -11,10 +10,14 @@ import {
     TWO_FACTOR_AUTHENTICATOR_TOTP_CODE
 } from "../../../../endpoints.js";
 import {RECOVERY_CODE_2FA_METHOD} from "../../../../constants.js";
+import {
+    get2FAMethods,
+    getPassword,
+    getUsername, setIsLoggingIn
+} from "../../../../sessionStorage/sessionStorage.js";
 
 // 2FA Recovery code page
 export default function RecoveryCode() {
-    const {logIn, setLogIn,} = useLogIn();
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
@@ -26,7 +29,7 @@ export default function RecoveryCode() {
 
                 // HANDLE NEW RECOVERY CODES
             } else {
-                setLogIn(null)
+                setIsLoggingIn(false)
                 addInfoNotification('Logged in successfully!');
                 window.location.href = DASHBOARD;
             }
@@ -38,8 +41,8 @@ export default function RecoveryCode() {
     const handleSubmit = (formData) => {
         const recoveryCode = formData.get("recovery-code");
         mutation.mutate({
-            username: logIn?.username,
-            password: logIn?.password,
+            username: getUsername(),
+            password: getPassword(),
             twoFactorAuthenticationCode: recoveryCode,
             twoFactorAuthenticationCodeType: RECOVERY_CODE_2FA_METHOD
         });
@@ -52,7 +55,7 @@ export default function RecoveryCode() {
                         text: 'Do you have access to your email?',
                         children: 'Email Code'
                     },
-                        logIn?.twoFactorAuthenticationMethods?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
+                        get2FAMethods()?.includes(TWO_FACTOR_AUTHENTICATOR_TOTP_CODE)
                             ? {
                                 to: TWO_FACTOR_AUTHENTICATOR_TOTP_CODE,
                                 text: 'Do you have access to your TOTP?',

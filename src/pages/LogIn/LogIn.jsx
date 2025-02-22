@@ -2,7 +2,6 @@ import Input from "../../components/Input/Input.jsx";
 import AuthLayout from "../../layouts/Auth/Auth.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
 import {sendRequest} from "../../utils/api.js";
-import {useLogIn} from "../../context/LogIn.jsx";
 import {useCallback, useState} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {useMutation} from "react-query";
@@ -12,6 +11,11 @@ import {
     SIGN_UP,
     TWO_FACTOR_AUTHENTICATION_EMAIL_CODE
 } from "../../endpoints.js";
+import {
+    set2FAMethods, setIsLoggingIn,
+    setPassword,
+    setUsername
+} from "../../sessionStorage/sessionStorage.js";
 
 // Log in request handler
 export async function LogInHandleRequest({
@@ -49,7 +53,6 @@ export async function LogInHandleRequest({
 
 // Log in page
 export default function LogIn() {
-    const {setLogIn} = useLogIn();
     const {addErrorNotification, addInfoNotification} = useNotification();
     const [isOnError, setOnError] = useState(false);
 
@@ -74,9 +77,13 @@ export default function LogIn() {
                                        password,
                                        twoFactorAuthenticationMethods
                                    }) => {
-        setLogIn({username, password, twoFactorAuthenticationMethods});
+        // Store the log in data in the session storage
+        setUsername(username);
+        setPassword(password)
+        set2FAMethods(twoFactorAuthenticationMethods);
+        setIsLoggingIn(true);
         window.location.href = TWO_FACTOR_AUTHENTICATION_EMAIL_CODE;
-    }, [setLogIn]);
+    }, []);
 
     // Handle the form submission
     const handleSubmit = (formData) => {

@@ -5,7 +5,7 @@ import {useQuery} from "react-query";
 import {useCallback, useEffect} from "react";
 import {REDIRECT_DURATION} from "../../constants.js";
 import {useAuth} from "../../context/Auth.jsx";
-import ModalLayout from "../../layouts/Modal/Modal.jsx";
+import MessageLayout from "../../layouts/Message/Message.jsx";
 import {useTimer} from "../../hooks/timer.jsx";
 import {DASHBOARD, LOG_IN} from "../../endpoints.js";
 
@@ -50,7 +50,7 @@ export default function VerifyEmail() {
     }, [setIsActive, isLoading]);
 
     return (
-        <ModalLayout title='Email Verification'>
+        <MessageLayout title='Email Verification'>
             {isLoading && <ParagraphText>Loading...</ParagraphText>}
             {!isLoading && error && (
                 <ParagraphText>
@@ -72,6 +72,6 @@ export default function VerifyEmail() {
                     {`Redirecting to the ${isAuth ? 'dashboard' : 'login'} page in ${redirectIn} seconds...`}
                 </ParagraphText>
             )}
-        </ModalLayout>
+        </MessageLayout>
     )
 }

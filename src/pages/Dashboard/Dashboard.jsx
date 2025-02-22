@@ -5,10 +5,15 @@ import {useCallback} from "react";
 import {useNotification} from "../../context/Notification.jsx";
 import {LOG_IN} from "../../endpoints.js";
 import HomeLayout from "../../layouts/Home/Home.jsx";
+import {getPassword} from "../../sessionStorage/sessionStorage.js";
+import Modal from "../../components/Modal/Modal.jsx";
+import TitleText from "../../components/Text/Title/Title.jsx";
 
 // Dashboard page
 export default function Dashboard() {
     const {addInfoNotification, addErrorNotification} = useNotification();
+
+    // Handle entered password
 
     // Handle log out
     const handleLogOut = useCallback(async () => {
@@ -27,9 +32,15 @@ export default function Dashboard() {
     }, [addErrorNotification, addInfoNotification]);
 
     return (
-        <HomeLayout settings={<PrimaryButton onClick={handleLogOut}>Log
-            Out</PrimaryButton>}>
-        </HomeLayout>
+        <>
+            {!getPassword()&&
+            <Modal closable={true}>
+                <TitleText>Enter your password</TitleText>
+
+            </Modal>}
+            <HomeLayout settings={<PrimaryButton onClick={handleLogOut}>Log Out</PrimaryButton>}>
+            </HomeLayout>
+        </>
     )
 }
 

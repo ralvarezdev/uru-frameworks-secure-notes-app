@@ -15,7 +15,7 @@ export function TagsProvider({children}) {
     const [tags, setTags] = useState([]);
 
     // Upsert a tag to the list
-    const upsertTag = useCallback(async (tag, alterIndexedDB) => {
+    const upsertTag = useCallback(async (tag, alterIndexedDB=true) => {
         // Check if the tag has an ID
         if (!tag?.id) {
             if (import.meta.env.IS_DEBUG)
@@ -23,11 +23,21 @@ export function TagsProvider({children}) {
             return;
         }
 
-        setTags((prevTags) => prevTags.map((prevTag) => {
-            if (prevTag.id === tag.id)
-                return {...prevTag, ...tag};
-            return prevTag;
-        }));
+        setTags((prevTags) =>{
+            let  foundTag = false;
+            const newTags=prevTags.map((prevTag) => {
+                if (prevTag.id === tag.id) {
+                    foundTag = true;
+                    return {...prevTag, ...tag};
+                }
+                return prevTag;
+            });
+
+            if (!foundTag)
+                return [...newTags, tag];
+
+            return newTags;
+        });
 
         // Alter the IndexedDB
         if (alterIndexedDB)
@@ -35,7 +45,7 @@ export function TagsProvider({children}) {
     }, [setTags]);
 
     // Upsert multiple tags to the list
-    const upsertTags = useCallback(async (tags, alterIndexedDB) => {
+    const upsertTags = useCallback(async (tags, alterIndexedDB=true) => {
         // Check if the tags have an ID
         if (tags.some((tag) => !tag?.id)) {
             if (import.meta.env.IS_DEBUG)
@@ -66,7 +76,7 @@ export function TagsProvider({children}) {
     }, [setTags]);
 
     // Remove a tag from the list by ID
-    const removeTagByID = useCallback(async (id, alterIndexedDB) => {
+    const removeTagByID = useCallback(async (id, alterIndexedDB=true) => {
         setTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
 
         // Alter the IndexedDB

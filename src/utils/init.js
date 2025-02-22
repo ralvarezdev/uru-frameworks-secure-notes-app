@@ -1,11 +1,11 @@
 import {closeDatabase, openDatabase} from "../indexedDB/init.js";
 
-// Handle on log in
-export async function onLogIn(userID, onSuccess, onError, loadTagsFn = async () => {
+// Handle on dashboard load
+export async function onDashboardLoad(userID, onSuccess, onError, loadTagsFn = async () => {
 }, loadNotesFn = async () => {
 }) {
     // Open the database
-    openDatabase({userID, onSuccess, onError});
+    await openDatabase({userID, onSuccess, onError});
 
     // Load the contexts
     await loadTagsFn()

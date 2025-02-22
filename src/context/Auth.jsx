@@ -1,10 +1,9 @@
 import {createContext, useContext, useState} from 'react';
 import cookieExists, {
-    getCookie,
     getUserIDFromCookie
 } from "../utils/cookies.js";
 import LOGGER from "../logger.js";
-import {onLogIn, onLogOut} from "../utils/init.js";
+import {onLogOut} from "../utils/init.js";
 import {useTags} from "./Tags.jsx";
 import {useNotes} from "./Notes.jsx";
 
@@ -17,8 +16,8 @@ if (import.meta.env.IS_DEBUG) LOGGER.info(`User is ${initialIsAuth ? "authentica
 
 // Create a provider
 export function AuthProvider({children}) {
-    const {loadTags, clearTags} = useTags();
-    const {loadNotes, clearNotes} = useNotes();
+    const {clearTags} = useTags();
+    const {clearNotes} = useNotes();
     const [userID, setUserID] = useState(null);
     const [isAuth, setIsAuth] = useState(initialIsAuth);
 
@@ -46,9 +45,6 @@ export function AuthProvider({children}) {
                 const userID = getUserIDFromCookie()
                 if (!userID && import.meta.env.IS_DEBUG) LOGGER.error("User ID not found in the cookie")
                 else if (import.meta.env.IS_DEBUG) LOGGER.info(`User ID found in the cookie: ${userID}`)
-
-                // Call the onAuth function
-                onLogIn(userID, null, null, loadTags, loadNotes).then()
 
                 // Set the user ID
                 setUserID(userID)

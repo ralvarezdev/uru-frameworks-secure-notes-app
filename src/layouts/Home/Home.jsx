@@ -24,7 +24,7 @@ export default function Home({menu}) {
     const [isCreateNoteModalOpen, setIsCreateNoteModalOpen] = useState(false);
     const [newNoteColor, setNewNoteColor] = useState(null)
     const [isOnError, setIsOnError]=useState(null)
-    const {addInfoNotification, addErrorNotification} = useNotification()
+    const {addInfoNotification} = useNotification()
 
     // Handle the menu container button click
     const handleMenuContainerButtonClick=useCallback(()=> {
@@ -82,7 +82,6 @@ export default function Home({menu}) {
     const createNoteMutation=useMutation(handleNoteCreation, {
         onSuccess: (data) => {
             if (data?.status === 'success') {
-                console.log(data)
                 addInfoNotification('Note created successfully!');
 
                 // Update the states
@@ -113,7 +112,6 @@ export default function Home({menu}) {
                 )} className='home__note-creation-modal' onClose={handleNoteCreationModal}>
                 <Form
                         className='home__note-creation-modal__form'
-                        method='post'
                         isOnError={isOnError}
                         setIsOnError={setIsOnError}
                         onSubmit={handleNoteCreationSubmit}>
@@ -176,7 +174,7 @@ export default function Home({menu}) {
 
                     {notes.map((note) => (
                     <Note key={note.id} className='home__main-container__notes-container__note'>
-                        {getLatestNoteVersionByNoteID(note.id).content}
+                        {getLatestNoteVersionByNoteID(note.id)?.content ?? ''}
                     </Note>
                     ))}
                 </div>

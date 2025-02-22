@@ -7,12 +7,13 @@ import HomeLayout from "../../layouts/Home/Home.jsx";
 import {getPassword, setPassword} from "../../sessionStorage/sessionStorage.js";
 import Modal from "../../components/Modal/Modal.jsx";
 import TitleText from "../../components/Text/Title/Title.jsx";
-import Separator from "../../components/Separator/Separator.jsx";
 import Password from "../../components/Input/Password/Password.jsx";
 import SecondaryButton from "../../components/Button/Secondary/Secondary.jsx";
-import ParagraphText from "../../components/Text/Paragraph/Paragraph.jsx";
 import {comparePasswordWithHash} from "../../utils/crypto.js";
 import {getPasswordHashFromCookie} from "../../utils/cookies.js";
+import {onDashboardLoad} from "../../utils/init.js";
+import {useTags} from "../../context/Tags.jsx";
+import {useNotes} from "../../context/Notes.jsx";
 
 // Dashboard page
 export default function Dashboard() {
@@ -29,6 +30,9 @@ export default function Dashboard() {
             setOnError(false);
             setPassword(password);
             addInfoNotification('Password entered successfully!');
+
+            // Open the database
+            openDatabase({userID, onSuccess, onError});
             return;
         }
 

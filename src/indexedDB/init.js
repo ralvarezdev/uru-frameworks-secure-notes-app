@@ -5,7 +5,8 @@ export const DB_NAME = 'secure-notes';
 export const DB_VERSION = 1;
 
 // Database
-export let db;
+export let db
+export let dbReady;
 
 // Object stores
 export const OBJECT_STORES = DeepFreeze({
@@ -27,52 +28,58 @@ export function openDatabase({
     }, onError = () => {
     }
                              }) {
-    // Create the database request
-    const dbRequest = indexedDB.open(getDatabaseName(userID), DB_VERSION);
+    return new Promise((resolve,  reject)=> {
+        // Create the database request
+        const dbRequest = indexedDB.open(getDatabaseName(userID), DB_VERSION);
 
-    // Create the object store
-    dbRequest.onupgradeneeded = function (event) {
-        db = event.target.result;
+        // Create the object store
+        dbRequest.onupgradeneeded = function (event) {
+            db = event.target.result;
 
-        // Create the object stores
-        if (!db.objectStoreNames.contains(OBJECT_STORES.USER_TAGS)) {
-            const tagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_TAGS, {keyPath: 'id'});
-            tagsObjectStore.createIndex('name', 'name', {unique: true});
-        }
+            // Create the object stores
+            if (!db.objectStoreNames.contains(OBJECT_STORES.USER_TAGS)) {
+                const tagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_TAGS, {keyPath: 'id'});
+                tagsObjectStore.createIndex('name', 'name', {unique: true});
+            }
 
-        if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTES)) {
-            const notesObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTES, {keyPath: 'id'});
-            notesObjectStore.createIndex('title', 'title', {unique: false});
-        }
+            if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTES)) {
+                const notesObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTES, {keyPath: 'id'});
+                notesObjectStore.createIndex('title', 'title', {unique: false});
+            }
 
-        if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_TAGS)) {
-            const noteTagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_TAGS, {keyPath: 'id'});
-            noteTagsObjectStore.createIndex('note_id', 'note_id', {unique: false});
-            noteTagsObjectStore.createIndex('tag_id', 'tag_id', {unique: false});
-        }
+            if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_TAGS)) {
+                const noteTagsObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_TAGS, {keyPath: 'id'});
+                noteTagsObjectStore.createIndex('note_id', 'note_id', {unique: false});
+                noteTagsObjectStore.createIndex('tag_id', 'tag_id', {unique: false});
+            }
 
-        if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_VERSIONS)) {
-            const noteVersionObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_VERSIONS, {keyPath: 'id'});
-            noteVersionObjectStore.createIndex('note_id', 'note_id', {unique: false});
-        }
+            if (!db.objectStoreNames.contains(OBJECT_STORES.USER_NOTE_VERSIONS)) {
+                const noteVersionObjectStore = db.createObjectStore(OBJECT_STORES.USER_NOTE_VERSIONS, {keyPath: 'id'});
+                noteVersionObjectStore.createIndex('note_id', 'note_id', {unique: false});
+            }
 
-        if (!db.objectStoreNames.contains(OBJECT_STORES.TO_SYNC)) {
-            const toSyncObjectStore = db.createObjectStore(OBJECT_STORES.TO_SYNC, {keyPath: 'id'});
-            toSyncObjectStore.createIndex('action', 'action', {unique: false});
-        }
+            if (!db.objectStoreNames.contains(OBJECT_STORES.TO_SYNC)) {
+                const toSyncObjectStore = db.createObjectStore(OBJECT_STORES.TO_SYNC, {keyPath: 'id'});
+                toSyncObjectStore.createIndex('action', 'action', {unique: false});
+            }
 
-        console.log('Database created successfully');
-    };
+            console.log('Database created successfully');
+        };
 
-    // Log the success
-    dbRequest.onsuccess = function (event) {
-        db = event.target.result;
-        onSuccess(event)
-    };
+        // Log the success
+        dbRequest.onsuccess = function (event) {
+            db = event.target.result;
+            if (onSuccess)
+                onSuccess(event)
+            resolve(db)
+        };
 
-    dbRequest.onerror = function (event) {
-        onError(event)
-    };
+        dbRequest.onerror = function (event) {
+            if (onError)
+                onError(event)
+            reject(event)
+        };
+    })
 }
 
 // Close the database

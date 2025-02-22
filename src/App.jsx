@@ -1,6 +1,6 @@
 import './App.css'
 import {Outlet} from "react-router-dom";
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import AppLayout from "./layouts/App/App.jsx";
 import {useAuth} from "./context/Auth.jsx";
 import {
@@ -25,6 +25,10 @@ import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import {
     get2FAMethods, getIsLoggingIn,
 } from "./sessionStorage/sessionStorage.js";
+import {useNotes} from "./context/Notes.jsx";
+import {useTags} from "./context/Tags.jsx";
+import {onDashboardLoad} from "./utils/init.js";
+import {getUserIDFromCookie} from "./utils/cookies.js";
 
 // Authentication endpoints
 const NO_AUTH_ENABLED_ENDPOINTS = [LOG_IN, SIGN_UP, FORGOT_PASSWORD, RESET_PASSWORD, VERIFY_EMAIL]
@@ -34,6 +38,10 @@ const AUTH_DISABLED_ENDPOINTS = [...NO_AUTH_ENABLED_ENDPOINTS, TWO_FACTOR_AUTHEN
 export default function App() {
     const {isAuth} = useAuth();
     const path = window.location.pathname;
+    const [databaseLoaded, setDatabaseLoaded] = useState(false);
+    const {loadTagsFromIndexedDB} = useTags();
+    const {loadNotesFromIndexedDB} = useNotes();
+
 
     // Redirect to the login page if the user is not authenticated
     useEffect(() => {
@@ -47,6 +55,16 @@ export default function App() {
             parsedPath = path
 
         if (isAuth) {
+            // Check if the database has been loaded
+            if (!databaseLoaded) {
+                // Get the user ID from cookies
+                const userID = getUserIDFromCookie()
+
+                // Load database
+                setDatabaseLoaded(true)
+                onDashboardLoad(userID, null, null,  loadTagsFromIndexedDB, loadNotesFromIndexedDB).then()
+            }
+
             if (AUTH_DISABLED_ENDPOINTS.includes(parsedPath))
                 window.location.href = DASHBOARD;
             return;

@@ -10,6 +10,9 @@ export const SESSION_STORAGE_2FA_METHODS_KEY = '2fa-methods';
 // Session storage is logging in key
 export const SESSION_STORAGE_IS_LOGGING_IN_KEY = 'is-logging-in';
 
+// Session storage decrypted key
+export const SESSION_STORAGE_DECRYPTED_KEY_KEY = 'decrypted-key';
+
 // Set username in session storage
 export function setUsername(username) {
     sessionStorage.setItem(SESSION_STORAGE_USERNAME_KEY, username);
@@ -75,3 +78,13 @@ export function clearSessionStorage() {
     sessionStorage.clear();
 }
 
+// Set decrypted key in session storage
+export function setDecryptedKey(key) {
+    sessionStorage.setItem(SESSION_STORAGE_DECRYPTED_KEY_KEY, key
+    );
+}
+
+// Get decrypted key from session storage
+export function getDecryptedKey() {
+    return sessionStorage.getItem(SESSION_STORAGE_DECRYPTED_KEY_KEY);
+}

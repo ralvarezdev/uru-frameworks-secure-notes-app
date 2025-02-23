@@ -28,21 +28,21 @@ export function getCookie(cookieName) {
 }
 
 // getUserIDFromCookie is a utility function that retrieves the user ID from the user ID cookie
-export function getUserIDFromCookie() {
+export function getUserID() {
     return getCookie(COOKIE_USER_ID_NAME);
 }
 
-// getEncryptedKeyFromCookie is a utility function that retrieves the encrypted key from the encrypted key cookie
-export function getEncryptedKeyFromCookie() {
+// getEncryptedKey is a utility function that retrieves the encrypted key from the encrypted key cookie
+export function getEncryptedKey() {
     return getCookie(COOKIE_ENCRYPTED_KEY_NAME);
 }
 
-// getSaltFromCookie is a utility function that retrieves the salt from the salt cookie
-export function getSaltFromCookie() {
+// getSalt is a utility function that retrieves the salt from the salt cookie
+export function getSalt() {
     return getCookie(COOKIE_SALT_NAME);
 }
 
-// getPasswordHashFromCookie is a utility function that retrieves the password hash from the password hash cookie
-export function getPasswordHashFromCookie() {
+// getPasswordHash is a utility function that retrieves the password hash from the password hash cookie
+export function getPasswordHash() {
     return getCookie(COOKIE_USER_PASSWORD_HASH_NAME);
 }

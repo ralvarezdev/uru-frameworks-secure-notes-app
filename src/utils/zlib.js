@@ -1,4 +1,5 @@
 import zlib from 'zlib';
+import {Buffer} from 'buffer';
 
 // Compresses a string using gzip
 export function compressString(string) {

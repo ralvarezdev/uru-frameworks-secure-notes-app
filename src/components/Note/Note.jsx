@@ -4,6 +4,7 @@ import CircularSmallIconButton from "../Button/Circular/Icon/Small/Small.jsx";
 import {useCallback} from "react";
 import TransparentSmallIconButton
     from "../Button/Transparent/Icon/Small/Small.jsx";
+import Separator from "../Separator/Separator.jsx";
 
 // Note component
 export default function Note({
@@ -63,8 +64,9 @@ export default function Note({
                     </TransparentSmallIconButton>
                 </div>
             </div>
+            <Separator/>
             <div className='note__main-container__content'>
-                {children}
+                <ParagraphText>{children}</ParagraphText>
             </div>
         </div>
     )

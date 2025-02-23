@@ -12,7 +12,11 @@ import {
 } from "../indexedDB/transactions.js";
 import {db} from "../indexedDB/init.js";
 import logger from "../logger.js";
-import {encryptNoteVersionContent} from "../utils/crypto.js";
+import {
+    decryptNoteVersionContent,
+    encryptNoteVersionContent
+} from "../utils/crypto.js";
+import {getDecryptedKey} from "../sessionStorage/sessionStorage.js";
 
 // Create a context
 const NotesContext = createContext(null);
@@ -161,7 +165,7 @@ export function NotesProvider({children}) {
         // Alter the IndexedDB
         if (alterIndexedDB) {
             // Encrypt the note version content
-            noteVersion.encrypted_content = await encryptNoteVersionContent(noteVersion.encrypted_content);
+            noteVersion.encrypted_content = await encryptNoteVersionContent(getDecryptedKey(),noteVersion.content);
 
             await UpsertUserNoteVersion(db, noteVersion);
         }
@@ -223,7 +227,7 @@ export function NotesProvider({children}) {
         if (alterIndexedDB)
             for (const noteVersion of noteVersions) {
                 // Encrypt the note version content
-                noteVersion.encrypted_content = await encryptNoteVersionContent(noteVersion.encrypted_content);
+                noteVersion.encrypted_content = await encryptNoteVersionContent(getDecryptedKey(),noteVersion.content);
 
                 await UpsertUserNoteVersion(db, noteVersion);
             }
@@ -258,6 +262,16 @@ export function NotesProvider({children}) {
             return latestNoteVersion;
         }, null);
     }, [noteVersionsByNoteID]);
+    
+    // Get latest note version ID
+    const getLatestNoteVersionID = useCallback(() => {
+        return Object.keys(noteVersionsByNoteID).reduce((latestNoteVersion, noteID) => {
+            const noteVersion = getLatestNoteVersionByNoteID(noteID);
+            if (!latestNoteVersion || noteVersion.created_at > latestNoteVersion.created_at)
+                return noteVersion;
+            return latestNoteVersion;
+        }, null)?.id;
+    }, [getLatestNoteVersionByNoteID, noteVersionsByNoteID]);
 
     // Clear all note versions
     const clearNoteVersions = useCallback(() => {
@@ -273,9 +287,8 @@ export function NotesProvider({children}) {
         const noteVersions = await ReadAllUserNoteVersions(db);
 
         // Decrypt the note version content
-        for (const noteVersion of noteVersions) {
-            noteVersion.content = await encryptNoteVersionContent(noteVersion.encrypted_content);
-        }
+        for (const noteVersion of noteVersions)
+            noteVersion.content = await decryptNoteVersionContent(getDecryptedKey(), noteVersion.encrypted_content);
 
         await upsertNoteVersions(noteVersions, false);
     }, [upsertNoteVersions, clearNoteVersions]);
@@ -422,6 +435,7 @@ export function NotesProvider({children}) {
             removeNoteVersionByNoteIDAndID,
             getNoteVersionByNoteIDAndID,
             getLatestNoteVersionByNoteID,
+            getLatestNoteVersionID,
             clearNoteVersions,
             loadNoteVersionsFromIndexedDB,
             noteTagsByNoteID,

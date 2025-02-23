@@ -7,12 +7,12 @@
 
 @media (prefers-color-scheme: light) {
     .separator {
-        background-color: var(--color-medium-grey);
+        background-color: var(--color-dark-grey);
     }
 }
 
 @media (prefers-color-scheme: dark) {
     .separator {
-        background-color: var(--color-medium-grey);
+        background-color: var(--color-light-grey);
     }
 }

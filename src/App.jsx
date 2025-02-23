@@ -24,12 +24,13 @@ import {
 import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.jsx";
 import {
     get2FAMethods,
-    getIsLoggingIn,
+    getIsLoggingIn, getPassword, setDecryptedKey,
 } from "./sessionStorage/sessionStorage.js";
 import {useNotes} from "./context/Notes.jsx";
 import {useTags} from "./context/Tags.jsx";
 import {onDashboardLoad} from "./utils/init.js";
-import {getUserIDFromCookie} from "./utils/cookies.js";
+import {getEncryptedKey, getSalt, getUserID} from "./utils/cookies.js";
+import {getDecryptedKey} from "./utils/crypto.js";
 
 // Authentication endpoints
 const NO_AUTH_ENABLED_ENDPOINTS = [LOG_IN, SIGN_UP, FORGOT_PASSWORD, RESET_PASSWORD, VERIFY_EMAIL]
@@ -40,6 +41,7 @@ export default function App() {
     const {isAuth} = useAuth();
     const path = window.location.pathname;
     const [databaseLoaded, setDatabaseLoaded] = useState(false);
+    const [keyLoaded, setKeyLoaded] = useState(false);
     const {loadTagsFromIndexedDB} = useTags();
     const {loadNotesFromIndexedDB} = useNotes();
 
@@ -59,11 +61,22 @@ export default function App() {
             // Check if the database has been loaded
             if (!databaseLoaded) {
                 // Get the user ID from cookies
-                const userID = getUserIDFromCookie()
+                const userID = getUserID()
 
                 // Load database
                 setDatabaseLoaded(true)
                 onDashboardLoad(userID, null, null, loadTagsFromIndexedDB, loadNotesFromIndexedDB).then()
+            }
+
+            // Check if the user key has been loaded
+            if (!keyLoaded) {
+                // Get the decrypted key
+                getDecryptedKey(getPassword(), getSalt(), getEncryptedKey()).then(
+                    key => setDecryptedKey(key)
+                )
+
+                // Load the key
+                setKeyLoaded(true)
             }
 
             if (AUTH_DISABLED_ENDPOINTS.includes(parsedPath))

@@ -103,3 +103,13 @@ export async function decryptNoteVersionContent(key, content) {
 export async function comparePasswordWithHash(password, hash) {
     return bcrypt.compareSync(password, hash);
 }
+
+// Gets the decrypted key from the encrypted key using the provided password and salt
+export async function getDecryptedKey(password, salt, encryptedKey) {
+    // Derive the key
+    const key = await deriveKey(password, salt);
+
+    // Decrypt the key
+    return await decryptText(encryptedKey, key);
+}
+

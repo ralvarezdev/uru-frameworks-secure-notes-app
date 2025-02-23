@@ -11,6 +11,7 @@
     gap: 1px;
     height: 100vh;
     width: 100vw;
+    overflow-x: hidden;
 }
 
 /* Menu container styles */
@@ -44,6 +45,7 @@
 }
 
 /* Buttons container styles */
+.dashboard__note-update-modal__buttons-container,
 .dashboard__note-deletion-modal__buttons-container {
     display: flex;
     align-items: center;
@@ -94,7 +96,7 @@
     gap: 1.6rem;
 }
 
-/* Header buttons styles */
+/* Header button styles */
 .dashboard__main-container__menu-container__header-container__header__button,
 .dashboard__main-container__notes-container__header-container__header__button,
 .dashboard__main-container__note-container__header-container__header__button {
@@ -127,7 +129,6 @@
     width: 100%;
     max-width: 100%;
     max-height: 100%;
-    animation: appear-and-move-a-bit-up var(--animation-move-duration) ease-in-out forwards;
 }
 
 .dashboard__main-container__note-container__content-container {
@@ -154,15 +155,15 @@
     color: var(--color-dark-error);
         scale: 1.25;
 
-    outline: var(--border-width) solid var(--color-dark-error);
+    border: var(--border-width) solid var(--color-dark-error);
 }
 
 /* Dashboard note modals styles */
 .dashboard__note-view-modal,
 .dashboard__note-creation-modal,
 .dashboard__note-deletion-modal {
-    transition: outline-color var(--color-transition-duration) ease-in-out;
-    outline: var(--outline-width) solid transparent;
+    transition: border-color var(--color-transition-duration) ease-in-out;
+    border: var(--border-width) solid transparent;
 }
 
 
@@ -233,5 +234,15 @@
     .dashboard__main-container__note-container,
     .dashboard__main-container__notes-container__content-container {
         padding: 1rem 2rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .dashboard__note-creation-modal,
+    .dashboard__note-deletion-modal,
+    .dashboard__note-view-modal,
+    .dashboard__note-update-modal{
+        border-right-color: transparent !important;
+        border-left-color: transparent !important;
     }
 }

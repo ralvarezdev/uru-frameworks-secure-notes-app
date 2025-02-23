@@ -2,6 +2,8 @@ import './Note.css'
 import ParagraphText from "../Text/Paragraph/Paragraph.jsx";
 import CircularSmallIconButton from "../Button/Circular/Icon/Small/Small.jsx";
 import {useCallback} from "react";
+import TransparentSmallIconButton
+    from "../Button/Transparent/Icon/Small/Small.jsx";
 
 // Note component
 export default function Note({
@@ -26,7 +28,10 @@ export default function Note({
         onView(id)
     }, [id, onView])
 
-    //
+    // Handle note edit
+    const handleEditNote = useCallback(() => {
+        onEdit(id)
+    }, [id, onEdit])
 
     return (
         <div className={['note__main-container', className].join(' ')}
@@ -38,24 +43,24 @@ export default function Note({
                 </div>
                 <div
                     className='note__main-container__header-container__icons-container'>
-                    <CircularSmallIconButton
+                    <TransparentSmallIconButton
                         className='note__main-container__header-container__icons-container__view'
-                        style={{backgroundColor: color}}
+                        style={{color}}
                         onClick={handleViewNote}>
                         visibility
-                    </CircularSmallIconButton>
-                    <CircularSmallIconButton
+                    </TransparentSmallIconButton>
+                    <TransparentSmallIconButton
                         className='note__main-container__header-container__icons-container__edit'
-                        style={{backgroundColor: color}}
-                        onClick={onEdit}>
+                        style={{color}}
+                        onClick={handleEditNote}>
                         edit
-                    </CircularSmallIconButton>
-                    <CircularSmallIconButton
+                    </TransparentSmallIconButton>
+                    <TransparentSmallIconButton
                         className='note__main-container__header-container__icons-container__delete'
-                        style={{backgroundColor: color}}
+                        style={{color}}
                         onClick={handleDeleteNote}>
                         delete
-                    </CircularSmallIconButton>
+                    </TransparentSmallIconButton>
                 </div>
             </div>
             <div className='note__main-container__content'>

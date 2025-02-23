@@ -22,6 +22,7 @@ import Note from "../../components/Note/Note.jsx";
 import {useNotes} from "../../context/Notes.jsx";
 import {useMutation} from "react-query";
 import CallToAction from "../../components/CallToAction/CallToAction.jsx";
+import TextArea from "../../components/TextArea/TextArea.jsx";
 
 
 // Dashboard page
@@ -41,6 +42,7 @@ export default function Dashboard() {
     const [isDeleteNoteModalOpen, setIsDeleteNoteModalOpen] = useState(false);
     const [newNoteColor, setNewNoteColor] = useState(null)
     const [selectedNote, setSelectedNote] = useState(null)
+    const [selectedNoteContent, setSelectedNoteContent] = useState(null)
     const [isOnError, setIsOnError] = useState(null)
     const {addInfoNotification, addErrorNotification} = useNotification()
 
@@ -95,8 +97,9 @@ export default function Dashboard() {
     // Handle the note view modal
     const handleNoteViewModal = useCallback((id) => {
         setSelectedNote(id ? getNoteByID(id) : null)
+        setSelectedNoteContent(getLatestNoteVersionByNoteID(id)?.content)
         setIsViewNoteModalOpen((prevState) => !prevState);
-    }, [getNoteByID])
+    }, [getNoteByID, getLatestNoteVersionByNoteID])
 
     // Handle the note creation modal
     const handleNoteCreationModal = useCallback(() => {
@@ -108,8 +111,14 @@ export default function Dashboard() {
     // Handle the note deletion modal
     const handleNoteDeletionModal = useCallback((id) => {
         setSelectedNote(id ? getNoteByID(id) : null)
+        setSelectedNoteContent(getLatestNoteVersionByNoteID(id)?.content)
         setIsDeleteNoteModalOpen((prevState) => !prevState);
-    }, [getNoteByID]);
+    }, [getNoteByID, getLatestNoteVersionByNoteID]);
+
+    // Handle the note edit
+    const handleEditNote = useCallback((id) => {
+        setSelectedNote(id ? getNoteByID(id) : null)
+    }, [getNoteByID])
 
     // Handle the note deletion
     const handleOnDeleteNote = useCallback(() => {
@@ -148,6 +157,17 @@ export default function Dashboard() {
         })
         return {status: 'success'}
     }, [upsertNote])
+
+    // Handle the note on change
+    const handleNoteChange = useCallback((event) => {
+        event.preventDefault()
+    }, [])
+
+    // Handle the note on blur
+    const handleNoteBlur = useCallback((event) => {
+        event.preventDefault()
+        setSelectedNoteContent(event.target.value)
+    }, [])
 
     // Create note mutation
     const createNoteMutation = useMutation(handleNoteCreation, {
@@ -290,8 +310,7 @@ export default function Dashboard() {
                         <div
                             className={'dashboard__main-container__notes-container__header-container__header'}>
                             <TransparentBigIconButton
-                                className='dashboard__main-container__notes-container__header-container__header__button'
-                                onClick={handleNotesContainerButtonClick}>menu</TransparentBigIconButton>
+                                className='dashboard__main-container__notes-container__header-container__header__button' onClick={handleNotesContainerButtonClick}>menu</TransparentBigIconButton>
                             <SubtitleText
                                 className='dashboard__main-container__notes-container__header-container__header__subtitle'>Notes</SubtitleText>
                         </div>
@@ -309,10 +328,11 @@ export default function Dashboard() {
                                 <Note key={note.id} id={note.id}
                                       title={note.title}
                                       color={selectedNote?.id !== note.id && note.color}
+                                      onEdit={handleEditNote}
                                       onView={handleNoteViewModal}
                                       onDelete={handleNoteDeletionModal}
                                       className='dashboard__main-container__notes-container__content-container__content__note'>
-                                    {getLatestNoteVersionByNoteID(note.id)?.content ?? ''}
+                                    {selectedNoteContent?? ''}
                                 </Note>
                             ))}
                         </div>
@@ -334,6 +354,13 @@ export default function Dashboard() {
                                 {selectedNote ? selectedNote.title : 'Note'}
                             </SubtitleText>
                         </div>
+                    </div>
+                    <div className='dashboard__main-container__note-container__content-container'>
+                        <TextArea id="note-content" name="note-content"
+                               onChange={handleNoteChange}
+                               onBlur={handleNoteBlur}
+                            value={selectedNoteContent??''}>
+                        </TextArea>
                     </div>
                 </div>
             </div>

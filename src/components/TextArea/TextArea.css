@@ -1,0 +1,25 @@
+/* Text area main container styles */
+.text-area__main-container {
+}
+
+/* Area styles */
+.text-area__main-container__area {
+    font-size: var(--text--area--font-size);
+    font-weight: var(--text--area--font-weight);
+    letter-spacing: var(--text--area--letter-spacing);
+    font-family: var(--font-family), sans-serif;
+    background-color: var(--color-dark-grey);
+    padding: var(--area--vertical-padding) var(--area--horizontal-padding);
+    border-radius: 6px;
+    outline: var(--outline-width) solid transparent;
+    transition: outline-color var(--color-transition-duration) ease-in-out;
+    border: none;
+    overflow-y: auto;
+    text-overflow: ellipsis;
+    width: 100%;
+    height: 100%;
+}
+
+.text-area__main-container__area:focus-visible {
+    outline-color: var(--color-dark-primary);
+}
